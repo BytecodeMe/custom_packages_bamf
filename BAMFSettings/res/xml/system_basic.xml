@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"  
+	android:key="MAIN">  
+  
+    <com.bamf.settings.widgets.BAMFSwitchPreference 
+    	android:title="@string/system_basic_block_title" 
+		android:key="pref_system_basic_block" />
+		
+    <com.bamf.settings.widgets.BAMFSwitchPreference 
+    	android:title="@string/system_basic_mount_title" 
+		android:key="pref_system_basic_mount" />	
+		
+	<com.bamf.settings.widgets.BAMFSwitchPreference 
+		android:title="@string/system_basic_end_call_title" 
+		android:key="pref_system_basic_end_call" />	
+		
+    <Preference android:summary="@string/system_basic_bright_summary"
+		android:title="@string/system_basic_bright_title"
+		android:key="pref_system_basic_bright"/> 
+    
+    <Preference android:summary="@string/system_basic_apps_summary" 
+    	android:key="pref_system_basic_manage" 
+		android:title="@string/system_basic_apps_title"/>
+		
+</PreferenceScreen>

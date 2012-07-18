@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permlab_root">BAMF Utils</string>
+    <string name="permdesc_root">Required to be able to access root functions.</string>
+    <string name="app_name">BAMF Utils</string>
+</resources>

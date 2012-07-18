@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<!-- Need to localize all of these strings -->	
+		
+	<Preference android:key="pref_kernel_CPU_min" 
+		android:title="@string/cpu_min_title" />
+		
+    <Preference android:key="pref_kernel_CPU_max" 
+    	android:title="@string/cpu_max_title" />
+    	
+    <Preference android:title="@string/cpu_governor_title" 
+    	android:key="pref_kernel_governor"/>
+    	
+    <Preference android:key="pref_kernel_scheduler" 
+    	android:title="@string/cpu_scheduler_title"/>
+    	
+    <CheckBoxPreference android:key="pref_kernel_AOB" 
+    	android:title="@string/cpu_aob_title"/>    
+</PreferenceScreen>

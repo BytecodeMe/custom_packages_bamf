@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<Preference android:title="Clear Dalvik Cache" 
+		android:summary="Clears your Dalvik Cache. This can help with force closes after making changes to system folders." 
+		android:key="pref_system_basic_dalvik" />
+	<Preference android:title="Clear Cache" 
+		android:summary="Clears your cache partition.  This includes web images, temporary files, etc." 
+		android:key="pref_system_basic_cache" />
+	<Preference android:title="Fix Permissions" 
+		android:key="pref_system_basic_fix" android:summary="This will fix permissions on the system. It can help with Force Closes or strange behavior."/> 
+    
+
+</PreferenceScreen>

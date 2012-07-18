@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <Preference 
+    		android:title="Theme Options" 
+    		android:summary="Configure the appearance of your device"
+    		android:key="pref_skin_test"/>
+    <Preference android:summary="Configure Lockscreen shortcuts and behavior." 
+    	android:key="pref_visual_basic_lockscreen" 
+    	android:title="@string/lockscreen_pref_title"/>
+    	
+    <Preference android:summary="@string/system_basic_boot_summary"
+		android:title="@string/system_basic_boot_title"
+		android:key="pref_visual_basic_boot_options"/> 
+    	
+    
+    <PreferenceCategory android:title="@string/launcher_category_title">
+    
+    	<com.bamf.settings.widgets.BAMFSwitchPreference 
+    		android:title="@string/search_bar_title" 
+    		android:key="pref_visual_basic_search_bar"/>
+    	<com.bamf.settings.widgets.BAMFSwitchPreference 
+    		android:title="@string/dock_divider_title"     		
+    		android:key="pref_visual_basic_show_dock_divider"/>
+    		
+    	<ListPreference android:key="pref_visual_basic_launcher_screens" 
+    		android:entries="@array/launcher_screen_entries" 
+    		android:title="Number of Launcher Screens" 
+    		android:entryValues="@array/launcher_screen_values"/>
+    		
+	</PreferenceCategory>
+	
+</PreferenceScreen>

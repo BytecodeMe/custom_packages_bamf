@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent" 
+  android:gravity="bottom">
+  
+    <ImageView android:id="@+id/imageView1" 
+    	android:layout_width="match_parent" 
+    	android:layout_height="474px" 
+    	android:layout_alignParentTop="true" 
+    	android:layout_centerHorizontal="true" 
+    	android:layout_marginTop="10dip"/>
+    	
+    <ImageView android:id="@+id/left_app_position" 
+    	android:layout_width="158px" 
+    	android:layout_height="158px" 
+    	android:layout_alignTop="@+id/imageView1" 
+    	android:layout_marginLeft="36dp" 
+    	android:layout_marginTop="60dp" 
+    	android:src="@drawable/highlight_ring" 
+    	android:layout_alignLeft="@+id/imageView1" 
+    	android:visibility="invisible" 
+    	android:clickable="true" 
+    	android:scaleType="center"/>
+    	
+    <ImageView android:id="@+id/center_app_position" 
+    	android:layout_width="158px" 
+    	android:layout_height="158px" 
+    	android:layout_alignTop="@+id/imageView1" 
+    	android:layout_centerHorizontal="true" 
+    	android:layout_marginTop="14dp" 
+    	android:src="@drawable/highlight_ring"
+    	android:visibility="invisible" 
+    	android:clickable="true" 
+    	android:scaleType="center"/>
+    	
+    <ImageView android:id="@+id/right_app_position" 
+    	android:layout_width="158px" 
+    	android:layout_height="158px" 
+    	android:layout_alignTop="@+id/left_app_position" 
+    	android:layout_marginRight="36dp" 
+    	android:src="@drawable/highlight_ring" 
+    	android:layout_alignRight="@+id/imageView1" 
+    	android:visibility="invisible" 
+    	android:clickable="true" 
+    	android:scaleType="center"/>
+    	
+    <LinearLayout android:id="@+id/buttonPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:divider="?android:attr/dividerHorizontal"
+        android:layout_below="@+id/imageView1"
+        android:showDividers="beginning">
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:measureWithLargestChild="true">
+            <LinearLayout android:id="@+id/leftSpacer"
+                android:layout_weight="0.25"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+            <Button android:id="@+id/lockscreen_button_clear"
+                android:layout_width="0dip"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:text="@string/lockscreen_clear_shortcut"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content" />
+            <Button android:id="@+id/lockscreen_button_add"
+                android:layout_width="0dip"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:text="@string/lockscreen_add_shortcut"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content" />
+            <LinearLayout android:id="@+id/rightSpacer"
+                android:layout_width="0dip"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+        </LinearLayout>
+     </LinearLayout>
+    
+</RelativeLayout>

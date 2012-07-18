@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dip"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/icon_app"
+        android:layout_width="50dip"
+        android:layout_height="match_parent"
+        android:maxHeight="50dip"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        android:layout_margin="2.5dip"
+        android:src="@drawable/icon_apps" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2.5dip"
+            android:textSize="18dip" />
+
+        <RelativeLayout
+            android:id="@+id/detail_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/detail_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+		        android:ellipsize="marquee"
+		        android:fadingEdge="horizontal"
+		        android:marqueeRepeatLimit="marquee_forever"
+		        android:scrollHorizontally="true"
+                android:layout_marginLeft="5dip" />
+
+            <TextView
+                android:id="@+id/state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dip"
+                android:layout_below="@+id/detail_text"/>
+
+        </RelativeLayout>
+        
+        <include
+            android:id="@+id/notification_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/notification_images" />
+		
+    </LinearLayout>
+
+</LinearLayout>

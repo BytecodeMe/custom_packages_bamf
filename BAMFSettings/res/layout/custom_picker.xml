@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- hour -->
+    <LinearLayout android:id="@+id/linearLayout1" 
+    	android:layout_width="0px" 
+    	android:layout_height="match_parent" 
+    	android:orientation="vertical" 
+    	android:layout_weight=".5" 
+    	android:gravity="center_vertical">
+        <TextView android:id="@+id/TextView01" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	android:gravity="center_vertical|center_horizontal" 
+        	android:text="@string/currently" 
+        	android:textSize="20dip" 
+        	android:layout_gravity="center_horizontal"/>
+        <TextView android:id="@+id/currentSpeed" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	android:gravity="center_vertical|center_horizontal" 
+        	android:text="@string/default_cpu" 
+        	android:textColor="@android:color/holo_blue_light" 
+        	android:textSize="25dip" 
+        	android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+    <NumberPicker android:id="@+id/value"
+		android:layout_width="150dip" 
+		android:layout_height="wrap_content" 
+		android:focusable="true" 
+		android:focusableInTouchMode="true" 
+		android:layout_gravity="right"/>
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/configure_targets"
+        android:textAppearance="?android:attr/listSeparatorTextViewStyle" 
+        android:layout_margin="5dip"/>
+        
+    <ImageView
+    	android:layout_width="match_parent"
+    	android:layout_height="2dip"
+    	android:src="@drawable/list_divider_holo_dark" 
+    	android:scaleType="fitXY" 
+    	android:visibility="invisible"/>
+    	
+    <RelativeLayout android:id="@+id/lockscreen_backer" 
+    	android:layout_width="match_parent" 
+    	android:layout_height="wrap_content">
+    	
+        <ImageView android:id="@+id/imageView1" 
+        	android:layout_width="match_parent" 
+        	android:layout_height="wrap_content" 
+        	android:background="@drawable/background_holo_dark" 
+        	android:layout_alignParentBottom="true"
+        	android:scaleType="centerCrop"/>
+        	
+        <fragment android:id="@+id/visual_lockscreen_fragment" 
+        	android:name="com.bamf.settings.preferences.VisualLockscreenFragment" 
+        	android:layout_width="match_parent" 
+        	android:layout_height="wrap_content" 
+        	android:layout_alignParentTop="true"/>
+        	
+        <TextView android:id="@+id/textView2" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	android:text="@string/lockscreen_target_hint" 
+        	android:layout_above="@+id/lockscreen_settings" 
+        	android:layout_centerHorizontal="true"/>
+        	
+        <include android:id="@+id/lockscreen_settings" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	layout="@layout/lockscreen_layout" 
+        	android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/bright_seeker_dim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/brightness_seek_item" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/list_divider_holo_dark" />
+
+    <include
+        android:id="@+id/bright_seeker_low"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/brightness_seek_item" />
+
+    <ImageView
+        android:id="@+id/ImageView01"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/list_divider_holo_dark" />
+
+    <include
+        android:id="@+id/bright_seeker_med"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/brightness_seek_item" />
+
+    <ImageView
+        android:id="@+id/ImageView02"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/list_divider_holo_dark" />
+
+    <include
+        android:id="@+id/bright_seeker_high"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/brightness_seek_item" />
+
+    <CheckBox
+        android:id="@+id/enable_auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dip"
+        android:textSize="14dip"
+        android:text="@string/bright_on_save" />
+
+</LinearLayout>

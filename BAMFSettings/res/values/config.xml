@@ -1,0 +1,6 @@
+<resources>
+    <bool name="config_hardwareAccelerated">true</bool>
+    <bool name="config_largeHeap">false</bool>   
+    <!-- Tab transition animation duration -->
+    <integer name="config_tabTransitionDuration">250</integer>     
+</resources>

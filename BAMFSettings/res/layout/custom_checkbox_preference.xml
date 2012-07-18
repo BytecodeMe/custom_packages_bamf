@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout to allow for different size icons that do 
+	 not affect the spacing of the title text -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+    android:paddingRight="?android:attr/scrollbarSize"
+    android:background="?android:attr/selectableItemBackground" >
+
+    <ImageView
+        android:id="@+android:id/icon"
+        android:layout_width="55dp"
+        android:layout_height="64dp"
+        android:layout_gravity="left|center_vertical"
+        android:scaleType="centerInside"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="6dip"
+        android:layout_marginBottom="6dip"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_toRightOf="@android:id/icon">
+
+        <TextView android:id="@+android:id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal" />
+
+        <TextView android:id="@+android:id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:layout_alignLeft="@android:id/title"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:attr/textColorSecondary"
+            android:maxLines="4" />
+
+    </LinearLayout>
+    
+    <ImageView android:id="@+id/context_menu" 
+    	android:paddingRight="10dip" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="fill_parent" 
+    	android:src="@drawable/btn_context_menu"
+    	android:duplicateParentState="false"
+    	android:visibility="gone" />
+
+    <!-- Preference should place its actual preference widget here. -->
+    <CheckBox
+	    android:id="@+android:id/checkbox" 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="right|center_vertical"
+	    android:focusable="false"
+	    android:clickable="false" />
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bamf.ics.ltewidget" 
+    coreApp="true"
+    android:sharedUserId="android.uid.system">
+    
+    <original-package android:name="com.bamf.ics.ltewidget" />
+	
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    
+    <uses-sdk android:minSdkVersion="10" />
+    <application android:icon="@drawable/ic_launcher_settings" android:label="@string/app_name">
+        <receiver android:name=".LTEToggleWidget">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data android:name="android.appwidget.provider"
+				android:resource="@xml/widget_info" />
+		</receiver>
+		<service android:name=".LTEToggleWidget$NetworkObserverService" />
+		<service android:name=".LTEToggleWidget$UpdateService" />
+		<receiver android:name=".utils.Receiver" android:process="com.android.phone">
+            <intent-filter>
+                <action android:name="com.bamf.settings.request.LTE_NETWORK_CHANGE" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

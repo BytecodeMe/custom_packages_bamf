@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:layout_width="match_parent" 
+	android:layout_height="match_parent" 
+	android:gravity="center" 
+	android:orientation="vertical">
+
+	<LinearLayout android:layout_width="match_parent" 
+		android:layout_height="wrap_content" 
+		android:orientation="horizontal"
+		android:padding="15dip">
+		
+		<TextView android:text="@string/hex" 
+			android:layout_marginRight="10px" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"/>
+			
+		<EditText android:id="@+id/color_hex_edit"
+			android:layout_width="0dp"
+			android:layout_weight="1" 
+			android:layout_height="wrap_content"
+			android:focusable="true"
+			android:inputType="text"
+			android:imeActionLabel="@string/done"
+	        android:imeOptions="actionDone"
+			android:maxLength="10"/>
+			
+		<Button android:id="@+id/done_button"
+		    android:layout_width="0dip"
+		    android:layout_gravity="right"
+		    android:layout_weight=".5"
+		    android:text="@string/done"
+		    android:minHeight="@*android:dimen/alert_dialog_button_bar_height"
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_height="wrap_content" />
+	
+	</LinearLayout>
+		
+	<LinearLayout android:layout_width="match_parent" 
+		android:layout_height="wrap_content" 
+		android:orientation="horizontal"
+		android:layout_gravity="center_vertical">
+		
+		<TextView android:id="@+id/color_hex_error" 
+			android:text="@string/color_hex_invalid" 
+			android:textColor="#FFFF0000" 
+			android:layout_margin="10dip" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:visibility="gone"/>
+	</LinearLayout>
+</LinearLayout>

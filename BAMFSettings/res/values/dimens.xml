@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- The height of the tab bar - if this changes, we should update the
+         external icon width/height above to compensate -->
+    <dimen name="settings_tab_bar_height">45dp</dimen>
+    <dimen name="settings_tab_bar_margin_top">0dp</dimen>
+    <dimen name="settings_pageLayoutPaddingTop">10dp</dimen>
+    <dimen name="settings_pageLayoutPaddingBottom">10dp</dimen>
+    <dimen name="settings_pageLayoutPaddingLeft">5dp</dimen>
+    <dimen name="settings_pageLayoutPaddingRight">5dp</dimen>
+    <dimen name="outerring_diameter">270dp</dimen>
+    
+    <!-- Quick Settings -->
+    <dimen name="list_item_height">55dip</dimen>
+    <dimen name="expanded_list_item_height">110dip</dimen>
+    
+    <!-- icon popup -->
+    <dimen name="select_icon_size">55.0dip</dimen>
+    <dimen name="select_icon_which_marginLeft">12.0dip</dimen>
+    
+</resources>

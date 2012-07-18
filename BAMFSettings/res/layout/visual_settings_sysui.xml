@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sb_category_title"
+        android:textAppearance="?android:attr/listSeparatorTextViewStyle" android:layout_margin="5dip"/>
+        
+    <ImageView
+    	android:layout_width="match_parent"
+    	android:layout_height="2dip"
+    	android:src="@drawable/list_divider_holo_dark" android:scaleType="fitXY"/>
+
+    <fragment
+        android:id="@+id/visual_sys_ui_fragment"
+        android:name="com.bamf.settings.preferences.VisualSystemUIFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

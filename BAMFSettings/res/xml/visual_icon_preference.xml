@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ListPreference android:dialogTitle="@string/clock_dialog_title" 
+        android:title="@string/clock_title" 
+        android:key="pref_visual_basic_clock_selector" 
+        android:entries="@array/status_clock_entries" 
+        android:entryValues="@array/status_clock_values"/>
+        	
+   	<com.bamf.settings.widgets.BAMFSwitchPreference 
+   		android:title="@string/show_debug_title" 
+   		android:key="pref_visual_basic_debugging"/>
+   			
+   	<com.bamf.settings.widgets.BAMFSwitchPreference 
+   		android:title="@string/show_alarm_title" 
+   		android:key="pref_visual_basic_alarm"/>   
+   		
+    <PreferenceCategory android:title="@string/category_battery_tweaks">		
+   		
+    	<com.bamf.settings.widgets.IconPreference
+    		android:key="pref_battery_style" 
+			android:title="@string/battery_style_title"/>
+			
+		<Preference
+			android:key="pref_battery_text_options"
+			android:title="@string/battery_text_title"
+			android:summary="@string/battery_text_summary" />
+		
+		</PreferenceCategory>
+   			
+</PreferenceScreen>

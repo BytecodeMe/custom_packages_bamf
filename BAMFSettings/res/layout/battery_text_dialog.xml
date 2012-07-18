@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"    
+    android:orientation="vertical" >
+    
+    <LinearLayout android:layout_width="wrap_content"
+    	android:layout_height="0dip"
+    	android:layout_weight="1"    
+    	android:orientation="vertical"
+    	android:id="@+id/content">
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingBottom="10dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acc_battery_text_color"
+            android:textAppearance="?android:attr/textAppearanceMedium" 
+            android:layout_centerVertical="true"/>
+
+        <com.bamf.settings.widgets.ColorPanelView
+			android:id="@+id/preview_color_panel"
+			android:layout_width="50dp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_height="35dip" />
+
+    </RelativeLayout>
+	<ImageView
+    	android:layout_width="match_parent"
+    	android:layout_height="1dip"
+    	android:padding="10dip"
+    	android:src="@drawable/list_divider_holo_dark" android:scaleType="fitXY"/>
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:paddingBottom="10dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acc_battery_text_size"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RelativeLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <SeekBar
+                android:id="@+id/size_seek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"                
+                android:layout_gravity="center_vertical" 
+                android:layout_marginRight="45dip"/>
+
+            <ImageView
+                android:id="@+id/preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.1"
+                android:scaleY="1.1" 
+                android:layout_alignParentRight="true"                       
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/preview_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"                 
+                android:singleLine="true"   
+                android:textStyle="bold"         		
+            	android:gravity="center_vertical|center_horizontal"
+            	android:layout_alignLeft="@+id/preview" 
+            	android:layout_alignRight="@+id/preview" 
+            	android:layout_centerHorizontal="true" 
+            	android:layout_centerVertical="true"/>
+            
+        </RelativeLayout>
+
+    </LinearLayout>
+	<ImageView
+    	android:layout_width="match_parent"
+    	android:layout_height="1dip"
+    	android:padding="10dip"
+    	android:src="@drawable/list_divider_holo_dark" android:scaleType="fitXY"/>
+	<LinearLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingBottom="10dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:orientation="vertical"
+        android:paddingTop="10dip">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/acc_battery_text_charging"            
+            android:textAppearance="?android:attr/textAppearanceMedium" />            
+	
+		<Spinner
+            android:id="@+id/vis_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"  />
+               
+
+    </LinearLayout>
+    </LinearLayout>
+    <TextView
+	    android:id="@+id/disabled"
+	    android:layout_width="match_parent"
+	    android:layout_height="200dp"	    
+	    android:gravity="center_vertical|center_horizontal"
+	    android:text="@string/disabled"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:layout_centerVertical="true"/>
+    <ImageView
+    	android:layout_width="match_parent"
+    	android:layout_height="1dip"  	
+    	android:src="@drawable/list_divider_holo_dark" android:scaleType="fitXY"/>
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:background="@drawable/voltage_button_back"
+        android:text="@android:string/ok" />
+</LinearLayout>

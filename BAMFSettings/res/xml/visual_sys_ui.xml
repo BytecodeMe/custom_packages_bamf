@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">    	  
+        
+        <PreferenceScreen android:key="pref_icon_preferences"
+	    	android:title="@string/ip_category_title"
+	    	android:summary="@string/ip_summary">
+	    	<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.bamf.settings"
+				android:targetClass="com.bamf.settings.activities.IconPreferenceActivity" />
+		</PreferenceScreen>
+   			
+   		<CheckBoxPreference android:key="pref_use_custom_carrier_label"
+	    	android:title="@string/use_custom_carrier_label_title"
+	    	android:summary="@string/use_custom_carrier_label_summary"
+	    />
+	    
+	    <EditTextPreference android:key="pref_custom_carrier_label"
+	    	android:title="@string/custom_carrier_label_title"
+	    	android:defaultValue="@string/custom_carrier_default" 
+	    	android:summary="@string/custom_carrier_default" 
+	    	android:dialogTitle="@string/custom_carrier_label_dialog_title"
+	    	android:dependency="pref_use_custom_carrier_label" />
+	    
+	    <ListPreference android:key="pref_screenshot" 
+            android:dialogTitle="@string/pref_screenshot"
+            android:title="@string/pref_screenshot"
+            android:entries="@array/screenshot_entries" 
+            android:entryValues="@array/screenshot_values" />
+   			
+   		<PreferenceScreen android:key="pref_quick_settings"
+	    	android:title="@string/quick_settings_title"
+	    	android:summary="@string/quick_settings_summary">
+	    	<intent android:action="android.intent.action.MAIN"
+				android:targetPackage="com.bamf.settings"
+				android:targetClass="com.bamf.settings.activities.QuickSettingsActivity" />
+		</PreferenceScreen>
+   			
+</PreferenceScreen>

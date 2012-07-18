@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BAMF Torch Widget</string>
+    <string name="permlab_torch">BAMF Torch</string>
+    <string name="permdesc_torch">Required to be able to access the torch service</string>
+</resources>

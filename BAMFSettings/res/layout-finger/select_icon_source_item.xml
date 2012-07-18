@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="horizontal" 
+    android:id="@+id/main" 
+	android:layout_width="fill_parent" 
+	android:layout_height="@dimen/list_item_height"
+  	xmlns:android="http://schemas.android.com/apk/res/android">
+  	
+    <ImageView android:id="@+id/select_photo_icon" 
+        android:layout_width="@dimen/select_icon_size" 
+    	android:layout_height="@dimen/select_icon_size" 
+    	android:scaleType="centerCrop" 
+    	android:layout_alignParentLeft="true" 
+    	android:layout_centerVertical="true" />
+    
+    <TextView android:ellipsize="marquee" 
+        android:gravity="left|center" 
+        android:id="@+id/select_photo_which" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginLeft="@dimen/select_icon_which_marginLeft" 
+        android:singleLine="true" 
+        android:layout_toRightOf="@id/select_photo_icon" 
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?android:attr/textColorPrimary"/>
+    
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:bamf="http://schemas.android.com/apk/res/com.bamf.settings">
+    
+    
+    <PreferenceCategory android:key="pref_quick_settings" 
+    	android:title="@string/summary_quicksettings_picker" />
+	
+    <PreferenceCategory android:key="category_options" 
+        android:title="@string/title_qs_modes">
+        <com.bamf.settings.widgets.IconPreference
+	        android:key="pref_custom_toggle"
+	        android:title="@string/pref_custom_toggle_title" />
+
+        <ListPreference android:key="pref_notification_mode" 
+            android:dialogTitle="@string/pref_notification_mode_title"
+            android:title="@string/pref_notification_mode_title"
+            android:entries="@array/notification_mode_entries" 
+            android:entryValues="@array/notification_mode_values" />
+        
+        <ListPreference android:key="pref_animations" 
+            android:dialogTitle="@string/pref_animations"
+            android:title="@string/pref_animations"
+            android:entries="@array/animation_entries" 
+            android:entryValues="@array/animation_values" />
+        
+        <ListPreference android:key="pref_behavior" 
+            android:dialogTitle="@string/pref_behavior"
+            android:title="@string/pref_behavior"
+            android:entries="@array/behavior_entries" 
+            android:entryValues="@array/behavior_values" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        
+    <TextView android:id="@*android:id/message"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="?android:attr/textColorSecondary"
+	    android:maxLines="4"
+	    android:padding="10dip" />
+    
+    <LinearLayout android:layout_width="match_parent"
+    	android:layout_height="60.0dip"
+    	android:orientation="horizontal"
+    	android:gravity="left"
+    	android:paddingTop="10dip"
+    	android:paddingLeft="30dip"
+    	android:paddingRight="30dip">
+    	  
+	    <TextView android:layout_width="80dip"
+		    android:layout_height="wrap_content"
+		    android:gravity="left"
+		    android:textAppearance="?android:attr/textAppearanceMedium"
+		    android:text="@string/led_preset_title" />
+            
+	    <Spinner android:id="@+id/led_preset"
+	        android:layout_width="0dip"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="5dip" />
+	        
+	</LinearLayout>
+	
+	<LinearLayout android:layout_width="match_parent"
+    	android:layout_height="60.0dip"
+    	android:orientation="horizontal"
+    	android:gravity="left"
+    	android:paddingTop="10dip"
+    	android:paddingLeft="30dip"
+    	android:paddingRight="30dip">
+    	  
+	    <TextView android:layout_width="80dip"
+		    android:layout_height="wrap_content"
+		    android:gravity="left"
+		    android:textAppearance="?android:attr/textAppearanceMedium"
+		    android:text="@string/led_special_title" />
+            
+	    <Spinner android:id="@+id/led_special"
+	        android:layout_width="0dip"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="5dip" />
+	        
+	</LinearLayout>
+	
+	<LinearLayout android:layout_width="match_parent"
+    	android:layout_height="60.0dip"
+    	android:orientation="horizontal"
+    	android:gravity="left"
+    	android:paddingTop="10dip"
+    	android:paddingBottom="5dip"
+    	android:paddingLeft="30dip"
+    	android:paddingRight="30dip">
+    	  
+	    <TextView android:layout_width="80dip"
+		    android:layout_height="wrap_content"
+		    android:gravity="left"
+		    android:textAppearance="?android:attr/textAppearanceMedium"
+		    android:text="@string/led_blink_rate_title" />
+            
+	    <Spinner android:id="@+id/led_blink_rate"
+	        android:layout_width="0dip"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="5dip" />
+	        
+		<Button android:id="@+id/led_blink_button"
+			android:layout_width="40dip"
+			android:layout_height="40dip"
+			android:gravity="right|center_vertical"
+			android:text="@string/edit_button_text" />
+	        
+	</LinearLayout>
+        
+</LinearLayout>

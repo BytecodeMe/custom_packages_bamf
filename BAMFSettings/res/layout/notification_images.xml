@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/notification_images"
+	android:layout_width="match_parent"
+	android:layout_height="0dp"
+	android:orientation="horizontal"
+	android:visibility="gone">
+	
+	<ImageView
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1" />
+		
+	<ImageView
+		android:id="@+id/disabled"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+		
+	<ImageView
+		android:id="@+id/hide"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+        
+    <ImageView
+		android:id="@+id/sound"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+		
+	<ImageView
+		android:id="@+id/filter"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+		
+	<ImageView
+		android:id="@+id/vibrate"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+		
+	<ImageView
+		android:id="@+id/vibrate_repeat"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+		
+	<ImageView
+		android:id="@+id/led_color"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+		
+	<ImageView
+		android:id="@+id/background"
+		android:layout_width="22.0sp" 
+		android:layout_height="22.0sp"
+		android:scaleType="fitXY"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone" />
+	
+</LinearLayout>

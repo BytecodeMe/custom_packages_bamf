@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BAMF Copy</string>
+    <string name="share_name">#Copy to Clipboard</string>
+
+</resources>

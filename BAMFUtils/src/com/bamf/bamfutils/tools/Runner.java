@@ -20,7 +20,7 @@
  * limitations under that License.
  */
 
-package com.bamf.BAMFUtils.tools;
+package com.bamf.bamfutils.tools;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;

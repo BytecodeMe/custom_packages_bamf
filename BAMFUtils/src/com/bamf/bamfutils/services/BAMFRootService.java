@@ -1,4 +1,4 @@
-package com.bamf.BAMFUtils.services;
+package com.bamf.bamfutils.services;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.bamf.BAMFUtils.tools.Mount;
-import com.bamf.BAMFUtils.tools.RootTools;
+import com.bamf.BAMFUtils.services.IRootService;
+import com.bamf.bamfutils.tools.Mount;
+import com.bamf.bamfutils.tools.RootTools;
 
 import android.app.ActivityManager;
 import android.app.Service;

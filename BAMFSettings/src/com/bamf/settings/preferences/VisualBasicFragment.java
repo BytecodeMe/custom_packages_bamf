@@ -91,6 +91,7 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
     	
     	mLockscreen = findPreference("pref_visual_basic_lockscreen");
     	mLockscreen.setOnPreferenceClickListener(this);
+    	mLockscreen.setEnabled(false);
     	mDockDivider.setOnPreferenceChangeListener(this);
     	mDockDivider.setOnPreferenceClickListener(this);  
     	

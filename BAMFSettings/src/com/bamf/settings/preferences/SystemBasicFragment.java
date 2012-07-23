@@ -112,6 +112,7 @@ public class SystemBasicFragment extends PreferenceFragment
     	mEndCall.setOnPreferenceChangeListener(this);
     	mEndCall.setOnPreferenceClickListener(this);
     	mEndCall.setChecked(Settings.System.getInt(mSettings.getContentResolver(), Settings.System.END_BUTTON_NOTIFICATION, 1)==1);
+    	getPreferenceScreen().removePreference(mEndCall);
     	mMountSystem.setOnPreferenceChangeListener(this);
     	mMountSystem.setOnPreferenceClickListener(this);
     	

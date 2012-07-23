@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.bamf.BAMFUtils.services.IRootService;
+import com.bamf.bamfutils.services.IRootService;
 import com.bamf.bamfutils.tools.Mount;
 import com.bamf.bamfutils.tools.RootTools;
 

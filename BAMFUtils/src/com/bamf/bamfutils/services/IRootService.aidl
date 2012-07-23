@@ -1,4 +1,4 @@
-package com.bamf.BAMFUtils.services;
+package com.bamf.bamfutils.services;
 
 interface IRootService {  
   boolean toggleAppState(boolean state,String pName);

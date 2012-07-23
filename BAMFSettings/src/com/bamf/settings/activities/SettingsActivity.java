@@ -19,7 +19,7 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bamf.BAMFUtils.services.IRootService;
+import com.bamf.bamfutils.services.IRootService;
 import com.bamf.bamfutils.services.BAMFRootService;
 import com.bamf.settings.R;
 import com.bamf.settings.preferences.PerformanceKernelFragment;

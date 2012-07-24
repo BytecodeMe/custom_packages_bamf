@@ -234,7 +234,7 @@ public class SettingsActivity extends Activity {
                 }               
             };
             try{
-                if(bindService(new Intent(new Intent(createPackageContext("com.bamf.BAMFUtils", 0)
+                if(bindService(new Intent(new Intent(createPackageContext("com.bamf.bamfutils", 0)
                         , BAMFRootService.class)), mServiceConnection, 
                         Context.BIND_AUTO_CREATE)){
                     Log.d(TAG, "service started and the bind was successful");

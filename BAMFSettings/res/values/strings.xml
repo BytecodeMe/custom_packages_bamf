@@ -14,6 +14,10 @@
 	<string name="icon_settings">Status Bar Icon Settings</string>
     <string name="navbar_settings">Navbar Settings</string>
     
+    <!-- Some permission stuffs -->
+    <string name="permlab_restartsysui">Restart SystemUI</string>
+    <string name="permdesc_restartsysui">Required to be able to broadcast an action to reboot SystemUI</string>
+    
     <string name="root_service_warning">There was a problem obtaining the root service.</string>
     <string name="reboot_warning_title">Requires Reboot</string>
     <string name="reboot_warning_desc">This function requires a reboot of the phone, do you wish to continue?</string>

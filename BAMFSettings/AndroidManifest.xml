@@ -17,6 +17,12 @@
         android:description="@string/permdesc_readsettings"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="signature" />
+    
+    <permission android:name="com.bamf.ics.permission.RESTART_SYSTEMUI"
+        android:label="@string/permlab_restartsysui"
+        android:description="@string/permdesc_restartsysui"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="signature" />
 
     <application        
         android:icon="@drawable/ic_launcher"

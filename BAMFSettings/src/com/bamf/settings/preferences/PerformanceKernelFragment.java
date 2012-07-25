@@ -195,7 +195,7 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 		StringBuilder sb = new StringBuilder();
 		for(int i =0;i < temp.length;i++){
 			String val = temp[i];
-			if(Integer.parseInt(val) > 100){
+			if(Integer.parseInt(val) > 100000){
 				sb.append(val);
 				if(i < temp.length - 1){
 					sb.append(" ");

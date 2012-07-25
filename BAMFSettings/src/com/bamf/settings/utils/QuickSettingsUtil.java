@@ -131,6 +131,10 @@ public class QuickSettingsUtil {
         		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingLTE));
         configs.put(QUICK_MOBILE_DATA, context.getResources()
         		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
+        configs.put(QUICK_HOTSPOT, context.getResources()
+        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
+        configs.put(QUICK_TETHER, context.getResources()
+        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
         
         // if setup is not called then it will be empty
         setup(configs);

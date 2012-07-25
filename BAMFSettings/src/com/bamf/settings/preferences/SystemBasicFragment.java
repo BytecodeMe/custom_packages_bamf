@@ -283,7 +283,7 @@ public class SystemBasicFragment extends PreferenceFragment
 		
 		private static final int MINIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_DIM -1;
 	    private static final int MAXIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_ON;
-	    private static final int BLOCK_SIZE = 5;
+	    private int BLOCK_SIZE;
 	    
 	    private IPowerManager mPower;
 		
@@ -330,6 +330,8 @@ public class SystemBasicFragment extends PreferenceFragment
 	    	}catch (Exception e){	    		
 	    		mLevels = mLevelsDefault;
 	    	}
+	    	
+	    	BLOCK_SIZE = mLevels.length/4;
 			
 		}	    
 	    

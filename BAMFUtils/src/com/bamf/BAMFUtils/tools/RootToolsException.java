@@ -20,30 +20,17 @@
  * limitations under that License.
  */
 
-package com.bamf.bamfutils.tools;
+package com.bamf.BAMFUtils.tools;
 
-import java.util.ArrayList;
-import java.util.Set;
+/**
+ * Developers may throw this exception from within their code
+ * when using IResult as a means to change the program flow.
+ */
+public class RootToolsException extends Exception {
 
-//no modifier, this is package-private which means that no one but the library can access it.
-//If we need public variables just create the class for it.
-class InternalVariables {
+    private static final long serialVersionUID = -4431771251773644144L;
 
-    //----------------------
-    //# Internal Variables #
-    //----------------------
-
-    //Version numbers should be maintained here.
-    protected static String TAG = "RootTools v1.6.1";
-    protected static boolean accessGiven = false;
-    protected static boolean nativeToolsReady = false;
-    protected static String[] space;
-    protected static String getSpaceFor;
-    protected static String busyboxVersion;
-    protected static String pid;
-    protected static Set<String> path;
-    protected static ArrayList<Mount> mounts;
-    protected static ArrayList<Symlink> symlinks;
-    protected static int timeout = 10000;
-
+    public RootToolsException(Throwable th) {
+        super(th);
+    }
 }

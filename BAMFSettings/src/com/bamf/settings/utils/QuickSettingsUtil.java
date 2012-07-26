@@ -1,12 +1,5 @@
 package com.bamf.settings.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -21,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +24,13 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bamf.settings.R;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class QuickSettingsUtil {
     private static final String QUICK_AIRPLANE = "QuickAirplane";
@@ -51,18 +52,9 @@ public class QuickSettingsUtil {
     private static final String QUICK_HOTSPOT = "QuickHotspot";
     private static final String QUICK_TETHER = "QuickTether";
     
-    private static final String EMPTY = "";
-    
-    static {
-    	// intentionally blank
-    }
-    
     
     public static final HashMap<String, QuickSettingInfo> SETTINGS = new HashMap<String, QuickSettingInfo>();
-    // make sure this is called before trying to use SETTINGS
-    public static void setup(HashMap<String, Boolean> config) {
-    	SETTINGS.clear();
-    	
+    static {
         SETTINGS.put(QUICK_AIRPLANE, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_AIRPLANE, R.string.title_toggle_airplane, "com.android.systemui:drawable/ic_sysbar_airplane_on"));
         SETTINGS.put(QUICK_ROTATE, new QuickSettingsUtil.QuickSettingInfo(
@@ -71,12 +63,18 @@ public class QuickSettingsUtil {
                 QUICK_BRIGHTNESS, R.string.title_toggle_brightness, "com.android.systemui:drawable/ic_sysbar_brightness"));
         SETTINGS.put(QUICK_NODISTURB, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_NODISTURB, R.string.title_toggle_donotdisturb, "com.android.systemui:drawable/ic_notification_open"));
+        SETTINGS.put(QUICK_TORCH, new QuickSettingsUtil.QuickSettingInfo(
+                QUICK_TORCH, R.string.title_toggle_flashlight, "com.android.systemui:drawable/ic_sysbar_torch_on"));
         SETTINGS.put(QUICK_SETTING, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_SETTING, R.string.title_toggle_settings, "com.android.systemui:drawable/ic_sysbar_quicksettings"));
         SETTINGS.put(QUICK_WIFI, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_WIFI, R.string.title_toggle_wifi, "com.android.systemui:drawable/ic_sysbar_wifi_on"));
         SETTINGS.put(QUICK_VOLUME, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_VOLUME, R.string.title_toggle_volume, "com.android.systemui:drawable/ic_lock_silent_mode_off"));
+        if(Build.DEVICE.equalsIgnoreCase("toro")){
+        	SETTINGS.put(QUICK_LTE, new QuickSettingsUtil.QuickSettingInfo(
+                QUICK_LTE, R.string.title_toggle_lte, "com.android.systemui:drawable/ic_sysbar_lte_on"));
+        }
         SETTINGS.put(QUICK_CUSTOM, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_CUSTOM, R.string.title_toggle_custom, "com.android.systemui:drawable/ic_sysbar_custom"));
         SETTINGS.put(QUICK_ADB, new QuickSettingsUtil.QuickSettingInfo(
@@ -85,60 +83,30 @@ public class QuickSettingsUtil {
                 QUICK_BLUETOOTH, R.string.title_toggle_bluetooth, "com.android.systemui:drawable/ic_sysbar_bluetooth"));  
         SETTINGS.put(QUICK_GPS, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_GPS, R.string.title_toggle_gps, "com.android.systemui:drawable/ic_sysbar_gps"));
+        SETTINGS.put(QUICK_MOBILE_DATA, new QuickSettingsUtil.QuickSettingInfo(
+                QUICK_MOBILE_DATA, R.string.title_toggle_mobiledata, "com.android.systemui:drawable/ic_sysbar_data"));
         SETTINGS.put(QUICK_SYNC, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_SYNC, R.string.title_toggle_sync, "com.android.systemui:drawable/ic_sysbar_sync"));
         SETTINGS.put(QUICK_MEDIA, new QuickSettingsUtil.QuickSettingInfo(
                 QUICK_MEDIA, R.string.title_toggle_media, "com.android.systemui:drawable/ic_sysbar_musicplayer"));
-        
-        // these settings are visible based on the device config
-        if(config.get(QUICK_MOBILE_DATA)){
-        	SETTINGS.put(QUICK_MOBILE_DATA, new QuickSettingsUtil.QuickSettingInfo(
-        			QUICK_MOBILE_DATA, R.string.title_toggle_mobiledata, "com.android.systemui:drawable/ic_sysbar_data"));
-	        SETTINGS.put(QUICK_HOTSPOT, new QuickSettingsUtil.QuickSettingInfo(
-	                QUICK_HOTSPOT, R.string.title_toggle_hotspot, "com.android.systemui:drawable/ic_sysbar_hotspot_on"));
-	        SETTINGS.put(QUICK_TETHER, new QuickSettingsUtil.QuickSettingInfo(
-	                QUICK_TETHER, R.string.title_toggle_tether, "com.android.systemui:drawable/ic_sysbar_tether"));
-        }
-        if(config.get(QUICK_LTE)){
-        	SETTINGS.put(QUICK_LTE, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_LTE, R.string.title_toggle_lte, "com.android.systemui:drawable/ic_sysbar_lte_on"));
-        }
-        if(config.get(QUICK_TORCH)){
-	        SETTINGS.put(QUICK_TORCH, new QuickSettingsUtil.QuickSettingInfo(
-	        		QUICK_TORCH, R.string.title_toggle_flashlight, "com.android.systemui:drawable/ic_sysbar_torch_on"));
-        }
+        SETTINGS.put(QUICK_HOTSPOT, new QuickSettingsUtil.QuickSettingInfo(
+                QUICK_HOTSPOT, R.string.title_toggle_hotspot, "com.android.systemui:drawable/ic_sysbar_hotspot_on"));
+        SETTINGS.put(QUICK_TETHER, new QuickSettingsUtil.QuickSettingInfo(
+                QUICK_TETHER, R.string.title_toggle_tether, "com.android.systemui:drawable/ic_sysbar_tether"));
     }
 
     private static String TEMP = null;
     private static final String SETTING_DELIMITER = "|";
-    // do not use anything here that may not work on ALL devices
     private static final String SETTINGS_DEFAULT = QUICK_AIRPLANE
-            + SETTING_DELIMITER + QUICK_MEDIA
+            + SETTING_DELIMITER + QUICK_TORCH
             + SETTING_DELIMITER + QUICK_VOLUME
             + SETTING_DELIMITER + QUICK_ROTATE
             + SETTING_DELIMITER + QUICK_BRIGHTNESS
             + SETTING_DELIMITER + QUICK_SETTING;
 
-    public static String getCurrentQuickSettings(final Context context) {   		
+    public static String getCurrentQuickSettings(Context context) {   		
         String quick_settings = Settings.System.getString(context.getContentResolver(), 
                 Settings.System.QUICK_SETTINGS);
-        
-        // setup config values
-        final HashMap<String, Boolean> configs = new HashMap<String, Boolean>();
-        configs.put(QUICK_TORCH, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingTorch));
-        configs.put(QUICK_LTE, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingLTE));
-        configs.put(QUICK_MOBILE_DATA, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
-        configs.put(QUICK_HOTSPOT, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
-        configs.put(QUICK_TETHER, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
-        
-        // if setup is not called then it will be empty
-        setup(configs);
-        
         if(quick_settings == null && TEMP == null){ 
         	quick_settings = SETTINGS_DEFAULT;
         }        	
@@ -146,11 +114,6 @@ public class QuickSettingsUtil {
         	quick_settings = TEMP;
         }
         else{
-        	// just in case one sneaks in, get rid of it
-        	for(String config: configs.keySet()){
-        		if(quick_settings.contains(config) && !configs.get(config))
-        			quick_settings = quick_settings.replace(config, EMPTY).replace("||", "|");
-        	}
         	TEMP = quick_settings;
         }
         

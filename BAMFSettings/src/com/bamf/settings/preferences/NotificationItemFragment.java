@@ -560,7 +560,7 @@ public class NotificationItemFragment extends PreferenceFragment
 	}
 	
 	private void showFilterPicker(){
-		final ChipsFiltersTextView input = (ChipsFiltersTextView)mActivity.getLayoutInflater().inflate(R.layout.chip_filters_view,null);//new ChipsFiltersTextView(mActivity, null);
+		final ChipsFiltersTextView input = new ChipsFiltersTextView(mActivity, null);
 		input.setHint("add filters");
 		
 		if(mFilters!=null && !TextUtils.isEmpty(mFilters)){

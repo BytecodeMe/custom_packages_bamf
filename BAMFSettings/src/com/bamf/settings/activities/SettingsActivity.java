@@ -19,8 +19,8 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bamf.bamfutils.services.IRootService;
-import com.bamf.bamfutils.services.BAMFRootService;
+import com.bamf.BAMFUtils.services.BAMFRootService;
+import com.bamf.BAMFUtils.services.IRootService;
 import com.bamf.settings.R;
 import com.bamf.settings.preferences.PerformanceKernelFragment;
 import com.bamf.settings.preferences.VoltageBootFragment;
@@ -234,7 +234,7 @@ public class SettingsActivity extends Activity {
                 }               
             };
             try{
-                if(bindService(new Intent(new Intent(createPackageContext("com.bamf.bamfutils", 0)
+                if(bindService(new Intent(new Intent(createPackageContext("com.bamf.BAMFUtils", 0)
                         , BAMFRootService.class)), mServiceConnection, 
                         Context.BIND_AUTO_CREATE)){
                     Log.d(TAG, "service started and the bind was successful");

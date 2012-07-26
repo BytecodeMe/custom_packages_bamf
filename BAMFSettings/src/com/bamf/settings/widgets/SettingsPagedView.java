@@ -411,7 +411,7 @@ public class SettingsPagedView extends ViewGroup {
                 if (child != null) {
                     float scrollProgress = getScrollProgress(screenCenter, child, i);
                     float alpha = 1 - Math.abs(scrollProgress);
-                    child.setAlpha(alpha);
+                    child.setFastAlpha(alpha);
                     child.invalidate();
                 }
             }
@@ -467,10 +467,10 @@ public class SettingsPagedView extends ViewGroup {
                     }
                 }
 
-                v.setTranslationX(translationX);
-                v.setScaleX(scale);
-                v.setScaleY(scale);
-                v.setAlpha(alpha);
+                v.setFastTranslationX(translationX);
+                v.setFastScaleX(scale);
+                v.setFastScaleY(scale);
+                v.setFastAlpha(alpha);
 
                 // If the view has 0 alpha, we set it to be invisible so as to prevent
                 // it from accepting touches

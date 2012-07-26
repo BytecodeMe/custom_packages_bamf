@@ -5,22 +5,15 @@
     android:sharedUserId="android.uid.system"
     android:process="system" > 
 
-    <uses-sdk android:minSdkVersion="16" />
+    <uses-sdk android:minSdkVersion="15" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="com.bamf.ics.permission.ROOT"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
     
     <permission android:name="com.bamf.ics.permission.READ_SETTINGS"
         android:label="@string/permlab_readsettings"
         android:description="@string/permdesc_readsettings"
-        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-        android:protectionLevel="signature" />
-    
-    <permission android:name="com.bamf.ics.permission.RESTART_SYSTEMUI"
-        android:label="@string/permlab_restartsysui"
-        android:description="@string/permdesc_restartsysui"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="signature" />
 

@@ -20,7 +20,7 @@
  * limitations under that License.
  */
 
-package com.bamf.bamfutils.tools;
+package com.bamf.BAMFUtils.tools;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

@@ -169,7 +169,7 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	private void setupArrays(){
 	    mDisplayGovernors = readOneLine(AVAILABLE_GOVERNORS).split(" ");
         
-        String[] tempFrequencies = checkBadFreq(readOneLine(AVAILABLE_FREQ)).split(" ");
+        String[] tempFrequencies = readOneLine(AVAILABLE_FREQ).split(" ");
         mValueFrequencies = new String[tempFrequencies.length];
         int j = tempFrequencies.length - 1;
         for(int i = 0;i < tempFrequencies.length;i++){
@@ -189,24 +189,6 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
         }
 	}
 	
-	private String checkBadFreq(String input) {
-		
-		String[] temp = input.split(" ");
-		StringBuilder sb = new StringBuilder();
-		for(int i =0;i < temp.length;i++){
-			String val = temp[i];
-			if(Integer.parseInt(val) > 100000){
-				sb.append(val);
-				if(i < temp.length - 1){
-					sb.append(" ");
-				}
-			}
-		}
-		Log.d("KERNEL",sb.toString());
-		return sb.toString();
-	}
-
-
 	private void setupPreferences(){
 	    mEdit = mPrefs.edit();         
                 

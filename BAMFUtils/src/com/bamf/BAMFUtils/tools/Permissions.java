@@ -20,7 +20,7 @@
  * limitations under that License.
  */
 
-package com.bamf.bamfutils.tools;
+package com.bamf.BAMFUtils.tools;
 
 public class Permissions {
 	String type;

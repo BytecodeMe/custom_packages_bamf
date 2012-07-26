@@ -112,7 +112,6 @@ public class SystemBasicFragment extends PreferenceFragment
     	mEndCall.setOnPreferenceChangeListener(this);
     	mEndCall.setOnPreferenceClickListener(this);
     	mEndCall.setChecked(Settings.System.getInt(mSettings.getContentResolver(), Settings.System.END_BUTTON_NOTIFICATION, 1)==1);
-    	getPreferenceScreen().removePreference(mEndCall);
     	mMountSystem.setOnPreferenceChangeListener(this);
     	mMountSystem.setOnPreferenceClickListener(this);
     	
@@ -281,9 +280,9 @@ public class SystemBasicFragment extends PreferenceFragment
 		private static LayoutInflater mLayoutInflater;
 		private static ContentResolver mResolver;
 		
-		private static final int MINIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_DIM -1;
-	    private static final int MAXIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_ON;
-	    private int BLOCK_SIZE;
+		private static final int MINIMUM_BACKLIGHT = android.os.Power.BRIGHTNESS_DIM -1;
+	    private static final int MAXIMUM_BACKLIGHT = android.os.Power.BRIGHTNESS_ON;
+	    private static final int BLOCK_SIZE = 5;
 	    
 	    private IPowerManager mPower;
 		
@@ -330,8 +329,6 @@ public class SystemBasicFragment extends PreferenceFragment
 	    	}catch (Exception e){	    		
 	    		mLevels = mLevelsDefault;
 	    	}
-	    	
-	    	BLOCK_SIZE = mLevels.length/4;
 			
 		}	    
 	    

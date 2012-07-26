@@ -3,7 +3,7 @@ package com.bamf.settings.utils;
 import java.util.Arrays;
 import java.util.List;
 
-import com.bamf.bamfutils.services.BAMFRootService;
+import com.bamf.BAMFUtils.services.BAMFRootService;
 import com.bamf.settings.preferences.PerformanceKernelFragment;
 import com.bamf.settings.preferences.PerformanceVoltageFragment;
 import com.bamf.settings.preferences.VoltageBootFragment;

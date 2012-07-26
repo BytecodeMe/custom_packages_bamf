@@ -159,7 +159,6 @@ public class SettingsProvider extends ContentProvider {
     }
     
     public static String getLastBackupDate(File backupLocation){
-    	if(backupLocation == null) return null;
     	if (backupLocation.exists()) {
     	    File[] child = backupLocation.listFiles();
     	    for (int i = 0; i < child.length; i++) {

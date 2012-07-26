@@ -9,10 +9,8 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src)\
     $(call all-java-files-under, ../BAMFUtils/src)\
-	../BAMFUtils/src/com/bamf/bamfutils/services/IRootService.aidl
+	../BAMFUtils/src/com/bamf/BAMFUtils/services/IRootService.aidl
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir))
-LOCAL_AAPT_FLAGS := --auto-add-overlay
-LOCAL_AAPT_FLAGS += --extra-packages com.android.ex.chips
 
 LOCAL_STATIC_JAVA_LIBRARIES := android-common-chips
 

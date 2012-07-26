@@ -1,15 +1,12 @@
 package com.bamf.settings.preferences;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.SystemProperties;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -19,7 +16,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -91,7 +87,6 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
     	
     	mLockscreen = findPreference("pref_visual_basic_lockscreen");
     	mLockscreen.setOnPreferenceClickListener(this);
-    	mLockscreen.setEnabled(false);
     	mDockDivider.setOnPreferenceChangeListener(this);
     	mDockDivider.setOnPreferenceClickListener(this);  
     	
@@ -120,7 +115,6 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
 		}else if(pref == mSearchBar){
 			int val = (Boolean) newValue? 1 : 0;
 			Settings.System.putInt(mResolver,"show_search_bar",val);
-			killLauncher();
 			return true;
 		}else if(pref == mLauncherScreens){			
 			int screens = Integer.parseInt((String) newValue);
@@ -139,13 +133,11 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
 			}
 			Settings.System.putInt(mResolver,"default_launcher_screen",sdefault);
 			mLauncherScreens.setSummary(String.format(mSettings.getString(R.string.launcher_screen_summary), screens));
-			killLauncher();
 			return true;
 		}else
 			return false;
-	}
+	}	
 	
-
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		if(preference == mLockscreen){
@@ -229,33 +221,5 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
 			}
 		})	
 		.show();     
-	}
-	
-	/**
-	 * We need to give the launcher some time to rearrange things before killing it
-	 * 
-	 */
-	private void killLauncher() {
-		
-		final Handler handler = new Handler();
-		final Runnable finished = new Runnable() {
-		    public void run() {		    	
-		    	final ActivityManager am = (ActivityManager)mSettings.getSystemService(Context.ACTIVITY_SERVICE);
-		    	am.forceStopPackage("com.android.launcher");	    	
-		    }
-		};
-		
-		new Thread() {		    
-			@Override public void run() {					
-				try {
-					sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}					
-				handler.post(finished);					
-			}
-		}.start();        
-		
 	}
 }

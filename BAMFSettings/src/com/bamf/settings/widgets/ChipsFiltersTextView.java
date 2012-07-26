@@ -37,16 +37,16 @@ public class ChipsFiltersTextView extends RecipientEditTextView {
         setTokenizer(new Rfc822Tokenizer());
         Resources r = context.getResources();
         Bitmap def = BitmapFactory.decodeResource(r, R.drawable.chip_delete);
-//        setChipDimensions(
-//                r.getDrawable(R.drawable.chip_bamf_edit),
-//                r.getDrawable(R.drawable.chip_background_selected),
-//                r.getDrawable(R.drawable.chip_background_invalid),
-//                r.getDrawable(R.drawable.chip_delete), def, R.layout.more_item,
-//                R.layout.chips_alternate_item,
-//                        r.getDimension(R.dimen.chip_height),
-//                        r.getDimension(R.dimen.chip_padding),
-//                        r.getDimension(R.dimen.chip_text_size),
-//                        R.layout.copy_chip_dialog_layout);
+        setChipDimensions(
+                r.getDrawable(R.drawable.chip_bamf_edit),
+                r.getDrawable(R.drawable.chip_background_selected),
+                r.getDrawable(R.drawable.chip_background_invalid),
+                r.getDrawable(R.drawable.chip_delete), def, R.layout.more_item,
+                R.layout.chips_alternate_item,
+                        r.getDimension(R.dimen.chip_height),
+                        r.getDimension(R.dimen.chip_padding),
+                        r.getDimension(R.dimen.chip_text_size),
+                        R.layout.copy_chip_dialog_layout);
     }
 
     @Override

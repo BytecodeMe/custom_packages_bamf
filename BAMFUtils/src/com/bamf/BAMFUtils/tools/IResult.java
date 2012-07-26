@@ -20,17 +20,27 @@
  * limitations under that License.
  */
 
-package com.bamf.bamfutils.tools;
+package com.bamf.BAMFUtils.tools;
+
+import java.io.Serializable;
 
 /**
- * Developers may throw this exception from within their code
- * when using IResult as a means to change the program flow.
+ * Implement this interface and inject the resulting object
+ * when invoking <code>sendShell</code>.
+ * <code>RootTools</code> comes with a reference implementation:
+ * <code>RootTools.Result</code>
  */
-public class RootToolsException extends Exception {
+public interface IResult {
+    public abstract void process(String line) throws Exception;
+    public abstract void processError(String line) throws Exception;
+    public abstract void onFailure(Exception ex);
+    public abstract void onComplete(int diag);
 
-    private static final long serialVersionUID = -4431771251773644144L;
+    public IResult      setProcess(Process process);
+    public Process      getProcess();
+    public IResult      setData(Serializable data);
+    public Serializable getData();
+    public IResult      setError(int error);
+    public int          getError();
 
-    public RootToolsException(Throwable th) {
-        super(th);
-    }
 }

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemProperties;
@@ -99,8 +101,16 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
     	mSearchBar.setOnPreferenceClickListener(this);   
     	mLauncherScreens.setOnPreferenceChangeListener(this);
     	
+    	IntentFilter filter = new IntentFilter();
+        filter.addAction("com.bamf.settings.LAUNCHER_CHANGE_COMPLETE");
+        
+        mSettings.registerReceiver(mLauncherCompleteReceiver, filter);
     	
-    	
+        mProgress = new ProgressDialog(mSettings);
+        mProgress.setTitle("Applying Changes");
+        mProgress.setCancelable(false);
+        mProgress.setMessage("Updating your home screens. Please wait...");
+        
     	mSkinTest = findPreference(SKIN_TEST);
     	if(DEBUG){
     		
@@ -120,7 +130,7 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
 		}else if(pref == mSearchBar){
 			int val = (Boolean) newValue? 1 : 0;
 			Settings.System.putInt(mResolver,"show_search_bar",val);
-			killLauncher();
+			mProgress.show();
 			return true;
 		}else if(pref == mLauncherScreens){			
 			int screens = Integer.parseInt((String) newValue);
@@ -139,7 +149,7 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
 			}
 			Settings.System.putInt(mResolver,"default_launcher_screen",sdefault);
 			mLauncherScreens.setSummary(String.format(mSettings.getString(R.string.launcher_screen_summary), screens));
-			killLauncher();
+			mProgress.show();
 			return true;
 		}else
 			return false;
@@ -231,31 +241,14 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
 		.show();     
 	}
 	
-	/**
-	 * We need to give the launcher some time to rearrange things before killing it
-	 * 
-	 */
-	private void killLauncher() {
-		
-		final Handler handler = new Handler();
-		final Runnable finished = new Runnable() {
-		    public void run() {		    	
-		    	final ActivityManager am = (ActivityManager)mSettings.getSystemService(Context.ACTIVITY_SERVICE);
-		    	am.forceStopPackage("com.android.launcher");	    	
-		    }
-		};
-		
-		new Thread() {		    
-			@Override public void run() {					
-				try {
-					sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}					
-				handler.post(finished);					
-			}
-		}.start();        
-		
-	}
+	private BroadcastReceiver mLauncherCompleteReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			
+			final ActivityManager am = (ActivityManager)mSettings.getSystemService(Context.ACTIVITY_SERVICE);
+	    	am.forceStopPackage("com.android.launcher");
+	    	mProgress.cancel();
+		}
+	};
+	
 }

@@ -106,11 +106,9 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
         
         mSettings.registerReceiver(mLauncherCompleteReceiver, filter);
     	
-        mProgress = new ProgressDialog(mSettings);
-        mProgress.setTitle("Applying Changes");
+        mProgress.setTitle("Applying Change");
         mProgress.setCancelable(false);
-        mProgress.setMessage("Updating your home screens. Please wait...");
-        
+        mProgress.setMessage("Adjusting Launcher. Please wait...");
     	mSkinTest = findPreference(SKIN_TEST);
     	if(DEBUG){
     		
@@ -239,16 +237,41 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
 			}
 		})	
 		.show();     
-	}
+	}	
 	
 	private BroadcastReceiver mLauncherCompleteReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			
-			final ActivityManager am = (ActivityManager)mSettings.getSystemService(Context.ACTIVITY_SERVICE);
-	    	am.forceStopPackage("com.android.launcher");
-	    	mProgress.cancel();
+			killLauncher();
 		}
 	};
-	
+	/**
+	 * We need to give the launcher some time to rearrange things before killing it
+	 * 
+	 */
+	private void killLauncher() {
+		
+		final Handler handler = new Handler();
+		final Runnable finished = new Runnable() {
+		    public void run() {		    	
+		    	final ActivityManager am = (ActivityManager)mSettings.getSystemService(Context.ACTIVITY_SERVICE);
+		    	am.forceStopPackage("com.android.launcher");
+		    	mProgress.cancel();	    	
+		    }
+		};
+		
+		new Thread() {		    
+			@Override public void run() {					
+				try {
+					sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}					
+				handler.post(finished);					
+			}
+		}.start();        
+		
+	}
 }

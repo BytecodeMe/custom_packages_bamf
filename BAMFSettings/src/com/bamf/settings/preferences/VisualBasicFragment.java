@@ -106,6 +106,7 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
         
         mSettings.registerReceiver(mLauncherCompleteReceiver, filter);
     	
+        mProgress = new ProgressDialog(mSettings);
         mProgress.setTitle("Applying Change");
         mProgress.setCancelable(false);
         mProgress.setMessage("Adjusting Launcher. Please wait...");

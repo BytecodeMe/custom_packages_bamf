@@ -39,6 +39,9 @@ public class BAMFRootService extends Service {
 	public static final String MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     public static final String MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
     public static final String AVAILABLE_SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
+    public static final String AVAILABLE_SCHEDULERALT1 = "/sys/block/mmcblk0boot0/queue/scheduler";
+    public static final String AVAILABLE_SCHEDULERALT2 = "/sys/block/mmcblk0boot1/queue/scheduler";
+    public static final String AVAILABLE_SCHEDULERALT3 = "/sys/block/mtdblock0/queue/scheduler";
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -123,6 +126,12 @@ public class BAMFRootService extends Service {
 	public void setScheduler(String scheduler){		
 		try {
 			RootTools.sendShell("echo " + scheduler +" > "+AVAILABLE_SCHEDULER,-1);
+			if(new File(AVAILABLE_SCHEDULERALT1).exists())
+				RootTools.sendShell("echo " + scheduler +" > "+AVAILABLE_SCHEDULERALT1,-1);
+			if(new File(AVAILABLE_SCHEDULERALT2).exists())
+				RootTools.sendShell("echo " + scheduler +" > "+AVAILABLE_SCHEDULERALT2,-1);
+			if(new File(AVAILABLE_SCHEDULERALT3).exists())
+				RootTools.sendShell("echo " + scheduler +" > "+AVAILABLE_SCHEDULERALT3,-1);
 		}catch(Exception e){
 			e.printStackTrace();
 		}		

@@ -301,10 +301,12 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 				mEdit.putString(PREF_GOVERNOR, mDisplayGovernors[value]);
 			}
 		}else if(mPrefToSet.equals(PREF_SCHEDULER)){
-			mCurrentSchedulerIndex = value;
-			mHandler.sendEmptyMessage(MSG_SCHEDULER);
-			mPrefScheduler.setSummary(mDisplaySchedulers[mCurrentSchedulerIndex]);
-			mEdit.putString(PREF_SCHEDULER, mDisplaySchedulers[value]);
+			if(value != mCurrentSchedulerIndex){
+				mCurrentSchedulerIndex = value;
+				mHandler.sendEmptyMessage(MSG_SCHEDULER);
+				mPrefScheduler.setSummary(mDisplaySchedulers[mCurrentSchedulerIndex]);
+				mEdit.putString(PREF_SCHEDULER, mDisplaySchedulers[value]);
+			}
 		}
 		mEdit.commit();
 		

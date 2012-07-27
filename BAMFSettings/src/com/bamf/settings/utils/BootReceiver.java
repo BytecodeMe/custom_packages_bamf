@@ -113,7 +113,7 @@ public class BootReceiver extends BroadcastReceiver {
 		
 		Intent serviceIntent = null;
 		try {
-			serviceIntent = new Intent(mContext.createPackageContext("com.bamf.BAMFUtils", 0)
+			serviceIntent = new Intent(mContext.createPackageContext("com.bamf.bamfutils", 0)
 			        , BAMFRootService.class);	
 			
 			serviceIntent.putExtra("bundle", bundle);

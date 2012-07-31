@@ -97,6 +97,7 @@ public class SystemBasicFragment extends PreferenceFragment
     	mMountSystem = (BAMFSwitchPreference)findPreference(PREF_MOUNT);
     	
     	mEndCall = (BAMFSwitchPreference)findPreference(PREF_END_CALL);
+    	mVolSkip = (BAMFSwitchPreference)findPreference(PREF_VOL_SKIP);
     	mAppsPreference = findPreference(PREF_MANAGE);
     	mBrightPreference = findPreference(PREF_BRIGHT);
     	 	

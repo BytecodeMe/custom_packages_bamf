@@ -60,6 +60,7 @@ public class SystemBasicFragment extends PreferenceFragment
     private static final String PREF_MANAGE = "pref_system_basic_manage";
     private static final String PREF_BRIGHT = "pref_system_basic_bright"; 
     private static final String PREF_END_CALL = "pref_system_basic_end_call"; 
+    private static final String PREF_VOL_SKIP = "pref_system_basic_vol_skip"; 
     private static final String PREF_HINT = "pref_bright_hint";  
     
 	private SettingsActivity mSettings;
@@ -67,6 +68,7 @@ public class SystemBasicFragment extends PreferenceFragment
 	private BAMFSwitchPreference mMountSystem;
 	
 	private BAMFSwitchPreference mEndCall;	
+	private BAMFSwitchPreference mVolSkip;
 	private Preference mAppsPreference;
 	private Preference mBrightPreference;	
 	
@@ -113,6 +115,11 @@ public class SystemBasicFragment extends PreferenceFragment
     	mEndCall.setOnPreferenceClickListener(this);
     	mEndCall.setChecked(Settings.System.getInt(mSettings.getContentResolver(), Settings.System.END_BUTTON_NOTIFICATION, 1)==1);
     	getPreferenceScreen().removePreference(mEndCall);
+    	
+    	mVolSkip.setOnPreferenceChangeListener(this);
+    	mVolSkip.setOnPreferenceClickListener(this);
+    	mVolSkip.setChecked(Settings.System.getInt(mSettings.getContentResolver(), Settings.System.VOL_KEYS_SKIP, 0)==1);
+    	
     	mMountSystem.setOnPreferenceChangeListener(this);
     	mMountSystem.setOnPreferenceClickListener(this);
     	
@@ -166,6 +173,8 @@ public class SystemBasicFragment extends PreferenceFragment
             }
         }else if(preference == mEndCall){
         	Settings.System.putInt(mSettings.getContentResolver(), Settings.System.END_BUTTON_NOTIFICATION, (Boolean) value ? 1:0);
+        }else if(preference == mVolSkip){
+        	Settings.System.putInt(mSettings.getContentResolver(), Settings.System.VOL_KEYS_SKIP, (Boolean) value ? 1:0);
         }
 		return true; 	
 	}

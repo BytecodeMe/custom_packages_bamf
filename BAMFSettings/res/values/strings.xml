@@ -149,6 +149,8 @@
     <string name="system_basic_bright_summary">Manage the autobrightness levels</string>
     <string name="system_basic_apps_title">Manage System Apps</string>
     <string name="system_basic_apps_summary">Enable, Disable, or completely remove system applications</string>
+    <string name="system_basic_vol_control_title">Volume Control</string>
+    <string name="system_basic_vol_control_summary">Adjust ringer and notification volumes together</string>
     
     <!-- Quick Settings -->
     <string name="quick_settings_title">Quick Settings</string>

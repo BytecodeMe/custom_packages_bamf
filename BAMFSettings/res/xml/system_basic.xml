@@ -16,7 +16,12 @@
 	
 	<com.bamf.settings.widgets.BAMFSwitchPreference 
 		android:title="@string/system_basic_vol_skip_title" 
-		android:key="pref_system_basic_vol_skip" />	
+		android:key="pref_system_basic_vol_skip" />
+	
+	<CheckBoxPreference 
+		android:title="@string/system_basic_vol_control_title"
+		android:summary="@string/system_basic_vol_control_summary" 
+		android:key="pref_system_basic_vol_control" />
 		
     <Preference android:summary="@string/system_basic_bright_summary"
 		android:title="@string/system_basic_bright_title"

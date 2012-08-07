@@ -242,11 +242,11 @@ implements OnPreferenceClickListener {
 	}
 
 	public void releaseService() {
-		if(mBound && mServiceConnection != null) {
+		try{
 			// this is an asynchronous call so we should not set the connection variable to null here
 			mActivity.unbindService(mServiceConnection);
 			Log.d(TAG, "service was stopped and unbound");
-		}       
+		}catch(Exception e){}      
 	}
 
 }

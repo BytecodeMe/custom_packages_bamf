@@ -29,6 +29,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -158,102 +159,23 @@ public class SettingsProvider extends ContentProvider {
     	return result;
     }
     
-    public static String getLastBackupDate(File backupLocation){
-    	if(backupLocation == null) return null;
-    	if (backupLocation.exists()) {
-    	    File[] child = backupLocation.listFiles();
-    	    for (int i = 0; i < child.length; i++) {
-    	    	Date lastModDate = new Date(child[i].lastModified());
-    	    	return lastModDate.toString();
-    	    }
-    	}
-    	return null;
-    }
-    
-    public static boolean backupDatabase(File backupTo){
-    	try{
-	    	// Local database
-	    	File from = new File(DB_PATH, DATABASE_NAME);
-	    	if(!from.canRead() || !from.exists()){
-	    		Log.d(TAG, "backupDatabase failed: from.canRead="+from.canRead()
-	    				+", from.exists="+from.exists()
-	    				+", path="+from.getAbsolutePath());
-	    		return false;
-	    	}
-	
-	        // Path to the external backup
-	        File to = new File(backupTo, DATABASE_NAME);
-	        
-	        InputStream input = new FileInputStream(from);
-	        OutputStream output = new FileOutputStream(to);
-	
-	        // transfer bytes from the Input File to the Output File
-	        byte[] buffer = new byte[1024];
-	        int length;
-	        while ((length = input.read(buffer))>0) {
-	            output.write(buffer, 0, length);
-	        }
-	
-	        output.flush();
-	        output.close();
-	        input.close();
-    	}catch(FileNotFoundException e){
-    		e.printStackTrace();
-    		return false;
-    	}catch(IOException e){
-    		e.printStackTrace();
-    		return false;
-    	}
-    	
-    	return true;
-    }
-    
-    public static boolean restoreDatabase(File restoreFrom){
-    	try{
-	    	// backup database
-	    	File from = new File(restoreFrom, DATABASE_NAME);
-	    	if(!from.exists())return false;
-	    	
-	        InputStream input = new FileInputStream(from);
-	
-	        // Path to the local db
-	        File to = new File(DB_PATH, DATABASE_NAME);
-	        OutputStream output = new FileOutputStream(to);
-	
-	        // transfer bytes from the Input File to the Output File
-	        byte[] buffer = new byte[1024];
-	        int length;
-	        while ((length = input.read(buffer))>0) {
-	            output.write(buffer, 0, length);
-	        }
-	
-	        output.flush();
-	        output.close();
-	        input.close();
-    	}catch(FileNotFoundException e){
-    		e.printStackTrace();
-    		return false;
-    	}catch(IOException e){
-    		e.printStackTrace();
-    		return false;
-    	}
-    	
-    	return true;
-    }
-    
     private SQLiteDatabase mDatabase;
     
     //@VisibleForTesting
     synchronized SQLiteDatabase getDatabase(Context context) {
         // Always return the cached database, if we've got one
         if (mDatabase != null) {
-        	deleteUninstalledPackages(context, mDatabase, Notifications.TABLE_NAME);
-            return mDatabase;
+        	try{
+        		mDatabase.getVersion();
+        		deleteUninstalledPackages(context, mDatabase, Notifications.TABLE_NAME);
+                return mDatabase;
+        	}catch(Exception e){
+        		mDatabase = null;
+        	}
         }
 
         DatabaseHelper helper = new DatabaseHelper(context, DATABASE_NAME);
         mDatabase = helper.getWritableDatabase();
-        mDatabase.setLockingEnabled(true);
 
         if (DEBUG) {
             Log.d(TAG, "Deleting uninstalled packages...");

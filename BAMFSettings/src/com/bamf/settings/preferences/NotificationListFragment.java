@@ -314,14 +314,9 @@ public class NotificationListFragment extends ListFragment implements
 				NotificationDescription details = null;
 				
 				Cursor c = getActivity().getContentResolver().query(Notifications.CONTENT_URI, 
-						null, null,	null, null);
+						null, null, null, null);
 		        
 				PackageManager pm = getActivity().getPackageManager();
-				PackageInfo sys = null;
-				try{
-					sys = pm.getPackageInfo("android",
-				        PackageManager.GET_SIGNATURES);
-				}catch(Exception e){}
 				
 				if(c.moveToFirst())mCounts[0] = c.getCount();
 				

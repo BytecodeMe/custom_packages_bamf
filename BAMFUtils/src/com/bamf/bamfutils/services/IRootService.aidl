@@ -12,4 +12,6 @@ interface IRootService {
   void setScheduler(String scheduler);
   void setVoltage(String file);
   void setKernelValue(String file, String value);
+  String getLastBackupDate(String dir);
+  boolean copyFile(String backupFrom, String backupTo, boolean isRestore);
 }

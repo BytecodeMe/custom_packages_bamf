@@ -3,26 +3,22 @@ package com.bamf.bamfutils.services;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
-import com.bamf.bamfutils.services.IRootService;
-import com.bamf.bamfutils.tools.Mount;
-import com.bamf.bamfutils.tools.RootTools;
-
-import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.IPackageDataObserver;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.provider.Settings;
 import android.util.Log;
+
+import com.bamf.bamfutils.tools.Mount;
+import com.bamf.bamfutils.tools.RootTools;
 
 public class BAMFRootService extends Service {
 	
@@ -117,6 +113,32 @@ public class BAMFRootService extends Service {
         isMounted = retval;
         return retval;
     }
+	
+	private String getLastBackupDate(String dir){
+    	File backupLocation = new File(dir, "databases");
+    	if (backupLocation.exists()) {
+    	    File[] child = backupLocation.listFiles();
+    	    for (int i = 0; i < child.length;) {
+    	    	Date lastModDate = new Date(child[i].lastModified());
+    	    	return lastModDate.toString();
+    	    }
+    	}
+    	return null;
+    }
+	
+	private boolean copyFile(String from, String to, boolean isRestore){
+		try{
+	    	RootTools.sendShell("busybox cp "+from+" "+to, -1);
+	    	if(isRestore){
+	    		RootTools.sendShell("chown 1000.1000 "+to, -1);
+	    		RootTools.sendShell("chmod 0660 "+to, -1);
+	    	}
+		}catch(Exception e){
+			return false;
+		}
+		
+		return true;
+	}
 	
 	/**
 	 * This is where we are writing Kernel control values if we can't manage it without root.  
@@ -311,6 +333,16 @@ public class BAMFRootService extends Service {
     	@Override
     	public void setKernelValue(String file,String value){
     		mService.get().setKernelValue(file,value);
+    	}
+    	
+    	@Override
+    	public String getLastBackupDate(String dir){
+    		return mService.get().getLastBackupDate(dir);
+    	}
+    	
+    	@Override 
+    	public boolean copyFile(String from, String to, boolean isRestore){
+    		return mService.get().copyFile(from, to, isRestore);
     	}
     };
 }

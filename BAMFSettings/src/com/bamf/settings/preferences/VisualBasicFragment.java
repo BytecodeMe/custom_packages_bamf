@@ -117,7 +117,22 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
     	}else{
     		prefSet.removePreference(mSkinTest);
     	}
-    }    
+    } 
+    
+    @Override
+    public void onPause(){    	
+    	mSettings.unregisterReceiver(mLauncherCompleteReceiver);
+    	super.onPause();
+    }
+    
+    @Override
+    public void onResume(){
+    	IntentFilter filter = new IntentFilter();
+        filter.addAction("com.bamf.settings.LAUNCHER_CHANGE_COMPLETE");
+    	mSettings.registerReceiver(mLauncherCompleteReceiver, filter);
+    	super.onResume();
+    }
+    
 
 	@Override
 	public boolean onPreferenceChange(Preference pref, Object newValue) {

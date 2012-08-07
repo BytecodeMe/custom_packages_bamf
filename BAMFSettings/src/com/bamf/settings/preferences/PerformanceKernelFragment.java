@@ -277,6 +277,13 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 		.show();                	
 	}
 	
+	@Override
+	public void onPause(){
+		
+		((ViewGroup) mDialogLayout.getParent()).removeView(mDialogLayout);		
+		super.onPause();
+	}
+	
 	/**
 	 * Writes the new values to the corresponding files.  If it fails for some reason with the fileWriter, try it again with root permissions.
 	 * Root is not the preferred method here, but if RAMDisk permissions aren't set correctly, we have no choice.

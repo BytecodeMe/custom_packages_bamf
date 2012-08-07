@@ -120,16 +120,20 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
     } 
     
     @Override
-    public void onPause(){    	
-    	mSettings.unregisterReceiver(mLauncherCompleteReceiver);
+    public void onPause(){  
+    	
+    	if(mSettings != null && mLauncherCompleteReceiver != null)
+    		mSettings.unregisterReceiver(mLauncherCompleteReceiver);
     	super.onPause();
     }
     
     @Override
     public void onResume(){
-    	IntentFilter filter = new IntentFilter();
-        filter.addAction("com.bamf.settings.LAUNCHER_CHANGE_COMPLETE");
-    	mSettings.registerReceiver(mLauncherCompleteReceiver, filter);
+    	if(mSettings != null){
+    		IntentFilter filter = new IntentFilter();
+    		filter.addAction("com.bamf.settings.LAUNCHER_CHANGE_COMPLETE");
+    		mSettings.registerReceiver(mLauncherCompleteReceiver, filter);
+    	}
     	super.onResume();
     }
     

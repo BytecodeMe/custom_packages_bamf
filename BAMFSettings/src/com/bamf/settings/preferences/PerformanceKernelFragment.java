@@ -280,7 +280,8 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	@Override
 	public void onPause(){
 		
-		((ViewGroup) mDialogLayout.getParent()).removeView(mDialogLayout);		
+		if(mDialogLayout != null)
+			((ViewGroup) mDialogLayout.getParent()).removeView(mDialogLayout);		
 		super.onPause();
 	}
 	

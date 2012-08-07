@@ -11,14 +11,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemProperties;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.internal.view.RotationPolicy;
 import com.bamf.bamfutils.services.IRootService;
 import com.bamf.bamfutils.services.BAMFRootService;
 import com.bamf.settings.R;
@@ -62,7 +67,23 @@ public class SettingsActivity extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        
+        super.onCreate(savedInstanceState); 
+        
+        Resources res = getResources();
+        boolean enableScreenRotation =
+                SystemProperties.getBoolean("lockscreen.rot_override",false)
+                || ((res.getBoolean(com.android.internal.R.bool.config_enableLockScreenRotation) && 
+                		Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION,0) == 1));
+        
+        if (enableScreenRotation) {            
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        } else {            
+            if(res.getBoolean(com.android.internal.R.bool.config_enableLockScreenRotation) && RotationPolicy.isRotationLocked(this)){
+            	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            }else{
+            	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            }
+        }
         
         setContentView(R.layout.settings_pane);
         mState = savedInstanceState;

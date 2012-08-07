@@ -7,14 +7,18 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.RemoteException;
+import android.os.SystemProperties;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.internal.view.RotationPolicy;
 import com.bamf.settings.R;
 import com.bamf.settings.adapters.AppAdapter;
 import com.bamf.settings.adapters.PackageDescription;
@@ -49,6 +54,22 @@ public class SystemAppsActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Resources res = getResources();
+        boolean enableScreenRotation =
+                SystemProperties.getBoolean("lockscreen.rot_override",false)
+                || ((res.getBoolean(com.android.internal.R.bool.config_enableLockScreenRotation) && 
+                		Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION,0) == 1));
+        
+        if (enableScreenRotation) {            
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        } else {            
+            if(res.getBoolean(com.android.internal.R.bool.config_enableLockScreenRotation) && RotationPolicy.isRotationLocked(this)){
+            	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            }else{
+            	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            }
+        }
 
         // use a custom layout in case we want to change it later
         setContentView(R.layout.app_listview);

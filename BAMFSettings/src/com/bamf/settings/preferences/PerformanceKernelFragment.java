@@ -269,20 +269,13 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 
 			@Override
 			public void onCancel(DialogInterface dialog) {
-				((ViewGroup) mDialogLayout.getParent()).removeView(mDialogLayout);			
+				//TODO: Why???
+				//((ViewGroup) mDialogLayout.getParent()).removeView(mDialogLayout);			
 				mOldValue = values.length;
 			}
 			
 		})
 		.show();                	
-	}
-	
-	@Override
-	public void onPause(){
-		
-		if(mDialogLayout != null)
-			((ViewGroup) mDialogLayout.getParent()).removeView(mDialogLayout);		
-		super.onPause();
 	}
 	
 	/**

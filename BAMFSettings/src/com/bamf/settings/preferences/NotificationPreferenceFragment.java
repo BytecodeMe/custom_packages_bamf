@@ -3,9 +3,11 @@ package com.bamf.settings.preferences;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.Notification.Notifications;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.IContentProvider;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -202,9 +204,16 @@ implements OnPreferenceClickListener {
 						Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
 							.getAbsolutePath()+"/databases/"+DATABASE_NAME,
 						mActivity.getDatabasePath(DATABASE_NAME).getAbsolutePath(), true);
+					// force the provider to read from the disk now
+					final IContentProvider cp = mActivity.getContentResolver().acquireProvider(Notifications.AUTHORITY);
+	                if(cp!=null){
+	                	cp.call("clearCache", null, null);
+	                }
 					Toast.makeText(mActivity, result?"Restore successful":"Restore failed!", Toast.LENGTH_SHORT).show();
-				}catch(RemoteException e){}
-			}
+				}catch(RemoteException e){
+					Toast.makeText(mActivity, "Restore failed!", Toast.LENGTH_SHORT).show();
+				}
+			}	
 			return true;
 		}
 		return false;

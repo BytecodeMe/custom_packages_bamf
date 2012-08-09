@@ -145,7 +145,7 @@ public class SettingsProvider extends ContentProvider {
     
     /**
      * Just delete the whole database when the user requests a reset
-     * @return
+     * @hide
      */
     public static boolean resetTables(){
     	boolean result = false;
@@ -258,6 +258,8 @@ public class SettingsProvider extends ContentProvider {
     		finally{
     			if(c!=null)c.close();
     		}
+    	}else if(tableName.equals("clearCache")){
+    		mDatabase = null;
     	}
     	
     	return value;

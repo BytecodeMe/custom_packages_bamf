@@ -77,7 +77,7 @@ public class VisualLockscreenActivity extends PreferenceActivity implements OnCl
     	mResolver = getContentResolver();
     	
     	mLockscreenView = findViewById(R.id.lockscreen_settings);
-    	findViewById(R.id.lockscreen_backer).setBackgroundDrawable(getWallpaper());
+    	findViewById(R.id.lockscreen_backer).setBackground(getWallpaper());
     	setupViews();
     	getLoadedApps();
     	setViewStates();

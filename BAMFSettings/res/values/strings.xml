@@ -27,14 +27,14 @@
     <string name="help">Help</string>
     <string name="on">On</string>
     <string name="off">Off</string>
-    <string name="ok">Ok</string>
+    <string name="ok">@android:string/ok</string>
 	<string name="set">Set</string>
 	<string name="hex">HEX</string>
 	<string name="color_hex_invalid">Invalid code</string>
     <string name="default_scroll_format">Page %1$d of %2$d</string>    
     
     <!-- Lockscreen settings -->
-    <string name="configure_targets">Configure Targets</string>
+    <string name="configure_behavior">Configure Behavior</string>
     <string name="lockscreen_left_target">Set Left Target Mode</string>
     <string name="lockscreen_add_shortcut">Add Shortcut</string>
     <string name="lockscreen_clear_shortcut">Clear All</string>
@@ -42,6 +42,8 @@
     <string name="lockscreen_bad_target_title">Oops!</string>
     <string name="lockscreen_bad_target_description">It appears that one of your lockscreen shortcuts has a problem, indicated by a red &quot;X&quot;.  This is usually a result of removing the app associated with it.  To prevent problems, please reset the shortcut by tapping the target and selecting a new shortcut before adding any more.</string>
     <string name="lockscreen_target_hint">Click \"Add Shortcut\" to add additional targets.\nTap a target to assign or change the shortcut.</string>
+    <string name="show_lock_before_unlock_title">Show lock before unlock</string>
+    <string name="show_lock_before_unlock_summary">Always show the default slide lock before a secure one</string>
     
     <!-- New layout items -->
     <string name="disable">Disable</string>

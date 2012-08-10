@@ -9,7 +9,7 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/configure_targets"
+        android:text="@string/configure_behavior"
         android:textAppearance="?android:attr/listSeparatorTextViewStyle" 
         android:layout_margin="5dip"/>
         
@@ -36,19 +36,22 @@
         	android:layout_width="match_parent" 
         	android:layout_height="wrap_content" 
         	android:layout_alignParentTop="true"/>
-        	
+        
+        <!-- TODO: make this visible again once the code is added back in -->	
         <TextView android:id="@+id/textView2" 
         	android:layout_width="wrap_content" 
         	android:layout_height="wrap_content" 
         	android:text="@string/lockscreen_target_hint" 
         	android:layout_above="@+id/lockscreen_settings" 
-        	android:layout_centerHorizontal="true"/>
+        	android:layout_centerHorizontal="true"
+        	android:visibility="invisible" />
         	
         <include android:id="@+id/lockscreen_settings" 
         	android:layout_width="wrap_content" 
         	android:layout_height="wrap_content" 
         	layout="@layout/lockscreen_layout" 
-        	android:layout_alignParentBottom="true"/>
+        	android:layout_alignParentBottom="true"
+        	android:visibility="invisible" />
     </RelativeLayout>
 
 </LinearLayout>

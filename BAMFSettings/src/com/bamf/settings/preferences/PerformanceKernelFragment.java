@@ -79,9 +79,9 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	
 	private SettingsActivity mSettings;
 	private LayoutInflater mLayoutInflater;
-	private NumberPicker mNumberPicker;
-	private LinearLayout mDialogLayout;
-	private TextView mCurrentClock;
+//	private NumberPicker mNumberPicker;
+//	private LinearLayout mDialogLayout;
+//	private TextView mCurrentClock;
 	
 	private int mOldValue = 0;
 	
@@ -211,9 +211,9 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	    mEdit = mPrefs.edit();         
                 
         mLayoutInflater = mSettings.getLayoutInflater();
-        mDialogLayout = (LinearLayout) mLayoutInflater.inflate(R.layout.custom_picker,null);
-        mNumberPicker = (NumberPicker)mDialogLayout.findViewById(R.id.value);
-        mCurrentClock = (TextView)mDialogLayout.findViewById(R.id.currentSpeed);        
+//        mDialogLayout = (LinearLayout) mLayoutInflater.inflate(R.layout.custom_picker,null);
+//        mNumberPicker = (NumberPicker)mDialogLayout.findViewById(R.id.value);
+//        mCurrentClock = (TextView)mDialogLayout.findViewById(R.id.currentSpeed);        
         
         mPrefCPUMin = findPreference(PREF_CPU_MIN);
         mPrefCPUMin.setOnPreferenceClickListener(this);
@@ -237,26 +237,29 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	
 	public void showDialog(String title, final String[] values, int index){				
 				
+		LinearLayout dialogLayout = (LinearLayout) mLayoutInflater.inflate(R.layout.custom_picker,null);
+        final NumberPicker numberPicker = (NumberPicker)dialogLayout.findViewById(R.id.value);
+        TextView currentClock = (TextView)dialogLayout.findViewById(R.id.currentSpeed);    
 		//Displays the numberPicker for setting values
-		mNumberPicker.setMinValue(0);
-		mNumberPicker.setValue(index);
+		numberPicker.setMinValue(0);
+		numberPicker.setValue(index);
 		if(values.length > mOldValue && mOldValue > 0){
-			mNumberPicker.setDisplayedValues(values);
-			mNumberPicker.setMaxValue(values.length - 1);	
+			numberPicker.setDisplayedValues(values);
+			numberPicker.setMaxValue(values.length - 1);	
 		}else{
-			mNumberPicker.setMaxValue(values.length - 1);	
-			mNumberPicker.setDisplayedValues(values);
+			numberPicker.setMaxValue(values.length - 1);	
+			numberPicker.setDisplayedValues(values);
 		}	
-		mNumberPicker.setValue(index);
-		mNumberPicker.setWrapSelectorWheel(false);
-		mCurrentClock.setText(values[index]);
+		numberPicker.setValue(index);
+		numberPicker.setWrapSelectorWheel(false);
+		currentClock.setText(values[index]);
 		
 		new AlertDialog.Builder(getActivity())
 		.setTitle(title)		
-		.setView(mDialogLayout)
+		.setView(dialogLayout)
 		.setPositiveButton(getString(com.android.internal.R.string.date_time_set), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {				
-				applySetting(mNumberPicker.getValue());
+				applySetting(numberPicker.getValue());
 				dialog.cancel();
 			}
 		})
@@ -268,9 +271,7 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 		.setOnCancelListener(new OnCancelListener(){
 
 			@Override
-			public void onCancel(DialogInterface dialog) {
-				//TODO: Why???
-				//((ViewGroup) mDialogLayout.getParent()).removeView(mDialogLayout);			
+			public void onCancel(DialogInterface dialog) {				
 				mOldValue = values.length;
 			}
 			

@@ -201,8 +201,7 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 					sb.append(" ");
 				}
 			}
-		}
-		Log.d("KERNEL",sb.toString());
+		}		
 		return sb.toString();
 	}
 

@@ -42,8 +42,6 @@ public class VisualLockscreenFragment extends PreferenceFragment implements OnPr
     	int def = Settings.System.getInt(mResolver, Settings.System.SHOW_CAMERA_LOCKSCREEN, 1);
     	mTargetMode.setSummary(mSettings.getResources().getStringArray(R.array.lockscreen_left_target_entries)[def]);
     	mTargetMode.setValueIndex(def);
-    	// TODO: add this setting back into the lock screen class before enabling
-    	mTargetMode.setEnabled(false);
     	
     	mLockUnlock = (CheckBoxPreference) findPreference(LOCK_UNLOCK_PREF);
     	mLockUnlock.setChecked(Settings.System.getInt(mResolver, Settings.System.SHOW_LOCK_BEFORE_UNLOCK,0)==1);

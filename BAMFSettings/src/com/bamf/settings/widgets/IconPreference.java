@@ -64,6 +64,9 @@ public class IconPreference extends Preference {
         if ((icon != null && mIcon == null) || (icon != null && !icon.equals(mIcon))) {
             mIcon = icon.mutate();
             notifyChanged();
+        }else if(icon == null){
+        	mIcon = icon;
+        	notifyChanged();
         }
     }
     

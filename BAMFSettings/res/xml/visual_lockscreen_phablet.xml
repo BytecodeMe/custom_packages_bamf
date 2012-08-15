@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <PreferenceCategory android:title="Configure Targets">
+    	<com.bamf.settings.widgets.IconPreference
+	        android:key="lockscreen_target_one"
+	        android:title="Target 1"	         
+		/>
+    	
+    	<com.bamf.settings.widgets.IconPreference
+	        android:key="lockscreen_target_two"
+	        android:title="Target 2"	         
+		/>
+    	
+    	<com.bamf.settings.widgets.IconPreference
+	        android:key="lockscreen_target_three"
+	        android:title="Target 3"	         
+		/>
+	
+	
+	</PreferenceCategory>
+
+</PreferenceScreen>

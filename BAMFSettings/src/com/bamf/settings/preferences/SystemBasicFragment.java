@@ -127,6 +127,7 @@ public class SystemBasicFragment extends PreferenceFragment
     	
     	mVolControl.setOnPreferenceChangeListener(this);
     	mVolControl.setChecked(Settings.System.getInt(mSettings.getContentResolver(), Settings.System.CONTROL_RINGER_NOTIF_VOLUME, 0)==1);
+    	getPreferenceScreen().removePreference(mVolControl);
     	
     	mMountSystem.setOnPreferenceChangeListener(this);
     	mMountSystem.setOnPreferenceClickListener(this);

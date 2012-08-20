@@ -57,7 +57,7 @@ public class VisualLockscreenActivity extends PreferenceActivity implements OnCl
         super.onCreate(savedInstanceState);
         
         Resources res = getResources();
-        boolean isPhablet = res.getBoolean(com.android.internal.R.bool.config_enableLockScreenRotation);
+        boolean isPhablet = res.getBoolean(R.bool.config_isPhablet);
         boolean enableScreenRotation =
                 SystemProperties.getBoolean("lockscreen.rot_override",false)
                 || (isPhablet && 

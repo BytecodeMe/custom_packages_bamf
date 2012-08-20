@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
+    <Preference 
+    	android:title="@string/configure_navigation_keys" 
+    	android:key="pref_visual_navbar_setup"
+    />   
+    
     <com.bamf.settings.widgets.BAMFSwitchPreference 
     	android:title="@string/reflect_key_title" 
     	android:key="pref_visual_navbar_reflect"
-    />
-    
-    <com.bamf.settings.widgets.BAMFSwitchPreference 
-    	android:title="@string/search_key_title" 
-    	android:key="pref_visual_navbar_search"
-    />
-    
-    <CheckBoxPreference android:key="pref_long_press_def"
-    	android:title="@string/pref_lng_press_default_title"
-    	android:summary="@string/pref_lng_press_default_summary"
-    />
-    
-    <com.bamf.settings.widgets.IconPreference
-	        android:key="pref_custom_search"
-	        android:title="@string/pref_custom_search_title"
-	        android:dependency="pref_long_press_def" 
-	/>
+    />     
 	
 	<PreferenceCategory android:title="@string/category_navbar_buttons">
 		<com.bamf.settings.widgets.BAMFPreference android:key="pref_color_picker"

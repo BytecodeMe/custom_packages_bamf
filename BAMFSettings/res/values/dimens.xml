@@ -18,5 +18,7 @@
     <!-- icon popup -->
     <dimen name="select_icon_size">55.0dip</dimen>
     <dimen name="select_icon_which_marginLeft">12.0dip</dimen>
+    <!-- The width of the view containing non-menu status bar icons -->
+    <dimen name="navigation_key_width">80dip</dimen>
     
 </resources>

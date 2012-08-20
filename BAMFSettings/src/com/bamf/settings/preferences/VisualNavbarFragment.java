@@ -33,9 +33,7 @@ import com.bamf.settings.widgets.IconPreference;
 public class VisualNavbarFragment extends PreferenceFragment implements OnPreferenceChangeListener,OnPreferenceClickListener{
 	
 	private static final String PREF_NAVBAR_REFLECT = "pref_visual_navbar_reflect";
-	private static final String PREF_NAVBAR_SEARCH = "pref_visual_navbar_search";
-	private static final String PREF_SEARCH_LONG_PRESS_CHECK = "pref_long_press_def";
-	private static final String PREF_SEARCH_LONG_PRESS_ACTIVITY = "pref_custom_search";
+	private static final String PREF_NAVBAR_SETUP = "pref_visual_navbar_setup";	
 	private static final String PREF_COLOR_PICKER = "pref_color_picker";
 	private static final String PREF_GLOW_PICKER = "pref_glow_picker";
 	
@@ -49,9 +47,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements OnPrefer
 	private ContentResolver mResolver;
 	
 	private BAMFSwitchPreference mNavbarReflect;
-	private BAMFSwitchPreference mNavbarSearch;
-	private CheckBoxPreference mUseSearchDefault;
-	private IconPreference mSearchActivity;
+	private Preference mNavbarSetup;	
 	private BAMFPreference mColorPickerPref;
 	private Preference mGlowPickerPref;
 	
@@ -81,25 +77,11 @@ public class VisualNavbarFragment extends PreferenceFragment implements OnPrefer
         mNavbarReflect.setOnPreferenceChangeListener(this);
         mNavbarReflect.setOnPreferenceClickListener(this);
         
-    	mNavbarSearch = (BAMFSwitchPreference) findPreference(PREF_NAVBAR_SEARCH);
-        mNavbarSearch.setChecked(Settings.System.getInt(mResolver,
-        		Settings.System.SHOW_NAVBAR_SEARCH, 0) != 0);
-        mNavbarSearch.setOnPreferenceChangeListener(this);
-        mNavbarSearch.setOnPreferenceClickListener(this);
+    	mNavbarSetup = (Preference) findPreference(PREF_NAVBAR_SETUP);       
+        mNavbarSetup.setOnPreferenceClickListener(this);
         
         mColorPickerPref = (BAMFPreference) findPreference(PREF_COLOR_PICKER);
-        mGlowPickerPref = (Preference) findPreference(PREF_GLOW_PICKER);
-        
-        
-        mUseSearchDefault = (CheckBoxPreference) findPreference(PREF_SEARCH_LONG_PRESS_CHECK);
-        mUseSearchDefault.setChecked(Settings.System.getInt(mSettings.getContentResolver(),
-                     Settings.System.USE_CUSTOM_LONG_SEARCH_APP_TOGGLE, 0)==1);
-        if(mUseSearchDefault.isChecked()){
-            mUseSearchDefault.setSummary(R.string.pref_lng_press_default_summary_on);
-        }else{
-            mUseSearchDefault.setSummary(R.string.pref_lng_press_default_summary);
-        }
-        mSearchActivity = (IconPreference) findPreference(PREF_SEARCH_LONG_PRESS_ACTIVITY);
+        mGlowPickerPref = (Preference) findPreference(PREF_GLOW_PICKER);       
         
         getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
@@ -118,17 +100,10 @@ public class VisualNavbarFragment extends PreferenceFragment implements OnPrefer
     
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if(preference == mUseSearchDefault){
-            Settings.System.putInt(mSettings.getContentResolver(),
-                     Settings.System.USE_CUSTOM_LONG_SEARCH_APP_TOGGLE, mUseSearchDefault.isChecked()?1:0);
-            if(mUseSearchDefault.isChecked()){
-                mUseSearchDefault.setSummary(R.string.pref_lng_press_default_summary_on);
-            }else{
-                mUseSearchDefault.setSummary(R.string.pref_lng_press_default_summary);
-            }
-            return true;
-        }else if(preference == mSearchActivity){
-            pickShortcut();
+    	
+        if(preference == mNavbarSetup){ 
+        	Intent i = new Intent("com.bamf.settings.visualnavbarsetup");
+			startActivity(i);
             return true;
         }else if(preference == mColorPickerPref){
             showColorPicker(Settings.System.getInt(mResolver, Settings.System.NAVBAR_BUTTON_COLOR, Color.WHITE),
@@ -147,11 +122,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements OnPrefer
     @Override
 	public boolean onPreferenceChange(Preference pref, Object newValue) {
     	
-    	if (pref == mNavbarSearch) {    		
-            Settings.System.putInt(mResolver, Settings.System.SHOW_NAVBAR_SEARCH,
-                    (Boolean) newValue ? 1 : 0);
-            return true;
-    	}else if(pref == mNavbarReflect) {
+    	if(pref == mNavbarReflect) {
     		Settings.System.putInt(mResolver, Settings.System.SHOW_NAVBAR_REFLECTION,
                     (Boolean) newValue ? 1 : 0);
             return true;
@@ -296,10 +267,10 @@ public class VisualNavbarFragment extends PreferenceFragment implements OnPrefer
     }
     
     private void setupCustomToggle(Intent data){
-        try {
-            mSearchActivity.setSummary(pm.resolveActivity(data,0).activityInfo.loadLabel(pm));
-            mSearchActivity.setIcon(pm.getActivityIcon(data));
-        } catch (Throwable t) {}
+//        try {
+//            mSearchActivity.setSummary(pm.resolveActivity(data,0).activityInfo.loadLabel(pm));
+//            mSearchActivity.setIcon(pm.getActivityIcon(data));
+//        } catch (Throwable t) {}
     }
 
 }

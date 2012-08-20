@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <com.bamf.settings.widgets.BAMFSwitchPreference 
+    	android:title="@string/navbar_cursor"     		
+    	android:key="pref_visual_navbar_cursor"/>
+    		
+    <ListPreference android:key="pref_visual_navbar_menu" 
+    	android:entries="@array/navbar_menu_entries" 
+    	android:title="@string/navbar_menu_behavior" 
+    	android:entryValues="@array/navbar_menu_values"/>
+
+</PreferenceScreen>

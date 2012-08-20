@@ -66,10 +66,10 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.VisualSkinActivity"
+        <activity android:name=".activities.VisualNavbarActivity"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="com.bamf.settings.visualskinchooser"/>
+                <action android:name="com.bamf.settings.visualnavbarsetup"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

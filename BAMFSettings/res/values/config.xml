@@ -2,5 +2,6 @@
     <bool name="config_hardwareAccelerated">true</bool>
     <bool name="config_largeHeap">false</bool>   
     <!-- Tab transition animation duration -->
-    <integer name="config_tabTransitionDuration">250</integer>     
+    <integer name="config_tabTransitionDuration">250</integer>  
+    <bool name="config_isPhablet">false</bool>      
 </resources>

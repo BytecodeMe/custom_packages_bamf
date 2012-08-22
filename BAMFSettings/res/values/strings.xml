@@ -81,6 +81,8 @@
     <string name="summary_navbar_glow_picker">Choose the color for the button glow</string>
     <string name="title_color_picker_dialog">Choose button color</string>
     <string name="title_glow_picker_dialog">Choose glow color</string>
+    <string name="navbar_save">Save Layout Changes</string>
+    <string name="navbar_instruct">Long press and drag to arrange the navbar keys to your liking. Click a key to set the long press behavior.</string>
     
     <!-- Visual Basic -->
     <string name="lockscreen_pref_title">Configure Lockscreen</string>

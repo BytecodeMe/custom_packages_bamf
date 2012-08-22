@@ -23,69 +23,311 @@
         android:name="com.bamf.settings.preferences.VisualNavbarSetupFragment" 
         android:layout_width="match_parent" 
         android:layout_height="wrap_content"/>
-        	
-    <LinearLayout
-        android:id="@+id/available_container"
-        android:layout_marginTop="40dip"
-        android:layout_width="match_parent"
-    	android:layout_height="@*android:dimen/navigation_bar_height"
-    	android:orientation="horizontal" >
+    
+    <ImageView
+    	android:layout_width="match_parent"
+    	android:layout_height="2dip"
+    	android:layout_marginTop="5dip"
+    	android:layout_marginBottom="5dip"
+    	android:paddingLeft="20dip"
+    	android:paddingRight="20dip"
+    	android:src="@drawable/list_divider_holo_dark" 
+    	android:scaleType="fitXY"/> 
     	
-        <ImageView
-            android:id="@+id/available_one"
-            android:layout_marginLeft="40dip"
-            android:src="@drawable/ic_sysbar_back"
-            android:scaleType="center"
-			android:layout_width="@dimen/navigation_key_width"
-    		android:layout_height="match_parent" />
-        <View 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+    <TextView
+        android:layout_width="match_parent"
+        android:text="@string/navbar_instruct"
+        android:paddingLeft="20dip"   
+        android:paddingRight="20dip"     
+        android:textSize="16sp"        
+    	android:layout_height="wrap_content" />
+    
+    <ImageView
+    	android:layout_width="match_parent"
+    	android:layout_height="2dip"
+    	android:layout_marginTop="8dip"
+    	android:layout_marginBottom="5dip"
+    	android:paddingLeft="20dip"
+    	android:paddingRight="20dip"
+    	android:src="@drawable/list_divider_holo_dark" 
+    	android:scaleType="fitXY"/> 
+    
+    <com.bamf.settings.widgets.NavbarDragView
+        android:id="@+id/avail_container"
+        android:layout_width="match_parent"
+        android:layout_height="70dip"        
+        android:background="@null"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" > 
+        <Space
+        	android:id="@+id/view1"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />       
+
+
+
+    	<FrameLayout
+    	    android:id="@+id/avail_container_1"
+    	    android:layout_width="10dip"
+    	    android:layout_height="match_parent"    	    
+    	    android:tag="1" >
+
+        	<ImageView
+            	android:id="@+id/image_1"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/view1"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+
+    	<FrameLayout
+    	    android:id="@+id/avail_container_2"
+    	    android:layout_width="10dip"
+    	    android:tag="2"
+    	    android:layout_height="match_parent" >
+
+
+
+
+        	<ImageView
+        	    android:id="@+id/image_2"
+        	    android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/View01"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+
+    	<FrameLayout
+    	    android:id="@+id/avail_container_3"
+    	    android:layout_width="10dip"
+    	    android:tag="3"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_3"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/View02"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+
+    	<FrameLayout
+    	    android:id="@+id/avail_container_4"
+    	    android:layout_width="10dip"
+    	    android:tag="4"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_4"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/View03"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+
+    	<FrameLayout
+    	    android:id="@+id/avail_container_5"
+    	    android:layout_width="10dip"
+    	    android:tag="5"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_5"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/view1"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+	</com.bamf.settings.widgets.NavbarDragView>
+
+	<com.bamf.settings.widgets.NavbarDragView
+	    android:id="@+id/current_container"
+	    android:layout_width="match_parent"
+	    android:layout_height="70dip"
+	    android:layout_marginTop="5dip"
+	    android:background="@null"
+	    android:orientation="horizontal" >
+    	<Space
+        	android:id="@+id/view1"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+    	<FrameLayout
+    	    android:id="@+id/current_container_1"
+    	    android:layout_width="10dip"
+    	    android:tag="1"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_1"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/view1"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+    	<FrameLayout
+    	    android:id="@+id/current_container_2"
+    	    android:layout_width="10dip"
+    	    android:tag="2"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_2"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/View01"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+    	<FrameLayout
+    	    android:id="@+id/current_container_3"
+    	    android:layout_width="10dip"
+    	    android:tag="3"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_3"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/View02"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+    	<FrameLayout
+    	    android:id="@+id/current_container_4"
+    	    android:layout_width="10dip"
+    	    android:tag="4"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_4"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/View03"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+
+    	<FrameLayout
+    	    android:id="@+id/current_container_5"
+    	    android:layout_width="10dip"
+    	    android:tag="5"
+    	    android:layout_height="match_parent" >
+
+        	<ImageView
+            	android:id="@+id/image_5"
+            	android:layout_width="wrap_content"
+            	android:layout_height="48dip"
+            	android:layout_gravity="center"
+            	android:scaleType="center"
+            	android:src="@null" />
+    	</FrameLayout>
+    	<Space
+        	android:id="@+id/view1"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:layout_weight="1" />
+	</com.bamf.settings.widgets.NavbarDragView>
+	
+	<Space
+        android:id="@+id/view11"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+	    
+	<LinearLayout android:id="@+id/buttonPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:divider="?android:attr/dividerHorizontal"
+        android:gravity="bottom"
+        android:showDividers="beginning">
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:measureWithLargestChild="true">
+            <LinearLayout android:id="@+id/leftSpacer"
+                android:layout_weight="0.25"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+            <Button android:id="@+id/navbar_button_save"
+                android:layout_width="0dip"
+                android:layout_gravity="right"
                 android:layout_weight="1"
-                android:visibility="invisible"
-                />
-        <ImageView
-            android:id="@+id/available_two"
-            android:src="@drawable/ic_sysbar_menu_large"   
-            android:scaleType="center"         
-			android:layout_width="@dimen/navigation_key_width"
-    		android:layout_height="match_parent" />
-        <View 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                />
-        <ImageView
-            android:id="@+id/available_three"   
-            android:src="@drawable/ic_sysbar_home" 
-            android:scaleType="center"        
-			android:layout_width="@dimen/navigation_key_width"
-    		android:layout_height="match_parent" />
-        <View 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                />
-        <ImageView
-            android:id="@+id/available_four"  
-            android:src="@drawable/ic_sysbar_recent" 
-            android:scaleType="center"         
-			android:layout_width="@dimen/navigation_key_width"
-    		android:layout_height="match_parent" />
-        <View 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                />
-        <ImageView
-            android:id="@+id/available_five" 
-            android:src="@drawable/ic_sysbar_search" 
-            android:layout_marginRight="40dip"
-			android:scaleType="center"         
-			android:layout_width="@dimen/navigation_key_width"
-    		android:layout_height="match_parent" />
-	</LinearLayout>   
+                android:maxLines="2"
+                android:text="@string/navbar_save"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content" />            
+            <LinearLayout android:id="@+id/rightSpacer"
+                android:layout_width="0dip"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+        </LinearLayout>
+     </LinearLayout>
 </LinearLayout>

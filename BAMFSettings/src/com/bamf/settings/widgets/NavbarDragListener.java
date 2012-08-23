@@ -8,6 +8,8 @@ import com.bamf.settings.R;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
@@ -67,6 +69,7 @@ public class NavbarDragListener implements OnDragListener {
 								((View) v.getParent()).findViewById(R.id.current_container)).getKeyTags().split(" "));
 						updateAvailableKeys(listToString(keys),true);	
 						view.setVisibility(View.VISIBLE);
+						makePowSound();
 						Toast.makeText(mContext, "You kinda need those keys. Knock it off!", Toast.LENGTH_SHORT).show();
 						badCount =0;
 						return true;
@@ -105,6 +108,31 @@ public class NavbarDragListener implements OnDragListener {
 			break;
 		}
 		return true;
+	}
+	
+	private void makePowSound(){
+		final String POW_URL = "http://soundbible.com/mp3/10%20Guage%20Shotgun-SoundBible.com-74120584.mp3";
+		final MediaPlayer mMediaPlayer = new MediaPlayer();
+		
+		new Thread(new Runnable(){
+			 @Override
+				public void run() {
+					 try{
+						 mMediaPlayer.setDataSource(POW_URL);
+						 final AudioManager audioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+						 if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) != 0) {
+							 mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+							 mMediaPlayer.setLooping(false);
+							 mMediaPlayer.prepare();
+							 mMediaPlayer.start();
+						  }
+					 }catch(Exception e){
+						 //ignore
+						 e.printStackTrace();
+					 }
+			
+			}
+		 }).start();
 	}
 
 	private String[] listToString(List<String> keys) {	

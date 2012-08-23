@@ -47,7 +47,7 @@ public class VisualNavbarActivity extends Activity implements OnClickListener {
     
     private NavbarDragView mAvailContainer;
 	private NavbarDragView mCurrentContainer; 
-	private PackageManager pm;
+	private PackageManager mPm;
 	private String mSelectedKey;
 	CharSequence[] items = {};
 	 
@@ -84,7 +84,7 @@ public class VisualNavbarActivity extends Activity implements OnClickListener {
 		mAvailContainer.setupViews(avail,false,this);
         
 		findViewById(R.id.navbar_button_save).setOnClickListener(this);
-		pm = getPackageManager();
+		mPm = getPackageManager();
     	setupActionBar();
     	
     }    
@@ -189,7 +189,7 @@ public class VisualNavbarActivity extends Activity implements OnClickListener {
 				action.equals(ACTION_KILL)) return newAction;
 		
 		try{
-			newAction = pm.getPackageInfo(action, 0).applicationInfo.loadLabel(pm).toString();
+			newAction = mPm.getPackageInfo(action, 0).applicationInfo.loadLabel(mPm).toString();
 		}catch (Exception e){		
 		}
 		return newAction;

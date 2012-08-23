@@ -150,14 +150,14 @@ public class AppAdapter extends BaseAdapter implements SectionIndexer {
 		switch(id){
 			case R.id.background:
 				if(nd.background<0){
-					tmp.setBackgroundDrawable(
+					tmp.setBackground(
 							getPreviewColorBackground(false, new int[]{nd.background,nd.background}));
 					tmp.setVisibility(View.VISIBLE);
 				}
 				break;
 			case R.id.led_color:
 				if(nd.led.color<0){
-					tmp.setBackgroundDrawable(
+					tmp.setBackground(
 							getLEDColorBackground(nd.led.getType(), nd.led.color));
 					tmp.setVisibility(View.VISIBLE);
 				}

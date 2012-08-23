@@ -61,8 +61,8 @@
 	
     <!-- Navbar Fragement -->
     <string name="configure_navigation_keys">Configure Navigation Keys</string>    
-    <string name="navbar_cursor">Keyboard Cursors</string>   
-    <string name="navbar_menu_behavior">Navbar menu behavior</string>  
+    <string name="navbar_cursor">Keyboard Arrows</string>   
+    <string name="navbar_menu_behavior">Legacy menu button behavior</string>  
     <string name="search_key_title">Search Key</string>
     <string name="search_key_summary_on">Search key shown</string>
     <string name="search_key_summary_off">Search key hidden</string>

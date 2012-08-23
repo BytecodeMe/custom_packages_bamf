@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <Preference 
+    <com.bamf.settings.widgets.BAMFSetupPreference 
     	android:title="@string/configure_navigation_keys" 
     	android:key="pref_visual_navbar_setup"
     />   

@@ -26,6 +26,7 @@ import android.widget.ListView;
 import com.bamf.settings.R;
 import com.bamf.settings.activities.SettingsActivity;
 import com.bamf.settings.widgets.BAMFPreference;
+import com.bamf.settings.widgets.BAMFSetupPreference;
 import com.bamf.settings.widgets.BAMFSwitchPreference;
 import com.bamf.settings.widgets.ColorPickerDialog;
 import com.bamf.settings.widgets.IconPreference;
@@ -47,7 +48,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements OnPrefer
 	private ContentResolver mResolver;
 	
 	private BAMFSwitchPreference mNavbarReflect;
-	private Preference mNavbarSetup;	
+	private BAMFSetupPreference mNavbarSetup;	
 	private BAMFPreference mColorPickerPref;
 	private Preference mGlowPickerPref;
 	
@@ -77,8 +78,8 @@ public class VisualNavbarFragment extends PreferenceFragment implements OnPrefer
         mNavbarReflect.setOnPreferenceChangeListener(this);
         mNavbarReflect.setOnPreferenceClickListener(this);
         
-    	mNavbarSetup = (Preference) findPreference(PREF_NAVBAR_SETUP);       
-        mNavbarSetup.setOnPreferenceClickListener(this);
+    	mNavbarSetup = (BAMFSetupPreference) findPreference(PREF_NAVBAR_SETUP);       
+        mNavbarSetup.setOnPreferenceClickListener(this);        
         
         mColorPickerPref = (BAMFPreference) findPreference(PREF_COLOR_PICKER);
         mGlowPickerPref = (Preference) findPreference(PREF_GLOW_PICKER);       

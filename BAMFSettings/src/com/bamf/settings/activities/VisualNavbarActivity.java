@@ -15,9 +15,12 @@ import android.content.Intent.ShortcutIconResource;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.provider.Settings;
+import android.util.Log;
+import android.view.HapticFeedbackConstants;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +46,7 @@ public class VisualNavbarActivity extends Activity implements OnClickListener {
     final static String ACTION_MENU = "Menu";
     final static String ACTION_RECENT = "Recent Apps";
     final static String ACTION_KILL = "Kill Current App";
-    final static String ACTION_CUSTOM = "Custom...";
+    final static String ACTION_CUSTOM = "Custom";
     
     private NavbarDragView mAvailContainer;
 	private NavbarDragView mCurrentContainer; 
@@ -110,12 +113,15 @@ public class VisualNavbarActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		
+		
 		if(v.getTag() == null && v.getId() == R.id.navbar_button_save){
 			Settings.System.putInt(getContentResolver(), Settings.System.NAVBAR_ORDER_CHANGED, 1);
-			Settings.System.putString(getContentResolver(),Settings.System.NAVBAR_KEY_ORDER,mCurrentContainer.getKeyTags());	
+			Settings.System.putString(getContentResolver(),Settings.System.NAVBAR_KEY_ORDER,mCurrentContainer.getKeyTags());
+			v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 			return;
 		}else if(v.getTag() == null) return;		
 		
+		v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 		selectAction((String) v.getTag());
 		
 	}
@@ -128,27 +134,27 @@ public class VisualNavbarActivity extends Activity implements OnClickListener {
 		if(keyName.equals(KEY_BACK)){
 			action = Settings.System.getString(
 					getContentResolver(), Settings.System.LONG_ACTION_BACK,ACTION_DEFAULT_NONE);
-			items = new CharSequence[]{ACTION_DEFAULT_NONE,ACTION_MENU,ACTION_RECENT,ACTION_KILL,resolveAction(action)};
+			items = new CharSequence[]{ACTION_DEFAULT_NONE,ACTION_MENU,ACTION_RECENT,ACTION_KILL,resolveAction(action) +"..."};
 			mSelectedKey = Settings.System.LONG_ACTION_BACK;
 		}else if(keyName.equals(KEY_HOME)){
 			action = Settings.System.getString(
 					getContentResolver(), Settings.System.LONG_ACTION_HOME,ACTION_DEFAULT);
-			items = new CharSequence[]{ACTION_DEFAULT,ACTION_NONE,ACTION_MENU,ACTION_RECENT,ACTION_KILL,resolveAction(action)};
+			items = new CharSequence[]{ACTION_DEFAULT,ACTION_NONE,ACTION_MENU,ACTION_RECENT,ACTION_KILL,resolveAction(action)+"..."};
 			mSelectedKey = Settings.System.LONG_ACTION_HOME;
 		}else if(keyName.equals(KEY_MENU)){
 			action = Settings.System.getString(
 					getContentResolver(), Settings.System.LONG_ACTION_MENU,ACTION_DEFAULT_NONE);
-			items = new CharSequence[]{ACTION_DEFAULT_NONE,ACTION_RECENT,ACTION_KILL,resolveAction(action)};
+			items = new CharSequence[]{ACTION_DEFAULT_NONE,ACTION_RECENT,ACTION_KILL,resolveAction(action)+"..."};
 			mSelectedKey = Settings.System.LONG_ACTION_MENU;
 		}else if(keyName.equals(KEY_RECENT)){
 			action = Settings.System.getString(
 					getContentResolver(), Settings.System.LONG_ACTION_RECENT,ACTION_DEFAULT_NONE);
-			items = new CharSequence[]{ACTION_DEFAULT_NONE,ACTION_MENU,ACTION_KILL,resolveAction(action)};
+			items = new CharSequence[]{ACTION_DEFAULT_NONE,ACTION_MENU,ACTION_KILL,resolveAction(action)+"..."};
 			mSelectedKey = Settings.System.LONG_ACTION_RECENT;
 		}else if(keyName.equals(KEY_SEARCH)){
 			action = Settings.System.getString(
 					getContentResolver(), Settings.System.LONG_ACTION_SEARCH,ACTION_DEFAULT);
-			items = new CharSequence[]{ACTION_DEFAULT,ACTION_NONE,ACTION_MENU,ACTION_RECENT,ACTION_KILL,resolveAction(action)};
+			items = new CharSequence[]{ACTION_DEFAULT,ACTION_NONE,ACTION_MENU,ACTION_RECENT,ACTION_KILL,resolveAction(action)+"..."};
 			mSelectedKey = Settings.System.LONG_ACTION_SEARCH;
 		}		
 		
@@ -187,9 +193,8 @@ public class VisualNavbarActivity extends Activity implements OnClickListener {
 		if(action.equals(ACTION_DEFAULT) || action.equals(ACTION_DEFAULT_NONE) ||
 				action.equals(ACTION_NONE) || action.equals(ACTION_MENU) || action.equals(ACTION_RECENT) ||
 				action.equals(ACTION_KILL)) return newAction;
-		
 		try{
-			newAction = mPm.getPackageInfo(action, 0).applicationInfo.loadLabel(mPm).toString();
+			newAction = mPm.resolveActivity(Intent.parseUri(action, 0), 0).activityInfo.loadLabel(mPm).toString();
 		}catch (Exception e){		
 		}
 		return newAction;

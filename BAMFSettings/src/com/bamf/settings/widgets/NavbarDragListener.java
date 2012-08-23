@@ -12,6 +12,8 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class NavbarDragListener implements OnDragListener {
 	
@@ -20,9 +22,12 @@ public class NavbarDragListener implements OnDragListener {
 	private Drawable normalShape; 
 	private FrameLayout mOldContainer;	
 	private View mParent;
+	private int badCount = 0;
+	private Context mContext;
 
 	public NavbarDragListener(Context c, View parent) {		
 		
+		mContext = c;
 		mParent = parent;
 		enterShape = c.getResources().getDrawable(
 				R.drawable.shape_droptarget);
@@ -52,7 +57,20 @@ public class NavbarDragListener implements OnDragListener {
 			int index = 0;
 			switch(v.getId()){
 				case R.id.avail_container:
-					if(view.getTag().equals("home")) return true;
+					if((tag.equals("home") || tag.equals("back")) && badCount < 2){	
+						((ImageView) view).setImageDrawable(((NavbarDragView) 
+								((View) v.getParent()).findViewById(R.id.current_container)).getDrawableForKey(v,tag,false));						
+						badCount++;
+						return true;
+					}else if(tag.equals("home") || tag.equals("back")){
+						keys = stringToList(((NavbarDragView) 
+								((View) v.getParent()).findViewById(R.id.current_container)).getKeyTags().split(" "));
+						updateAvailableKeys(listToString(keys),true);	
+						view.setVisibility(View.VISIBLE);
+						Toast.makeText(mContext, "You kinda need those keys. Knock it off!", Toast.LENGTH_SHORT).show();
+						badCount =0;
+						return true;
+					}
 					keys = stringToList(((NavbarDragView) 
 						((View) v.getParent()).findViewById(R.id.current_container)).getKeyTags().split(" "));					
 					if((mOldContainer.getParent() != v) && (view.getTag() == null || keys.contains(view.getTag())))						
@@ -74,14 +92,15 @@ public class NavbarDragListener implements OnDragListener {
 					break;
 			}
 			
-			updateAvailableKeys(listToString(keys));	
+			updateAvailableKeys(listToString(keys),false);	
 			view.setVisibility(View.VISIBLE);
 			break;
 		case DragEvent.ACTION_DRAG_ENDED:
 			
 			view = (View) event.getLocalState();
 			view.setVisibility(View.VISIBLE);
-			v.setBackground(normalShape);
+			if(v.getId() != R.id.avail_container)
+				v.setBackground(normalShape);
 		default:
 			break;
 		}
@@ -105,13 +124,13 @@ public class NavbarDragListener implements OnDragListener {
 		return n;
 	}
 
-	private void updateAvailableKeys(String[] keys) {
+	private void updateAvailableKeys(String[] keys,boolean egg) {
 		
 		final NavbarDragView current = (NavbarDragView) mParent.findViewById(R.id.current_container);
-		current.setupViews(keys, false,null);
+		current.setupViews(keys, false,null,egg);
 		final NavbarDragView avail = (NavbarDragView) mParent.findViewById(R.id.avail_container);
 		String[] availKeys = current.getAvailKeys(Arrays.asList(keys));
-		avail.setupViews(availKeys, false,null);
+		avail.setupViews(availKeys, false,null,egg);
 		
 	}
 	

@@ -51,12 +51,21 @@
     	android:paddingRight="20dip"
     	android:src="@drawable/list_divider_holo_dark" 
     	android:scaleType="fitXY"/> 
+    	
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@string/navbar_available"
+        android:layout_marginBottom="5dip"        
+        android:layout_gravity="center_horizontal"             
+    	android:layout_height="wrap_content" />
     
     <com.bamf.settings.widgets.NavbarDragView
         android:id="@+id/avail_container"
         android:layout_width="match_parent"
-        android:layout_height="70dip"        
-        android:background="@null"
+        android:layout_height="70dip"
+        android:layout_marginLeft="8dip"   
+        android:layout_marginRight="8dip"       
+        android:background="@drawable/shape"
         android:gravity="center_horizontal"
         android:orientation="horizontal" > 
         <Space
@@ -180,6 +189,8 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="70dip"
 	    android:layout_marginTop="5dip"
+	    android:layout_marginLeft="8dip"   
+        android:layout_marginRight="8dip"
 	    android:background="@null"
 	    android:orientation="horizontal" >
     	<Space

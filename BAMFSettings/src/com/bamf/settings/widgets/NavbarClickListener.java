@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.view.View.OnLongClickListener;
+import android.widget.ImageView;
 
 public class NavbarClickListener implements OnLongClickListener {
 
@@ -28,7 +29,7 @@ public class NavbarClickListener implements OnLongClickListener {
 		view.startDrag(data, shadow, view, 0);
 
 		view.setVisibility(View.INVISIBLE);
-		return false;
+		return true;
 	}
 
 	public static class Shadow extends View.DragShadowBuilder {
@@ -37,7 +38,7 @@ public class NavbarClickListener implements OnLongClickListener {
 		public Shadow(View v, Context context) {
 			super(v);
 			// TODO: get the correct image for the button
-			d = context.getResources().getDrawable(R.drawable.disco);
+			d = ((ImageView) v).getDrawable();
 		}
 
 		@Override

@@ -38,7 +38,11 @@ public class NavbarDragView extends LinearLayout {
 		setOnDragListener(new NavbarDragListener(mContext,(View) getParent()));
 	}
 	
-	public void setupViews(String[] keys, boolean force,OnClickListener listener) {			
+	public void setupViews(String[] keys, boolean force,OnClickListener listener) {	
+		setupViews(keys,force,listener,false);
+	}
+	
+	public void setupViews(String[] keys, boolean force,OnClickListener listener,boolean egg) {			
 		
 		if(listener != null){
 			mListener = listener;
@@ -60,33 +64,33 @@ public class NavbarDragView extends LinearLayout {
 		
 		switch(start){
 		case 0:
-			c1.setImageDrawable(getDrawableForKey(c1,keys[0]));
+			c1.setImageDrawable(getDrawableForKey(c1,keys[0],egg));
 			setParamsAndBackground(c1,true);	
 			c1.setOnLongClickListener(new NavbarClickListener(this));
-			c2.setImageDrawable(getDrawableForKey(c2,keys[1]));
+			c2.setImageDrawable(getDrawableForKey(c2,keys[1],egg));
 			setParamsAndBackground(c2,true);	
 			c2.setOnLongClickListener(new NavbarClickListener(this));
-			c3.setImageDrawable(getDrawableForKey(c3,keys[2]));
+			c3.setImageDrawable(getDrawableForKey(c3,keys[2],egg));
 			setParamsAndBackground(c3,true);
 			c3.setOnLongClickListener(new NavbarClickListener(this));
-			c4.setImageDrawable(getDrawableForKey(c4,keys[3]));
+			c4.setImageDrawable(getDrawableForKey(c4,keys[3],egg));
 			setParamsAndBackground(c4,true);	
 			c4.setOnLongClickListener(new NavbarClickListener(this));
-			c5.setImageDrawable(getDrawableForKey(c5,keys[4]));
+			c5.setImageDrawable(getDrawableForKey(c5,keys[4],egg));
 			c5.setOnLongClickListener(new NavbarClickListener(this));
 			setParamsAndBackground(c5,true);	
 			break;	
 		case 1:
-			c1.setImageDrawable(getDrawableForKey(c1,keys[0]));
+			c1.setImageDrawable(getDrawableForKey(c1,keys[0],egg));
 			setParamsAndBackground(c1,true);	
 			c1.setOnLongClickListener(new NavbarClickListener(this));
-			c2.setImageDrawable(getDrawableForKey(c2,keys[1]));
+			c2.setImageDrawable(getDrawableForKey(c2,keys[1],egg));
 			setParamsAndBackground(c2,true);	
 			c2.setOnLongClickListener(new NavbarClickListener(this));
-			c3.setImageDrawable(getDrawableForKey(c3,keys[2]));
+			c3.setImageDrawable(getDrawableForKey(c3,keys[2],egg));
 			setParamsAndBackground(c3,true);
 			c3.setOnLongClickListener(new NavbarClickListener(this));
-			c4.setImageDrawable(getDrawableForKey(c4,keys[3]));
+			c4.setImageDrawable(getDrawableForKey(c4,keys[3],egg));
 			setParamsAndBackground(c4,true);	
 			c4.setOnLongClickListener(new NavbarClickListener(this));
 			c5.setImageDrawable(null);
@@ -95,13 +99,13 @@ public class NavbarDragView extends LinearLayout {
 		case 2:
 			c1.setImageDrawable(null);
 			setParamsAndBackground(c1,false || force);	
-			c2.setImageDrawable(getDrawableForKey(c2,keys[0]));
+			c2.setImageDrawable(getDrawableForKey(c2,keys[0],egg));
 			setParamsAndBackground(c2,true);
 			c2.setOnLongClickListener(new NavbarClickListener(this));
-			c3.setImageDrawable(getDrawableForKey(c3,keys[1]));
+			c3.setImageDrawable(getDrawableForKey(c3,keys[1],egg));
 			setParamsAndBackground(c3,true);	
 			c3.setOnLongClickListener(new NavbarClickListener(this));
-			c4.setImageDrawable(getDrawableForKey(c4,keys[2]));
+			c4.setImageDrawable(getDrawableForKey(c4,keys[2],egg));
 			setParamsAndBackground(c4,true);
 			c4.setOnLongClickListener(new NavbarClickListener(this));
 			c5.setImageDrawable(null);
@@ -110,12 +114,12 @@ public class NavbarDragView extends LinearLayout {
 		case 3:
 			c1.setImageDrawable(null);
 			setParamsAndBackground(c1,false || force);	
-			c2.setImageDrawable(getDrawableForKey(c2,keys[0]));
+			c2.setImageDrawable(getDrawableForKey(c2,keys[0],egg));
 			setParamsAndBackground(c2,true);	
 			c2.setOnLongClickListener(new NavbarClickListener(this));
 			c3.setImageDrawable(null);
 			setParamsAndBackground(c3,false || force);			
-			c4.setImageDrawable(getDrawableForKey(c4,keys[1]));
+			c4.setImageDrawable(getDrawableForKey(c4,keys[1],egg));
 			setParamsAndBackground(c4,true);	
 			c4.setOnLongClickListener(new NavbarClickListener(this));
 			c5.setImageDrawable(null);
@@ -126,7 +130,7 @@ public class NavbarDragView extends LinearLayout {
 			setParamsAndBackground(c1,false || force);	
 			c2.setImageDrawable(null);
 			setParamsAndBackground(c2,false || force);	
-			c3.setImageDrawable(getDrawableForKey(c3,keys[0]));
+			c3.setImageDrawable(getDrawableForKey(c3,keys[0],egg));
 			setParamsAndBackground(c3,true);	
 			c3.setOnLongClickListener(new NavbarClickListener(this));
 			c4.setImageDrawable(null);
@@ -161,27 +165,27 @@ public class NavbarDragView extends LinearLayout {
 		p.width = show ? (int) dpToPx(70) : (int) dpToPx(0);
 	}
 
-	private Drawable getDrawableForKey(View v,String key) {
+	public Drawable getDrawableForKey(View v,String key,boolean egg) {		
 		
 		if(key.equals(KEY_BACK)){
 			v.setTag(KEY_BACK);
-			return getResources().getDrawable(R.drawable.ic_sysbar_back);
+			return egg ? getResources().getDrawable(R.drawable.powpow) : getResources().getDrawable(R.drawable.ic_sysbar_back);
 		}
 		if(key.equals(KEY_HOME)){
 			v.setTag(KEY_HOME);
-			return getResources().getDrawable(R.drawable.ic_sysbar_home);
+			return egg ? getResources().getDrawable(R.drawable.powpow) : getResources().getDrawable(R.drawable.ic_sysbar_home);
 		}
 		if(key.equals(KEY_MENU)){
 			v.setTag(KEY_MENU);
-			return getResources().getDrawable(R.drawable.ic_sysbar_menu_large);
+			return egg ? getResources().getDrawable(R.drawable.powpow) : getResources().getDrawable(R.drawable.ic_sysbar_menu_large);
 		}
 		if(key.equals(KEY_RECENT)){
 			v.setTag(KEY_RECENT);
-			return getResources().getDrawable(R.drawable.ic_sysbar_recent);
+			return egg ? getResources().getDrawable(R.drawable.powpow) : getResources().getDrawable(R.drawable.ic_sysbar_recent);
 		}
 		if(key.equals(KEY_SEARCH)){
 			v.setTag(KEY_SEARCH);
-			return getResources().getDrawable(R.drawable.ic_sysbar_search);
+			return egg ? getResources().getDrawable(R.drawable.powpow) : getResources().getDrawable(R.drawable.ic_sysbar_search);
 		}
 		return null;
 	}

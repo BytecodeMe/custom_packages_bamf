@@ -101,6 +101,8 @@ public class NavbarDragListener implements OnDragListener {
 		case DragEvent.ACTION_DRAG_ENDED:
 			
 			view = (View) event.getLocalState();
+			((ImageView) view).setImageDrawable(((NavbarDragView) 
+					((View) v.getParent()).findViewById(R.id.current_container)).getDrawableForKey(v,(String) view.getTag(),false));
 			view.setVisibility(View.VISIBLE);
 			if(v.getId() != R.id.avail_container)
 				v.setBackground(normalShape);

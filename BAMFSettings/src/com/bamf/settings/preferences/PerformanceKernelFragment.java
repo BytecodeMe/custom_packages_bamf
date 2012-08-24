@@ -154,11 +154,11 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 		
 		mPrefToSet = pref.getKey();
 		if(pref == mPrefCPUMin){
-			showDialog("Minimum CPU Speed",mDisplayFrequencies,getIndexForValue(mValueFrequencies,readOneLine(MIN_FREQ)));
+			showDialog("Minimum CPU Speed",mDisplayFrequencies,getIndexForValue(mValueFrequencies,readOneLine(MIN_FREQ),false));
 		}else if(pref == mPrefCPUMax){
-			showDialog("Maximum CPU Speed",mDisplayFrequencies,getIndexForValue(mValueFrequencies,readOneLine(MAX_FREQ)));
+			showDialog("Maximum CPU Speed",mDisplayFrequencies,getIndexForValue(mValueFrequencies,readOneLine(MAX_FREQ),true));
 		}else if(pref == mPrefGovernor){
-			showDialog("Kernel Governor",mDisplayGovernors,getIndexForValue(mDisplayGovernors,readOneLine(CURRENT_GOVERNOR)));		
+			showDialog("Kernel Governor",mDisplayGovernors,getIndexForValue(mDisplayGovernors,readOneLine(CURRENT_GOVERNOR),false));		
 		}else if(pref == mPrefScheduler){
 			showDialog("I/O Scheduler",mDisplaySchedulers,mCurrentSchedulerIndex);		
 		}
@@ -216,15 +216,15 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
         
         mPrefCPUMin = findPreference(PREF_CPU_MIN);
         mPrefCPUMin.setOnPreferenceClickListener(this);
-        mPrefCPUMin.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MIN_FREQ))]);
+        mPrefCPUMin.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MIN_FREQ),false)]);
                 
         mPrefCPUMax = findPreference(PREF_CPU_MAX);
         mPrefCPUMax.setOnPreferenceClickListener(this);
-        mPrefCPUMax.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MAX_FREQ))]);
+        mPrefCPUMax.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MAX_FREQ),true)]);
         
         mPrefGovernor = findPreference(PREF_GOVERNOR);
         mPrefGovernor.setOnPreferenceClickListener(this);
-        mPrefGovernor.setSummary(mDisplayGovernors[getIndexForValue(mDisplayGovernors,readOneLine(CURRENT_GOVERNOR))]);
+        mPrefGovernor.setSummary(mDisplayGovernors[getIndexForValue(mDisplayGovernors,readOneLine(CURRENT_GOVERNOR),false)]);
         
         mPrefScheduler = findPreference(PREF_SCHEDULER);
         mPrefScheduler.setOnPreferenceClickListener(this);
@@ -288,17 +288,17 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 		
 		if(mPrefToSet.equals(PREF_CPU_MIN)){
 			if(writeOneLine(MIN_FREQ, mValueFrequencies[value]) || tryAsRoot(MIN_FREQ, mValueFrequencies[value])){
-				mPrefCPUMin.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MIN_FREQ))]);
+				mPrefCPUMin.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MIN_FREQ),false)]);
 				mEdit.putString(PREF_CPU_MIN, mValueFrequencies[value]);
 			}
 		}else if(mPrefToSet.equals(PREF_CPU_MAX)){			
 			if(writeOneLine(MAX_FREQ, mValueFrequencies[value]) || tryAsRoot(MAX_FREQ, mValueFrequencies[value])){
-				mPrefCPUMax.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MAX_FREQ))]);
+				mPrefCPUMax.setSummary(mDisplayFrequencies[getIndexForValue(mValueFrequencies,readOneLine(MAX_FREQ),true)]);
 				mEdit.putString(PREF_CPU_MAX, mValueFrequencies[value]);
 			}
 		}else if(mPrefToSet.equals(PREF_GOVERNOR)){			
 			if(writeOneLine(CURRENT_GOVERNOR, mDisplayGovernors[value]) || tryAsRoot(CURRENT_GOVERNOR, mDisplayGovernors[value])){
-				mPrefGovernor.setSummary(mDisplayGovernors[getIndexForValue(mDisplayGovernors,readOneLine(CURRENT_GOVERNOR))]);
+				mPrefGovernor.setSummary(mDisplayGovernors[getIndexForValue(mDisplayGovernors,readOneLine(CURRENT_GOVERNOR),false)]);
 				mEdit.putString(PREF_GOVERNOR, mDisplayGovernors[value]);
 			}
 		}else if(mPrefToSet.equals(PREF_SCHEDULER)){
@@ -357,8 +357,13 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 		return true;
 	}
 	
-	private int getIndexForValue(String[] array, String value) {		
+	private int getIndexForValue(String[] array, String value,boolean max) {		
 		
+		if(max){		
+			String saved = mPrefs.getString(PREF_CPU_MAX, "1200000");
+			if(Integer.parseInt(value) < Integer.parseInt(saved))
+				value = saved;
+		}
 		int retval = 0;
 		for(int i = 0;i < array.length;i++){
 			if(array[i].equalsIgnoreCase(value))

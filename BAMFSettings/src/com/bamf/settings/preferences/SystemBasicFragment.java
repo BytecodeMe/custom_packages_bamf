@@ -1,5 +1,7 @@
 package com.bamf.settings.preferences;
 
+import java.io.File;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -114,7 +116,7 @@ public class SystemBasicFragment extends PreferenceFragment
     	 */
     	mBlockAds.setOnPreferenceChangeListener(this);
     	mBlockAds.setOnPreferenceClickListener(this);
-    	mBlockAds.setChecked(Settings.System.getInt(mSettings.getContentResolver(), Settings.System.BLOCK_ADS, 0) == 1);
+    	mBlockAds.setChecked(checkAdsBlocked());
     	
     	mEndCall.setOnPreferenceChangeListener(this);
     	mEndCall.setOnPreferenceClickListener(this);
@@ -155,7 +157,13 @@ public class SystemBasicFragment extends PreferenceFragment
     	mEdit = mPrefs.edit();
     }
     
-    @Override
+    private boolean checkAdsBlocked() {
+		
+    	File f = new File("/system/etc","hosts");    	
+		return (f.exists() && f.length() > 30);
+	}
+
+	@Override
     public void onServiceBinded(boolean isBound) {
         if(isBound){
             try {

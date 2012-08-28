@@ -52,10 +52,12 @@
     <string-array name="animation_entries">
         <item>No animations</item>
         <item>Fly in with bounce</item>
+        <item>Slide in and out</item>
     </string-array>
     <string-array name="animation_values">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
     
     <string-array name="behavior_entries">

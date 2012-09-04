@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -24,7 +25,7 @@ public class NavbarDragView extends LinearLayout {
 	private static final String KEY_SEARCH = "search";
 	
 	private Context mContext;
-	private int mCount = 0;	
+	int mCount = 0;	
 	private OnClickListener mListener;
 
 	public NavbarDragView(Context context, AttributeSet attrs) {
@@ -56,11 +57,14 @@ public class NavbarDragView extends LinearLayout {
 		c1.setOnClickListener(mListener);
 		c2.setOnClickListener(mListener);
 		c3.setOnClickListener(mListener);
+		c3.setVisibility(View.VISIBLE);
 		c4.setOnClickListener(mListener);
 		c5.setOnClickListener(mListener);
 			
-		mCount = keys.length;
-		final int start = (KEY_COUNT - mCount);		
+		mCount = 0;
+		if(keys != null)
+			mCount = keys.length;
+		final int start = (KEY_COUNT - mCount);	
 		
 		switch(start){
 		case 0:
@@ -138,6 +142,18 @@ public class NavbarDragView extends LinearLayout {
 			c5.setImageDrawable(null);
 			setParamsAndBackground(c5,false || force);
 			break;
+		case 5:			
+			c1.setImageDrawable(null);
+			setParamsAndBackground(c1,false || force);	
+			c2.setImageDrawable(null);
+			setParamsAndBackground(c2,false || force);			
+			c3.setImageDrawable(null);
+			setParamsAndBackground(c3,true);			
+			c4.setImageDrawable(null);
+			setParamsAndBackground(c4,false || force);	
+			c5.setImageDrawable(null);
+			setParamsAndBackground(c5,false || force);
+			break;
 		}		
 	}
 	
@@ -155,6 +171,7 @@ public class NavbarDragView extends LinearLayout {
 		if(!list.contains(KEY_SEARCH))
 			sb.append(KEY_SEARCH + " ");		
 		sb.append("");
+		if(sb.toString().isEmpty()) return null;
 		return sb.toString().split(" ");
 	}
 	

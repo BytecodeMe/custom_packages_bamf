@@ -10,6 +10,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
@@ -76,13 +77,13 @@ public class NavbarDragListener implements OnDragListener {
 					}
 					keys = stringToList(((NavbarDragView) 
 						((View) v.getParent()).findViewById(R.id.current_container)).getKeyTags().split(" "));					
-					if((mOldContainer.getParent() != v) && (view.getTag() == null || keys.contains(view.getTag())))						
+					if((mOldContainer.getParent() != v) && (tag == null || keys.contains(tag)))						
 						keys.remove(keys.indexOf(view.getTag()));
 					break;
 				case R.id.current_container:
 					keys = stringToList(((NavbarDragView)v).getKeyTags().split(" "));
 					index = ((NavbarDragView) v).getNextRight(event.getX())-1;
-					if((view.getTag() == null || keys.contains(view.getTag()))){						
+					if((tag == null || keys.contains(tag))){						
 						keys.remove(keys.indexOf(view.getTag()));
 					}					
 					int count = keys.size();
@@ -97,12 +98,14 @@ public class NavbarDragListener implements OnDragListener {
 			
 			updateAvailableKeys(listToString(keys),false);	
 			view.setVisibility(View.VISIBLE);
-			break;
-		case DragEvent.ACTION_DRAG_ENDED:
+			return true;
 			
+		case DragEvent.ACTION_DRAG_ENDED:			
 			view = (View) event.getLocalState();
-			((ImageView) view).setImageDrawable(((NavbarDragView) 
+			if(((ImageView) view).getDrawable() != null){
+				((ImageView) view).setImageDrawable(((NavbarDragView) 
 					((View) v.getParent()).findViewById(R.id.current_container)).getDrawableForKey(v,(String) view.getTag(),false));
+			}
 			view.setVisibility(View.VISIBLE);
 			if(v.getId() != R.id.avail_container)
 				v.setBackground(normalShape);
@@ -156,10 +159,10 @@ public class NavbarDragListener implements OnDragListener {
 
 	private void updateAvailableKeys(String[] keys,boolean egg) {
 		
-		final NavbarDragView current = (NavbarDragView) mParent.findViewById(R.id.current_container);
+		final NavbarDragView current = (NavbarDragView) mParent.findViewById(R.id.current_container);		
 		current.setupViews(keys, false,null,egg);
 		final NavbarDragView avail = (NavbarDragView) mParent.findViewById(R.id.avail_container);
-		String[] availKeys = current.getAvailKeys(Arrays.asList(keys));
+		String[] availKeys = current.getAvailKeys(Arrays.asList(keys));		
 		avail.setupViews(availKeys, false,null,egg);
 		
 	}

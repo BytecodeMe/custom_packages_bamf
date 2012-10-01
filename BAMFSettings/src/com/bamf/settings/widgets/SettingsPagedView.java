@@ -9,8 +9,11 @@ import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.IWindowManager;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -144,6 +147,8 @@ public class SettingsPagedView extends ViewGroup {
     private int mNumSystemPages = 1;
     private int mNumVisualPages = 3;
     
+    private IWindowManager mWindowManager;
+    
     // Relating to the scroll and overscroll effects
     ZInterpolator mZInterpolator = new ZInterpolator(0.5f);
     private static float CAMERA_DISTANCE = 6500;
@@ -183,7 +188,15 @@ public class SettingsPagedView extends ViewGroup {
         mTouchSlop = configuration.getScaledTouchSlop();
         mPagingTouchSlop = configuration.getScaledPagingTouchSlop();
         mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
-        mDensity = getResources().getDisplayMetrics().density;        
+        mDensity = getResources().getDisplayMetrics().density;
+        
+        mWindowManager = IWindowManager.Stub.asInterface(
+                ServiceManager.getService(Context.WINDOW_SERVICE));
+        try{
+	        if(!mWindowManager.hasNavigationBar()){
+	        	mNumVisualPages = 2;
+	        }
+        }catch(RemoteException e){}
 
 		syncPages();
 	}	
@@ -351,12 +364,16 @@ public class SettingsPagedView extends ViewGroup {
     	
     	if(mVisualView3 == null || mVisualView2 == null || mVisualView1 == null || mSystemView1 == null || mPerformanceView1 == null){
 //    		Toast.makeText(mContext, "Setting up Views", Toast.LENGTH_LONG).show();
-    		removeAllViews();         
-       		 
-    		if(mVisualView3 == null)
-    			mVisualView3 = mLayoutInflater.inflate(R.layout.visual_settings_navbar, null);
-    		setupLayout(mVisualView3);
-    		addView(mVisualView3);
+    		removeAllViews();
+    		try{
+	       		if(mWindowManager.hasNavigationBar()){ 
+		    		if(mVisualView3 == null)
+		    			mVisualView3 = mLayoutInflater.inflate(R.layout.visual_settings_navbar, null);
+		    		setupLayout(mVisualView3);
+		    		addView(mVisualView3);
+	       		}
+       		}catch(RemoteException e){}
+       		
     		if(mVisualView2 == null)
     			mVisualView2 = mLayoutInflater.inflate(R.layout.visual_settings_sysui, null);
     		setupLayout(mVisualView2);

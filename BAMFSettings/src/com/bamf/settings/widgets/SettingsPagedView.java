@@ -113,7 +113,7 @@ public class SettingsPagedView extends ViewGroup {
 //    private View mSystemView2;
     private View mVisualView1;
     private View mVisualView2;
-    private View mVisualView3;
+    //private View mVisualView3;
     
     // If true, modify alpha of neighboring pages as user scrolls left/right
     protected boolean mFadeInAdjacentScreens = true;
@@ -142,7 +142,7 @@ public class SettingsPagedView extends ViewGroup {
 
     private int mNumPerformancePages = 1;
     private int mNumSystemPages = 1;
-    private int mNumVisualPages = 3;
+    private int mNumVisualPages = 2;
     
     // Relating to the scroll and overscroll effects
     ZInterpolator mZInterpolator = new ZInterpolator(0.5f);
@@ -349,14 +349,14 @@ public class SettingsPagedView extends ViewGroup {
     
     public void syncPages() {
     	
-    	if(mVisualView3 == null || mVisualView2 == null || mVisualView1 == null || mSystemView1 == null || mPerformanceView1 == null){
+    	if(mVisualView2 == null || mVisualView1 == null || mSystemView1 == null || mPerformanceView1 == null){
 //    		Toast.makeText(mContext, "Setting up Views", Toast.LENGTH_LONG).show();
     		removeAllViews();         
        		 
-    		if(mVisualView3 == null)
-    			mVisualView3 = mLayoutInflater.inflate(R.layout.visual_settings_navbar, null);
-    		setupLayout(mVisualView3);
-    		addView(mVisualView3);
+//    		if(mVisualView3 == null)
+//    			mVisualView3 = mLayoutInflater.inflate(R.layout.visual_settings_navbar, null);
+//    		setupLayout(mVisualView3);
+//    		addView(mVisualView3);
     		if(mVisualView2 == null)
     			mVisualView2 = mLayoutInflater.inflate(R.layout.visual_settings_sysui, null);
     		setupLayout(mVisualView2);

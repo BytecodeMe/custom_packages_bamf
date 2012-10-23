@@ -159,7 +159,7 @@ public class SettingsProvider extends ContentProvider {
     }
     
     public static String getLastBackupDate(File backupLocation){
-    	if (backupLocation.exists()) {
+    	if (backupLocation != null && backupLocation.exists()) {
     	    File[] child = backupLocation.listFiles();
     	    for (int i = 0; i < child.length; i++) {
     	    	Date lastModDate = new Date(child[i].lastModified());

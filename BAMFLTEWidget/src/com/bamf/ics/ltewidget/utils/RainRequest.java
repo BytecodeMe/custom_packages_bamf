@@ -87,9 +87,9 @@ public class RainRequest {
                             modemNetworkMode);
                 }
 
-                int settingsNetworkMode = android.provider.Settings.Secure.getInt(
+                int settingsNetworkMode = android.provider.Settings.Global.getInt(
                         mPhone.getContext().getContentResolver(),
-                        android.provider.Settings.Secure.PREFERRED_NETWORK_MODE,
+                        android.provider.Settings.Global.PREFERRED_NETWORK_MODE,
                         preferredNetworkMode);
 
                 if (DBG) {
@@ -125,9 +125,9 @@ public class RainRequest {
                         }
 
                         //changes the Settings.System accordingly to modemNetworkMode
-                        android.provider.Settings.Secure.putInt(
+                        android.provider.Settings.Global.putInt(
                                 mPhone.getContext().getContentResolver(),
-                                android.provider.Settings.Secure.PREFERRED_NETWORK_MODE,
+                                android.provider.Settings.Global.PREFERRED_NETWORK_MODE,
                                 settingsNetworkMode );
                     }
 
@@ -146,8 +146,8 @@ public class RainRequest {
 
             if (ar.exception == null) {
                 int networkMode = mNetworkType;
-                //android.provider.Settings.Secure.putInt(mPhone.getContext().getContentResolver(),
-                //        android.provider.Settings.Secure.PREFERRED_NETWORK_MODE,
+                //android.provider.Settings.Global.putInt(mPhone.getContext().getContentResolver(),
+                //        android.provider.Settings.Global.PREFERRED_NETWORK_MODE,
                 //        networkMode );
                 log("set networkType success: " + mNetworkType);
                 mSwitching = false;int t = Phone.NT_MODE_EVDO_NO_CDMA;
@@ -159,8 +159,8 @@ public class RainRequest {
 
         private void resetNetworkModeToDefault() {
             //set the Settings.System
-            android.provider.Settings.Secure.putInt(mPhone.getContext().getContentResolver(),
-                        android.provider.Settings.Secure.PREFERRED_NETWORK_MODE,
+            android.provider.Settings.Global.putInt(mPhone.getContext().getContentResolver(),
+                        android.provider.Settings.Global.PREFERRED_NETWORK_MODE,
                         preferredNetworkMode );
             //Set the Modem
             mPhone.setPreferredNetworkType(preferredNetworkMode,
@@ -176,7 +176,7 @@ public class RainRequest {
 
         mHandler = new MyHandler();
         
-        //networkType = Settings.Secure.getInt(mContext.getContentResolver(),
+        //networkType = Settings.Global.getInt(mContext.getContentResolver(),
         //		"preferred_network_mode", SELECT_VALUE_NONE);
         
         
@@ -242,9 +242,9 @@ public class RainRequest {
         
     	log("setNetworkType: mNetworkType=" + mNetworkType + " requestedType:" + requestedType);
     	
-    	int settingsNetworkMode = android.provider.Settings.Secure.getInt(
+    	int settingsNetworkMode = android.provider.Settings.Global.getInt(
                 mPhone.getContext().getContentResolver(),
-                android.provider.Settings.Secure.PREFERRED_NETWORK_MODE, preferredNetworkMode);
+                android.provider.Settings.Global.PREFERRED_NETWORK_MODE, preferredNetworkMode);
         if (requestedType != settingsNetworkMode) {
 
             // If button has no valid selection && setting is LTE ONLY
@@ -267,7 +267,7 @@ public class RainRequest {
 
                 mPhone.setPreferredNetworkType(requestedType, msg);
                     
-                Settings.Secure.putInt(mContext.getContentResolver(),"preferred_network_mode",requestedType);
+                Settings.Global.putInt(mContext.getContentResolver(),"preferred_network_mode",requestedType);
                 mSwitching = true;
             }else{
                 log("setNetworkType: found existing messages so decided not to send another");

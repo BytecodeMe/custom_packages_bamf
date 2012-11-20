@@ -153,7 +153,7 @@ public class LTEToggleWidget extends AppWidgetProvider {
 			
 			void observe() {
 	            ContentResolver resolver = mContext.getContentResolver();
-	            resolver.registerContentObserver(Settings.Global.getUriFor(
+	            resolver.registerContentObserver(Settings.Secure.getUriFor(
 	                    "preferred_network_mode"), false, this);
 	            update();
 	        }
@@ -179,7 +179,7 @@ public class LTEToggleWidget extends AppWidgetProvider {
 
 	        public void update() {
 	            ContentResolver resolver = mContext.getContentResolver();
-	            mNetworkState = Settings.Global.getInt(resolver,
+	            mNetworkState = Settings.Secure.getInt(resolver,
 	                    "preferred_network_mode", Phone.NT_MODE_GLOBAL);
 	            Intent intent = new Intent(mContext, UpdateService.class);
 	            intent.putExtra("networkType", mNetworkState);
@@ -228,7 +228,7 @@ public class LTEToggleWidget extends AppWidgetProvider {
 	        
 	        switch (mState) {
 	            case TelephonyManager.DATA_CONNECTED:
-	                int mNetworkState = Settings.Global.getInt(mContext.getContentResolver(),
+	                int mNetworkState = Settings.Secure.getInt(mContext.getContentResolver(),
 	                        "preferred_network_mode", Phone.NT_MODE_GLOBAL);
 	                intent = new Intent("dummy");
 	                intent.putExtra("networkType", mNetworkState);

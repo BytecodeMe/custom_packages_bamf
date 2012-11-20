@@ -1422,7 +1422,7 @@ public class CustomPicker extends LinearLayout {
         }
     }
 
-    @Override
+    /*@Override
     public void addFocusables(ArrayList<View> views, int direction, int focusableMode) {
         // We do not want the real descendant to be considered focus search
         // since it is managed by the accessibility node provider.
@@ -1434,7 +1434,7 @@ public class CustomPicker extends LinearLayout {
         }
         super.addFocusables(views, direction, focusableMode);
     }
-
+*/
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
@@ -2303,7 +2303,7 @@ public class CustomPicker extends LinearLayout {
             return super.performAction(virtualViewId, action, arguments);
         }
 
-        @Override
+       /* @Override
         public AccessibilityNodeInfo findAccessibilityFocus(int virtualViewId) {
             return createAccessibilityNodeInfo(mAccessibilityFocusedView);
         }
@@ -2373,7 +2373,7 @@ public class CustomPicker extends LinearLayout {
                 } break;
             }
             return null;
-        }
+        }*/
 
         public void sendAccessibilityEventForVirtualView(int virtualViewId, int eventType) {
             switch (virtualViewId) {

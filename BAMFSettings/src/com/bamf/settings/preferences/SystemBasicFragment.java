@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IPowerManager;
 import android.os.Message;
-import android.os.PowerManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
@@ -309,13 +308,12 @@ public class SystemBasicFragment extends PreferenceFragment
 		
 		private static LayoutInflater mLayoutInflater;
 		private static ContentResolver mResolver;
-		private static Context mContext;
 		
-		private static final int MINIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_OFF;
+		private static final int MINIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_DIM -1;
 	    private static final int MAXIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_ON;
 	    private int BLOCK_SIZE;
 	    
-	    private PowerManager mPower;
+	    private IPowerManager mPower;
 		
 		private int[] mLevels;
 		private int[] mLevelsDefault;
@@ -343,7 +341,7 @@ public class SystemBasicFragment extends PreferenceFragment
 	    	
 	    	mLayoutInflater = LayoutInflater.from(context);
 	    	mResolver = context.getContentResolver();		    	
-	    	mContext = context;
+	    	
 	        return new BrightnessDialog();
 	    }
 	    
@@ -439,7 +437,7 @@ public class SystemBasicFragment extends PreferenceFragment
 	    }
 
 		private void setup() {
-			mPower = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+			mPower = IPowerManager.Stub.asInterface(ServiceManager.getService("power"));
 			automatic = ((Settings.System.getInt(mResolver,
                     Settings.System.SCREEN_BRIGHTNESS_MODE,Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL))
                     	== Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);	
@@ -654,7 +652,7 @@ public class SystemBasicFragment extends PreferenceFragment
 	    private void setBrightness(int brightness) {
 	        try {
 	            mPower.setBacklightBrightness(brightness);
-	        } catch (Exception ex) {
+	        } catch (RemoteException ex) {
 	        }        
 	    }
 		

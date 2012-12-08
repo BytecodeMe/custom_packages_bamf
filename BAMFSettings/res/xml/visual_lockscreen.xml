@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <ListPreference android:title="@string/lockscreen_left_target" 
+    <!-- <ListPreference android:title="@string/lockscreen_left_target" 
     	android:entryValues="@array/lockscreen_left_target_values" 
     	android:entries="@array/lockscreen_left_target_entries" 
     	android:key="lockscreen_left_target_mode"
-    	/>
+    	/> -->
+    
+    <CheckBoxPreference 
+   		android:title="@string/allow_all_widget_title"
+   		android:summary="@string/allow_all_widget_summary"
+   		android:key="lockscreen_all_widgets"/>
     
     <CheckBoxPreference 
    		android:title="@string/show_lock_before_unlock_title"

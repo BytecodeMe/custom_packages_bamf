@@ -568,18 +568,27 @@ public class SystemBasicFragment extends PreferenceFragment
 						tempLevels[i] = maxLevel;
 					else tempLevels[i] = mLevels[i] + mDeltaDim;
 				}else if(i >= BLOCK_SIZE && i < BLOCK_SIZE*2){
+					if(tempLevels[i-1] > mLevels[i]){
+						minLevel = tempLevels[i-1];
+					}
 					if((mLevels[i] + mDeltaLow) < minLevel)
 						tempLevels[i] = minLevel;						
 					else if((mLevels[i] + mDeltaLow)>maxLevel)
 						tempLevels[i] = maxLevel;
 					else tempLevels[i] = mLevels[i] + mDeltaLow;
 				}else if(i >= BLOCK_SIZE*2 && i < BLOCK_SIZE*3){
+					if(tempLevels[i-1] > mLevels[i]){
+						minLevel = tempLevels[i-1];
+					}
 					if((mLevels[i] + mDeltaMed) < minLevel)
 						tempLevels[i] = minLevel;						
 					else if((mLevels[i] + mDeltaMed)>maxLevel)
 						tempLevels[i] = maxLevel;
 					else tempLevels[i] = mLevels[i] + mDeltaMed;
-				}else if(i >= BLOCK_SIZE*3){					
+				}else if(i >= BLOCK_SIZE*3){
+					if(tempLevels[i-1] > mLevels[i]){
+						minLevel = tempLevels[i-1];
+					}
 					if((mLevels[i] + mDeltaHigh) < minLevel)
 						tempLevels[i] = minLevel;						
 					else if((mLevels[i] + mDeltaHigh)>maxLevel)
@@ -622,13 +631,37 @@ public class SystemBasicFragment extends PreferenceFragment
 			setBrightness(percentToInt(progress));
 			
 			//Grab the change in level based on which view we're adjusting.
-			if(root == mDimLayout){
+			if(root == mDimLayout){				
+				SeekBar seek = (SeekBar)mLowLayout.findViewById(R.id.seekBar);
+				if(progress > seek.getProgress()){
+					seek.setProgress(progress);
+				}
 				mDeltaDim = percentToInt(progress - intToPercent(mDimOld));				
-			}else if(root == mLowLayout){
+			}else if(root == mLowLayout){				
+				SeekBar seek = (SeekBar)mMedLayout.findViewById(R.id.seekBar);
+				if(progress > seek.getProgress()){
+					seek.setProgress(progress);					
+				}
+				seek = (SeekBar)mDimLayout.findViewById(R.id.seekBar);
+				if(progress < seek.getProgress()){
+					seek.setProgress(progress);					
+				}
 				mDeltaLow = percentToInt(progress - intToPercent(mLowOld));				
-			}else if(root == mMedLayout){
+			}else if(root == mMedLayout){				
+				SeekBar seek = (SeekBar)mHighLayout.findViewById(R.id.seekBar);
+				if(progress > seek.getProgress()){
+					seek.setProgress(progress);					
+				}
+				seek = (SeekBar)mLowLayout.findViewById(R.id.seekBar);
+				if(progress < seek.getProgress()){
+					seek.setProgress(progress);					
+				}
 				mDeltaMed = percentToInt(progress - intToPercent(mMedOld));				
-			}else if(root == mHighLayout){
+			}else if(root == mHighLayout){				
+				SeekBar seek = (SeekBar)mMedLayout.findViewById(R.id.seekBar);
+				if(progress < seek.getProgress()){
+					seek.setProgress(progress);					
+				}
 				mDeltaHigh = percentToInt(progress - intToPercent(mHighOld));				
 			}
 			

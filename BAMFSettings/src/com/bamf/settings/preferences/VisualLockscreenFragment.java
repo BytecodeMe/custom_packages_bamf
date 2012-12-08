@@ -13,13 +13,15 @@ import android.provider.Settings;
 
 public class VisualLockscreenFragment extends PreferenceFragment implements OnPreferenceChangeListener {
 		
-	private static final String LEFT_TARGET_PREF = "lockscreen_left_target_mode";
+//	private static final String LEFT_TARGET_PREF = "lockscreen_left_target_mode";
+	private static final String ALL_WIDGETS_PREF = "lockscreen_all_widgets";
 	private static final String LOCK_UNLOCK_PREF = "pref_visual_basic_lock_unlock";
  /** If there is no setting in the provider, use this. */    
 	
 	private Activity mSettings;	
     private ContentResolver mResolver;    
-    private ListPreference mTargetMode;
+    //private ListPreference mTargetMode;
+    private CheckBoxPreference mAllWidgets;
     private CheckBoxPreference mLockUnlock;
 	 
     @Override
@@ -37,11 +39,16 @@ public class VisualLockscreenFragment extends PreferenceFragment implements OnPr
     	mSettings = getActivity();    	
     	mResolver = mSettings.getContentResolver();
     	
-    	mTargetMode = (ListPreference) findPreference(LEFT_TARGET_PREF);
-    	mTargetMode.setOnPreferenceChangeListener(this); 
-    	int def = Settings.System.getInt(mResolver, Settings.System.SHOW_CAMERA_LOCKSCREEN, 1);
-    	mTargetMode.setSummary(mSettings.getResources().getStringArray(R.array.lockscreen_left_target_entries)[def]);
-    	mTargetMode.setValueIndex(def);
+//    	mTargetMode = (ListPreference) findPreference(LEFT_TARGET_PREF);
+//    	mTargetMode.setOnPreferenceChangeListener(this); 
+//    	int def = Settings.System.getInt(mResolver, Settings.System.SHOW_CAMERA_LOCKSCREEN, 1);
+//    	mTargetMode.setSummary(mSettings.getResources().getStringArray(R.array.lockscreen_left_target_entries)[def]);
+//    	mTargetMode.setValueIndex(def);
+    	
+    	mAllWidgets = (CheckBoxPreference) findPreference(ALL_WIDGETS_PREF);
+    	mAllWidgets.setOnPreferenceChangeListener(this); 
+    	boolean def = (Settings.System.getInt(mResolver, Settings.System.ALLOW_ALL_WIDGETS, 0) == 1);
+    	mAllWidgets.setChecked(def);
     	
     	mLockUnlock = (CheckBoxPreference) findPreference(LOCK_UNLOCK_PREF);
     	mLockUnlock.setChecked(Settings.System.getInt(mResolver, Settings.System.SHOW_LOCK_BEFORE_UNLOCK,0)==1);
@@ -51,15 +58,19 @@ public class VisualLockscreenFragment extends PreferenceFragment implements OnPr
 	@Override
 	public boolean onPreferenceChange(Preference pref, Object newValue) {
 		
-		if(pref == mTargetMode){
-			Settings.System.putInt(mResolver,Settings.System.SHOW_CAMERA_LOCKSCREEN,
-					Integer.parseInt((String) newValue));
-			mTargetMode.setSummary(mSettings.getResources().getStringArray(
-					R.array.lockscreen_left_target_entries)[Integer.parseInt((String) newValue)]);
+//		if(pref == mTargetMode){
+//			Settings.System.putInt(mResolver,Settings.System.SHOW_CAMERA_LOCKSCREEN,
+//					Integer.parseInt((String) newValue));
+//			mTargetMode.setSummary(mSettings.getResources().getStringArray(
+//					R.array.lockscreen_left_target_entries)[Integer.parseInt((String) newValue)]);
+//			return true;
+		if(pref == mAllWidgets){
+			Settings.System.putInt(mResolver,Settings.System.ALLOW_ALL_WIDGETS,
+					(Boolean) newValue? 1 : 0);			
 			return true;
-		}else if(pref == mLockUnlock){
-			int value = (Boolean) newValue? 1 : 0;
-			Settings.System.putInt(mResolver,Settings.System.SHOW_LOCK_BEFORE_UNLOCK, value);
+		}else if(pref == mLockUnlock){			
+			Settings.System.putInt(mResolver,Settings.System.SHOW_LOCK_BEFORE_UNLOCK, 
+					(Boolean) newValue? 1 : 0);
 			return true;
 		}
 		return false;

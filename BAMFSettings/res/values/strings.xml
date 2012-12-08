@@ -44,6 +44,8 @@
     <string name="lockscreen_target_hint">Click \"Add Shortcut\" to add additional targets.\nTap a target to assign or change the shortcut.</string>
     <string name="show_lock_before_unlock_title">Show lock before unlock</string>
     <string name="show_lock_before_unlock_summary">Always show the default slide lock before a secure one</string>
+    <string name="allow_all_widget_title">Allow all widgets</string>
+    <string name="allow_all_widget_summary">This is done at your own risk and NOT recommended</string>
     
     <!-- New layout items -->
     <string name="disable">Disable</string>

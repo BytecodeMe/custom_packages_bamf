@@ -11,6 +11,7 @@
     <string name="system_app_settings">Application Settings</string>
     <string name="visual_settings">Visual Settings</string>
     <string name="lockscreen_settings">Lockscreen Settings</string>
+    <string name="quicklaunch_settings">QuickLaunch Settings</string>
 	<string name="icon_settings">Status Bar Icon Settings</string>
     <string name="navbar_settings">Navbar Settings</string>
     
@@ -34,18 +35,24 @@
     <string name="default_scroll_format">Page %1$d of %2$d</string>    
     
     <!-- Lockscreen settings -->
-    <string name="configure_behavior">Configure Behavior</string>
-    <string name="lockscreen_left_target">Set Left Target Mode</string>
+    <string name="configure_behavior">Configure Behavior</string>    
     <string name="lockscreen_add_shortcut">Add Shortcut</string>
     <string name="lockscreen_clear_shortcut">Clear All</string>
-    <string name="lockscreen_clear_description">Are you sure you want to clear all shortcuts?</string>
-    <string name="lockscreen_bad_target_title">Oops!</string>
-    <string name="lockscreen_bad_target_description">It appears that one of your lockscreen shortcuts has a problem, indicated by a red &quot;X&quot;.  This is usually a result of removing the app associated with it.  To prevent problems, please reset the shortcut by tapping the target and selecting a new shortcut before adding any more.</string>
-    <string name="lockscreen_target_hint">Click \"Add Shortcut\" to add additional targets.\nTap a target to assign or change the shortcut.</string>
-    <string name="show_lock_before_unlock_title">Show lock before unlock</string>
-    <string name="show_lock_before_unlock_summary">Always show the default slide lock before a secure one</string>
+    <string name="lockscreen_clear_description">Are you sure you want to clear all shortcuts?</string>      
     <string name="allow_all_widget_title">Allow all widgets</string>
     <string name="allow_all_widget_summary">This is done at your own risk and NOT recommended</string>
+    <string name="enable_quicklaunch_title">Enable QuickLaunch</string>
+    <string name="enable_quicklaunch_summary">Enables the lockscreen QuickLaunch shortcut ribbon.</string>
+    <string name="always_quicklaunch_title">Always show QuickLaunch</string>
+    <string name="always_quicklaunch_summary_on">QuickLaunch is always shown.</string>
+    <string name="always_quicklaunch_summary_off">QuickLaunch is toggled with the home button.</string>
+    <string name="manage_quicklaunch_title">Manage QuickLaunch</string>
+    <string name="manage_quicklaunch_summary">Change the availability and order of QuickLaunch shortcuts.</string>
+    <string name="warning_none_set">Problem loading shortcut or no shortcuts set</string>
+    <string name="warning_problem_shortcut">Problem loading shortcut</string>
+    <string name="show_unlock_title">Always show unlock</string>
+    <string name="show_unlock_summary">Shows the unlock ring before any other security features.</string>
+    
     
     <!-- New layout items -->
     <string name="disable">Disable</string>

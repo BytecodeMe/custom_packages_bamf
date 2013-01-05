@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <!-- <ListPreference android:title="@string/lockscreen_left_target" 
-    	android:entryValues="@array/lockscreen_left_target_values" 
-    	android:entries="@array/lockscreen_left_target_entries" 
-    	android:key="lockscreen_left_target_mode"
-    	/> -->
-    
     <CheckBoxPreference 
    		android:title="@string/allow_all_widget_title"
    		android:summary="@string/allow_all_widget_summary"
    		android:key="lockscreen_all_widgets"/>
     
     <CheckBoxPreference 
-   		android:title="@string/show_lock_before_unlock_title"
-   		android:summary="@string/show_lock_before_unlock_summary"
-   		android:key="pref_visual_basic_lock_unlock"/>
+   		android:title="@string/show_unlock_title"
+   		android:summary="@string/show_unlock_summary"
+   		android:key="lockscreen_show_unlock"/>
+    
+    <CheckBoxPreference 
+   		android:title="@string/enable_quicklaunch_title"
+   		android:summary="@string/enable_quicklaunch_summary"
+   		android:key="pref_visual_basic_enable_quicklaunch"/>
+    
+    <CheckBoxPreference 
+   		android:title="@string/always_quicklaunch_title"
+   		android:summaryOn="@string/always_quicklaunch_summary_on"
+   		android:summaryOff="@string/always_quicklaunch_summary_off"
+   		android:dependency="pref_visual_basic_enable_quicklaunch"
+   		android:key="pref_visual_basic_always_quicklaunch"/>
+    
+    <Preference
+        android:title="@string/manage_quicklaunch_title"
+        android:summary="@string/manage_quicklaunch_summary"
+        android:dependency="pref_visual_basic_enable_quicklaunch"
+        android:key="pref_visual_basic_manage_quicklaunch" />
     	
 </PreferenceScreen>

@@ -44,6 +44,13 @@
             </intent-filter>
 	
         </activity>
+        <activity android:name=".activities.QuickLaunchActivity"
+		    android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="com.bamf.settings.quicklaunch"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.QuickSettingsActivity"
             android:label="@string/quick_settings"            

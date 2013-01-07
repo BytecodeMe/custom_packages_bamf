@@ -376,15 +376,14 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements 
 		String style = "Stock";		
 		mPackages = new ArrayList<PackageInfo>();
 		mBatteryPackage = Settings.System.getString(mResolver, Settings.System.CUSTOM_BATTERY_PACKAGE);		
-		List<PackageInfo> packs = pm.getInstalledPackages(0);		
+		List<PackageInfo> packs = pm.getInstalledSkinPackages();		
 		for(int i = 0;i < packs.size();i++){
 			PackageInfo pi = packs.get(i);
 			if((mBatteryPackage != null) && !mBatteryPackage.isEmpty() && (pi.packageName).equals(mBatteryPackage)){
 				style = pi.applicationInfo.loadLabel(pm).toString();
 				mBatteryIcon = getCurrentBatteryIcon(pi);
 			}		
-			if(pi.packageName.contains("com.bamf.skin.battery")){
-				Log.w(TAG, "Adding package " +pi.packageName);
+			if(pi.skinType.equalsIgnoreCase("battery") || pi.skinType.equalsIgnoreCase("full")){				
 				mPackages.add(pi);
 			}
 		}	

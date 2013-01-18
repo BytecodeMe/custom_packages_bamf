@@ -20,6 +20,7 @@ public class VisualLockscreenFragment extends PreferenceFragment implements OnPr
 	private static final String ENABLE_QUICK_PREF = "pref_visual_basic_enable_quicklaunch";
 	private static final String MANAGE_QUICK_PREF = "pref_visual_basic_manage_quicklaunch";
 	private static final String ALWAYS_QUICK_PREF = "pref_visual_basic_always_quicklaunch";
+	private static final String LONG_QUICK_PREF = "pref_visual_basic_long_quicklaunch";
 	
  /** If there is no setting in the provider, use this. */    
 	
@@ -28,6 +29,7 @@ public class VisualLockscreenFragment extends PreferenceFragment implements OnPr
     private CheckBoxPreference mAllWidgets;  
     private CheckBoxPreference mEnableQuick;
     private CheckBoxPreference mAlwaysQuick;
+    private CheckBoxPreference mLongQuick;
     private CheckBoxPreference mShowUnlock;
     private Preference mManageQuick;
 	 
@@ -58,6 +60,10 @@ public class VisualLockscreenFragment extends PreferenceFragment implements OnPr
     	mAlwaysQuick.setOnPreferenceChangeListener(this);    	
     	mAlwaysQuick.setChecked(Settings.System.getInt(mResolver, Settings.System.ALWAYS_QUICK_LAUNCH, 1) == 1); 
     	
+    	mLongQuick = (CheckBoxPreference) findPreference(LONG_QUICK_PREF);
+    	mLongQuick.setOnPreferenceChangeListener(this);    	
+    	mLongQuick.setChecked(Settings.System.getInt(mResolver, Settings.System.QUICK_LAUNCH_LONG_PRESS, 1) == 1); 
+    	
     	mShowUnlock = (CheckBoxPreference) findPreference(SHOW_UNLOCK_FIRST);
     	mShowUnlock.setOnPreferenceChangeListener(this);    	
     	mShowUnlock.setChecked(Settings.System.getInt(mResolver, Settings.System.SHOW_LOCK_BEFORE_UNLOCK, 0) == 1); 
@@ -85,9 +91,16 @@ public class VisualLockscreenFragment extends PreferenceFragment implements OnPr
 			Settings.System.putInt(mResolver,Settings.System.ALWAYS_QUICK_LAUNCH,
 					(Boolean) newValue? 1 : 0);	
 			return true;
+		}else if(pref == mLongQuick){				
+			Settings.System.putInt(mResolver,Settings.System.QUICK_LAUNCH_LONG_PRESS,
+					(Boolean) newValue? 1 : 0);	
+			return true;
 		}else if(pref == mShowUnlock){				
 			Settings.System.putInt(mResolver,Settings.System.SHOW_LOCK_BEFORE_UNLOCK,
 					(Boolean) newValue? 1 : 0);	
+			Settings.System.putInt(mResolver,Settings.System.ENABLE_QUICK_LAUNCH,
+					(Boolean) newValue? 1 : 0);	
+			mEnableQuick.setChecked((Boolean) newValue);
 			return true;
 		}
 		return false;

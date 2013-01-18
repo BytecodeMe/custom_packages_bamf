@@ -46,6 +46,9 @@
     <string name="always_quicklaunch_title">Always show QuickLaunch</string>
     <string name="always_quicklaunch_summary_on">QuickLaunch is always shown.</string>
     <string name="always_quicklaunch_summary_off">QuickLaunch is toggled with the home button.</string>
+    <string name="long_quicklaunch_title">Launch on Longpress</string>
+    <string name="long_quicklaunch_summary_on">Shortcut launched on longpress.</string>
+    <string name="long_quicklaunch_summary_off">Shortcut launched on touch. Watch out for pocket dials!</string>
     <string name="manage_quicklaunch_title">Manage QuickLaunch</string>
     <string name="manage_quicklaunch_summary">Change the availability and order of QuickLaunch shortcuts.</string>
     <string name="warning_none_set">Problem loading shortcut or no shortcuts set</string>

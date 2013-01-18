@@ -13,6 +13,7 @@
     
     <CheckBoxPreference 
    		android:title="@string/enable_quicklaunch_title"
+   		android:dependency="lockscreen_show_unlock"
    		android:summary="@string/enable_quicklaunch_summary"
    		android:key="pref_visual_basic_enable_quicklaunch"/>
     
@@ -22,6 +23,13 @@
    		android:summaryOff="@string/always_quicklaunch_summary_off"
    		android:dependency="pref_visual_basic_enable_quicklaunch"
    		android:key="pref_visual_basic_always_quicklaunch"/>
+    
+    <CheckBoxPreference 
+   		android:title="@string/long_quicklaunch_title"
+   		android:summaryOn="@string/long_quicklaunch_summary_on"
+   		android:summaryOff="@string/long_quicklaunch_summary_off"
+   		android:dependency="pref_visual_basic_enable_quicklaunch"
+   		android:key="pref_visual_basic_long_quicklaunch"/>
     
     <Preference
         android:title="@string/manage_quicklaunch_title"

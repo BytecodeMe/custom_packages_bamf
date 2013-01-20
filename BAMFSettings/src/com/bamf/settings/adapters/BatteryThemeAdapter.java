@@ -19,14 +19,20 @@ import android.widget.TextView;
 
 public class BatteryThemeAdapter extends BaseAdapter {
 
+	private static final int TYPE_BATTERY = 0;
+	private static final int TYPE_SIGNAL = 1;	
+	private static final int TYPE_NAVBAR = 2;
+	
 	private Context mContext;
 	private List<PackageInfo> mPackages;	
 	private PackageManager pm;
-	
-	public BatteryThemeAdapter(Context context, List<PackageInfo> packages) {
+	private int mType = 0;
+
+	public BatteryThemeAdapter(Context context, List<PackageInfo> packages,int type) {
 		mContext = context;
 		mPackages = packages;		
 		pm = context.getPackageManager();
+		mType = type;
 	}
 
 	@Override
@@ -63,7 +69,20 @@ public class BatteryThemeAdapter extends BaseAdapter {
 		
 		if(position == 0){
 			mTitle.setText("Stock");
-			mImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.default_preview));
+			Drawable d = null;
+			
+			switch(mType){
+			case TYPE_BATTERY:
+				d = mContext.getResources().getDrawable(R.drawable.default_preview_battery);
+				break;
+			case TYPE_SIGNAL:
+				d = mContext.getResources().getDrawable(R.drawable.default_preview_signal);
+				break;
+			case TYPE_NAVBAR:
+				d = mContext.getResources().getDrawable(R.drawable.default_preview_navbar);
+			 	break;			
+			}
+			mImage.setImageDrawable(d);
 		}else if(mPackages.size() > 0){
 			Resources res = null;
 			Drawable d = null;

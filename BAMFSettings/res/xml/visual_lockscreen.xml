@@ -7,14 +7,18 @@
    		android:key="lockscreen_all_widgets"/>
     
     <CheckBoxPreference 
+   		android:title="@string/title_always_hide_clock" 
+   		android:summary="@string/summary_always_hide_clock"   		
+   		android:key="pref_visual_basic_hide_clock"/>
+    
+    <CheckBoxPreference 
    		android:title="@string/show_unlock_title"
    		android:summary="@string/show_unlock_summary"
    		android:key="lockscreen_show_unlock"/>
     
-    <CheckBoxPreference 
+    <com.bamf.settings.widgets.BAMFSwitchPreference 
    		android:title="@string/enable_quicklaunch_title"
-   		android:dependency="lockscreen_show_unlock"
-   		android:summary="@string/enable_quicklaunch_summary"
+   		android:dependency="lockscreen_show_unlock"   		
    		android:key="pref_visual_basic_enable_quicklaunch"/>
     
     <CheckBoxPreference 

@@ -40,15 +40,15 @@
     <string name="lockscreen_clear_shortcut">Clear All</string>
     <string name="lockscreen_clear_description">Are you sure you want to clear all shortcuts?</string>      
     <string name="allow_all_widget_title">Allow all widgets</string>
-    <string name="allow_all_widget_summary">This is done at your own risk and NOT recommended</string>
-    <string name="enable_quicklaunch_title">Enable QuickLaunch</string>
+    <string name="allow_all_widget_summary">This is done at your own risk</string>
+    <string name="enable_quicklaunch_title">QuickLaunch</string>
     <string name="enable_quicklaunch_summary">Enables the lockscreen QuickLaunch shortcut ribbon.</string>
     <string name="always_quicklaunch_title">Always show QuickLaunch</string>
     <string name="always_quicklaunch_summary_on">QuickLaunch is always shown.</string>
     <string name="always_quicklaunch_summary_off">QuickLaunch is toggled with the home button.</string>
     <string name="long_quicklaunch_title">Launch on Longpress</string>
     <string name="long_quicklaunch_summary_on">Shortcut launched on longpress.</string>
-    <string name="long_quicklaunch_summary_off">Shortcut launched on touch. Watch out for pocket dials!</string>
+    <string name="long_quicklaunch_summary_off">Shortcut launched on touch.</string>
     <string name="manage_quicklaunch_title">Manage QuickLaunch</string>
     <string name="manage_quicklaunch_summary">Change the availability and order of QuickLaunch shortcuts.</string>
     <string name="warning_none_set">Problem loading shortcut or no shortcuts set</string>
@@ -92,6 +92,7 @@
     <string name="summary_navbar_color_picker">Choose the color overlay for the navigation buttons</string>
     <string name="summary_navbar_glow_picker">Choose the color for the button glow</string>
     <string name="title_color_picker_dialog">Choose button color</string>
+    <string name="title_clock_picker_dialog">Choose clock color</string>
     <string name="title_glow_picker_dialog">Choose glow color</string>
     <string name="navbar_save">Save Layout Changes</string>
     <string name="navbar_available">Available Keys</string>
@@ -123,7 +124,10 @@
     <string name="show_alarm_title">Alarm Indicator</string>
     <string name="show_alarm_summary_on">Alarm is shown</string>
     <string name="show_alarm_summary_off">Alarm is hidden</string>
-    
+    <string name="title_always_hide_clock">Always Hide Clock</string>
+    <string name="summary_always_hide_clock">Hides the statusbar clock on the lockscreen regardless of active widget.</string>
+    <string name="title_clock_text">Status Bar Clock Color</string>
+    <string name="summary_clock_text">Set the color for the Status Bar Clock</string>
     <string name="use_custom_carrier_label_title">Use custom carrier label</string>
     <string name="use_custom_carrier_label_summary">Display a custom label in the expanded status bar where the carrier text shows</string>
     <string name="custom_carrier_label_title">Tap to customize label string</string>
@@ -135,9 +139,15 @@
     <string name="battery_style_title">Battery Style</string>
     <string name="battery_style_dialog_title">Choose Battery Style</string>
     <string name="battery_style_loading">Loading available Battery Styles</string>
+    <string name="signal_style_title">Signal Style</string>
+    <string name="signal_style_dialog_title">Choose Signal Style</string>
+    <string name="signal_style_loading">Loading available Signal Styles</string>
+    <string name="navbar_style_title">Navbar Style</string>
+    <string name="navbar_style_dialog_title">Choose Navbar Style</string>
+    <string name="navbar_style_loading">Loading available Navbar Styles</string>
     <string name="category_battery_tweaks">Battery Tweaks</string>
     <string name="battery_text_title">Battery Text</string>
-    <string name="battery_text_summary">Change the visibility, size, and color of the accurate battery text</string>
+    <string name="battery_text_summary">Change the visibility, size, and color</string>
     <string name="acc_battery_text">Battery Text</string>
     <string name="acc_battery_text_color">Color</string>
     <string name="acc_battery_text_size">Size</string>

@@ -5,7 +5,12 @@
         android:title="@string/clock_title" 
         android:key="pref_visual_basic_clock_selector" 
         android:entries="@array/status_clock_entries" 
-        android:entryValues="@array/status_clock_values"/>
+        android:entryValues="@array/status_clock_values"/>    
+    
+    <Preference
+        android:title="@string/title_clock_text"
+        android:summary="@string/summary_clock_text"
+        android:key="pref_visual_basic_clock_text" />
         	
    	<com.bamf.settings.widgets.BAMFSwitchPreference 
    		android:title="@string/show_debug_title" 
@@ -13,7 +18,11 @@
    			
    	<com.bamf.settings.widgets.BAMFSwitchPreference 
    		android:title="@string/show_alarm_title" 
-   		android:key="pref_visual_basic_alarm"/>   
+   		android:key="pref_visual_basic_alarm"/>  
+   		
+   	<com.bamf.settings.widgets.IconPreference
+    		android:key="pref_signal_style" 
+			android:title="@string/signal_style_title"/>
    		
     <PreferenceCategory android:title="@string/category_battery_tweaks">		
    		

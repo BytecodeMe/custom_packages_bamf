@@ -42,6 +42,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 		OnPreferenceChangeListener, OnPreferenceClickListener {
 
 	private static final String PREF_NAVBAR_REFLECT = "pref_visual_navbar_reflect";
+	private static final String PREF_NAVBAR_FORCE = "pref_visual_navbar_force";
 	private static final String PREF_NAVBAR_SETUP = "pref_visual_navbar_setup";
 	private static final String PREF_NAVBAR_STYLE = "pref_navbar_style";
 	private static final String PREF_COLOR_PICKER = "pref_color_picker";
@@ -53,6 +54,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 	private ContentResolver mResolver;
 
 	private BAMFSwitchPreference mNavbarReflect;
+	private BAMFSwitchPreference mForceNavbar;
 	private BAMFSetupPreference mNavbarSetup;
 	private IconPreference mNavbarStyle;
 	private BAMFPreference mColorPickerPref;
@@ -80,8 +82,16 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 		mSettings = (SettingsActivity) getActivity();
 		mResolver = mSettings.getContentResolver();
 		pm = mSettings.getPackageManager();
+		
+		final boolean forceNav = mSettings.getResources().getBoolean(com.android.internal.R.bool.config_canForceNavigationBar);	
+		
+		mForceNavbar = (BAMFSwitchPreference) findPreference(PREF_NAVBAR_FORCE);
+		mForceNavbar.setChecked(Settings.System.getInt(mResolver,
+				Settings.System.FORCE_ONSCREEN_NAVBAR, 0) == 1);
+		mForceNavbar.setOnPreferenceChangeListener(this);
+		mForceNavbar.setOnPreferenceClickListener(this);
 
-		mNavbarReflect = (BAMFSwitchPreference) findPreference(PREF_NAVBAR_REFLECT);
+		mNavbarReflect = (BAMFSwitchPreference) findPreference(PREF_NAVBAR_REFLECT);		
 		mNavbarReflect.setChecked(Settings.System.getInt(mResolver,
 				Settings.System.SHOW_NAVBAR_REFLECTION, 0) != 0);
 		mNavbarReflect.setOnPreferenceChangeListener(this);
@@ -97,6 +107,16 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 		mNavbarStyle.setSummary(getCurrentStyle());
 		mNavbarStyle.setIcon(mNavbarIcon);
 		mNavbarStyle.setOnPreferenceClickListener(this);
+		
+		if(!forceNav){
+			getPreferenceScreen().removePreference(mForceNavbar);
+		}else{
+			mNavbarReflect.setDependency(PREF_NAVBAR_FORCE);
+			mNavbarSetup.setDependency(PREF_NAVBAR_FORCE);
+			mColorPickerPref.setDependency(PREF_NAVBAR_FORCE);
+			mGlowPickerPref.setDependency(PREF_NAVBAR_FORCE);
+			mNavbarStyle.setDependency(PREF_NAVBAR_FORCE);
+		}
 
 		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
@@ -146,8 +166,16 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 					Settings.System.SHOW_NAVBAR_REFLECTION,
 					(Boolean) newValue ? 1 : 0);
 			return true;
-		} else
+		} else if(pref == mForceNavbar){
+			boolean enabled = (Boolean) newValue;
+			Settings.System.putInt(mResolver, Settings.System.FORCE_ONSCREEN_NAVBAR, enabled ? 1:0);
+			Intent restart = new Intent("com.android.settings.RESTART_SYSTEMUI");
+            // protect this broadcast in case someone is looking
+            mSettings.sendBroadcast(restart, "com.bamf.ics.permission.RESTART_SYSTEMUI");
+			return true;
+		} else {
 			return false;
+		}
 
 	}
 

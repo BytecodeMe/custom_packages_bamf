@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
+    <com.bamf.settings.widgets.BAMFSwitchPreference 
+    	android:title="@string/force_navigation_keys" 
+    	android:key="pref_visual_navbar_force"
+    />
     <com.bamf.settings.widgets.BAMFSetupPreference 
     	android:title="@string/configure_navigation_keys" 
     	android:key="pref_visual_navbar_setup"

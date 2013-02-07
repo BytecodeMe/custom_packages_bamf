@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,6 +23,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
+import android.text.util.QuickTileToken;
+import android.text.util.QuickTileTokenizer;
+import android.util.ConfigHashMap;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -31,184 +36,149 @@ import android.widget.TextView;
 
 import com.bamf.settings.R;
 
-public class QuickSettingsUtil {
-    private static final String QUICK_AIRPLANE = "QuickAirplane";
-    private static final String QUICK_ROTATE = "QuickRotate";
-    private static final String QUICK_BRIGHTNESS = "QuickBrightness";
-    private static final String QUICK_BLUETOOTH = "QuickBluetooth";
-    private static final String QUICK_NODISTURB = "QuickNoDisturb";
-    private static final String QUICK_TORCH = "QuickTorch";
-    private static final String QUICK_SETTING = "QuickSetting";
-    private static final String QUICK_WIFI = "QuickWifi";
-    private static final String QUICK_VOLUME = "QuickVolume";
-    private static final String QUICK_LTE = "QuickLTE";
-    private static final String QUICK_CUSTOM = "QuickCustom";
-    private static final String QUICK_ADB = "QuickAdb";
-    private static final String QUICK_GPS = "QuickGPS";
-    private static final String QUICK_MOBILE_DATA = "QuickMobileData";
-    private static final String QUICK_SYNC = "QuickSync";
-    private static final String QUICK_MEDIA = "QuickMedia";
-    private static final String QUICK_HOTSPOT = "QuickHotspot";
-    private static final String QUICK_TETHER = "QuickTether";
+public class QuickTileHelper {
     
     private static final String EMPTY = "";
+    private static final char SETTING_DELIMITER = '|';
     
-    static {
-    	// intentionally blank
+    private Context mContext;
+    private HashMap<String, QuickSettingInfo> mSettings;
+    private ConfigHashMap<String, Boolean> mConfigs;
+    
+    public QuickTileHelper (Context context){
+    	mContext = context;
+    	mSettings = new HashMap<String, QuickSettingInfo>();
+    	mConfigs = new ConfigHashMap<String, Boolean>();
+    	setup();
     }
     
-    
-    public static final HashMap<String, QuickSettingInfo> SETTINGS = new HashMap<String, QuickSettingInfo>();
     // make sure this is called before trying to use SETTINGS
-    public static void setup(HashMap<String, Boolean> config) {
-    	SETTINGS.clear();
+    private void setup() {
+    	mConfigs.clear();
     	
-        SETTINGS.put(QUICK_AIRPLANE, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_AIRPLANE, R.string.title_toggle_airplane, "com.android.systemui:drawable/ic_sysbar_airplane_on"));
-        SETTINGS.put(QUICK_ROTATE, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_ROTATE, R.string.title_toggle_autorotate, "com.android.systemui:drawable/ic_sysbar_rotate_on"));
-        SETTINGS.put(QUICK_BRIGHTNESS, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_BRIGHTNESS, R.string.title_toggle_brightness, "com.android.systemui:drawable/ic_sysbar_brightness"));
-        SETTINGS.put(QUICK_NODISTURB, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_NODISTURB, R.string.title_toggle_donotdisturb, "com.android.systemui:drawable/ic_notification_open"));
-        SETTINGS.put(QUICK_SETTING, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_SETTING, R.string.title_toggle_settings, "com.android.systemui:drawable/ic_sysbar_quicksettings"));
-        SETTINGS.put(QUICK_WIFI, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_WIFI, R.string.title_toggle_wifi, "com.android.systemui:drawable/ic_sysbar_wifi_on"));
-        SETTINGS.put(QUICK_VOLUME, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_VOLUME, R.string.title_toggle_volume, "com.android.systemui:drawable/ic_lock_silent_mode_off"));
-        SETTINGS.put(QUICK_CUSTOM, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_CUSTOM, R.string.title_toggle_custom, "com.android.systemui:drawable/ic_sysbar_custom"));
-        SETTINGS.put(QUICK_ADB, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_ADB, R.string.title_toggle_adb, "com.android.systemui:drawable/ic_sysbar_adb_on"));
-        SETTINGS.put(QUICK_BLUETOOTH, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_BLUETOOTH, R.string.title_toggle_bluetooth, "com.android.systemui:drawable/ic_sysbar_bluetooth"));  
-        SETTINGS.put(QUICK_GPS, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_GPS, R.string.title_toggle_gps, "com.android.systemui:drawable/ic_sysbar_gps"));
-        SETTINGS.put(QUICK_SYNC, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_SYNC, R.string.title_toggle_sync, "com.android.systemui:drawable/ic_sysbar_sync"));
-        SETTINGS.put(QUICK_MEDIA, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_MEDIA, R.string.title_toggle_media, "com.android.systemui:drawable/ic_sysbar_musicplayer"));
+    	mConfigs.put(Settings.System.QUICK_TORCH, mContext.getResources()
+        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingTorch));
+        mConfigs.put(Settings.System.QUICK_LTE, mContext.getResources()
+        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingLTE));
+        mConfigs.put(Settings.System.QUICK_MOBILE_DATA, mContext.getResources()
+        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
+        mConfigs.put(Settings.System.QUICK_HOTSPOT, mContext.getResources()
+        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
+        mConfigs.put(Settings.System.QUICK_TETHER, mContext.getResources()
+        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
+        
+    	mSettings.clear();
+    	
+    	mSettings.put(Settings.System.QUICK_USER, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_USER, R.string.title_toggle_user, "com.android.systemui:drawable/ic_notify_quicksettings_normal"));
+    	mSettings.put(Settings.System.QUICK_ALARM, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_ALARM, R.string.title_toggle_alarm, "com.android.systemui:drawable/ic_qs_alarm_off"));
+        mSettings.put(Settings.System.QUICK_AIRPLANE, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_AIRPLANE, R.string.title_toggle_airplane, "com.android.systemui:drawable/ic_qs_airplane_off"));
+        mSettings.put(Settings.System.QUICK_ROTATE, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_ROTATE, R.string.title_toggle_autorotate, "com.android.systemui:drawable/ic_notify_rotation_on_normal"));
+        mSettings.put(Settings.System.QUICK_BATTERY, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_BATTERY, R.string.title_toggle_battery, "com.android.systemui:drawable/ic_qs_battery_charge_71"));
+        mSettings.put(Settings.System.QUICK_BRIGHTNESS, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_BRIGHTNESS, R.string.title_toggle_brightness, "com.android.systemui:drawable/ic_qs_brightness_auto_on"));
+        mSettings.put(Settings.System.QUICK_NODISTURB, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_NODISTURB, R.string.title_toggle_donotdisturb, "com.android.systemui:drawable/ic_notification_open"));
+        mSettings.put(Settings.System.QUICK_SETTING, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_SETTING, R.string.title_toggle_settings, "com.android.systemui:drawable/ic_notify_settings_normal"));
+        mSettings.put(Settings.System.QUICK_WIFI, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_WIFI, R.string.title_toggle_wifi, "com.android.systemui:drawable/ic_qs_wifi_4"));
+        mSettings.put(Settings.System.QUICK_VOLUME, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_VOLUME, R.string.title_toggle_volume, "com.android.systemui:drawable/ic_lock_silent_mode_off"));
+        mSettings.put(Settings.System.QUICK_CUSTOM, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_CUSTOM, R.string.title_toggle_custom, "com.android.systemui:drawable/ic_sysbar_custom"));
+        mSettings.put(Settings.System.QUICK_ADB, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_ADB, R.string.title_toggle_adb, "com.android.systemui:drawable/ic_sysbar_adb_off"));
+        mSettings.put(Settings.System.QUICK_BLUETOOTH, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_BLUETOOTH, R.string.title_toggle_bluetooth, "com.android.systemui:drawable/ic_qs_bluetooth_off"));  
+        mSettings.put(Settings.System.QUICK_GPS, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_GPS, R.string.title_toggle_gps, "com.android.systemui:drawable/ic_qs_location_off"));
+        mSettings.put(Settings.System.QUICK_SYNC, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_SYNC, R.string.title_toggle_sync, "com.android.systemui:drawable/ic_qs_sync_off"));
+        mSettings.put(Settings.System.QUICK_MEDIA, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_MEDIA, R.string.title_toggle_media, "com.android.systemui:drawable/ic_sysbar_musicplayer"));
         
         // these settings are visible based on the device config
-        if(config.get(QUICK_MOBILE_DATA)){
-        	SETTINGS.put(QUICK_MOBILE_DATA, new QuickSettingsUtil.QuickSettingInfo(
-        			QUICK_MOBILE_DATA, R.string.title_toggle_mobiledata, "com.android.systemui:drawable/ic_sysbar_data"));
-	        SETTINGS.put(QUICK_HOTSPOT, new QuickSettingsUtil.QuickSettingInfo(
-	                QUICK_HOTSPOT, R.string.title_toggle_hotspot, "com.android.systemui:drawable/ic_sysbar_hotspot_on"));
-	        SETTINGS.put(QUICK_TETHER, new QuickSettingsUtil.QuickSettingInfo(
-	                QUICK_TETHER, R.string.title_toggle_tether, "com.android.systemui:drawable/ic_sysbar_tether"));
+        if(mConfigs.get(Settings.System.QUICK_MOBILE_DATA)){
+        	mSettings.put(Settings.System.QUICK_MOBILE_DATA, new QuickTileHelper.QuickSettingInfo(
+        			Settings.System.QUICK_MOBILE_DATA, R.string.title_toggle_mobiledata, "com.android.systemui:drawable/ic_qs_mobile_data_off"));
+        	mSettings.put(Settings.System.QUICK_SIGNAL, new QuickTileHelper.QuickSettingInfo(
+        			Settings.System.QUICK_SIGNAL, R.string.title_toggle_signal, "com.android.systemui:drawable/ic_qs_signal_4"));
+	        mSettings.put(Settings.System.QUICK_HOTSPOT, new QuickTileHelper.QuickSettingInfo(
+	        		Settings.System.QUICK_HOTSPOT, R.string.title_toggle_hotspot, "com.android.systemui:drawable/ic_qs_hotspot_off"));
+	        mSettings.put(Settings.System.QUICK_TETHER, new QuickTileHelper.QuickSettingInfo(
+	        		Settings.System.QUICK_TETHER, R.string.title_toggle_tether, "com.android.systemui:drawable/ic_qs_usb_device_off"));
         }
-        if(config.get(QUICK_LTE)){
-        	SETTINGS.put(QUICK_LTE, new QuickSettingsUtil.QuickSettingInfo(
-                QUICK_LTE, R.string.title_toggle_lte, "com.android.systemui:drawable/ic_sysbar_lte_on"));
+        if(mConfigs.get(Settings.System.QUICK_LTE)){
+        	mSettings.put(Settings.System.QUICK_LTE, new QuickTileHelper.QuickSettingInfo(
+        			Settings.System.QUICK_LTE, R.string.title_toggle_lte, "com.android.systemui:drawable/ic_sysbar_lte_off"));
         }
-        if(config.get(QUICK_TORCH)){
-	        SETTINGS.put(QUICK_TORCH, new QuickSettingsUtil.QuickSettingInfo(
-	        		QUICK_TORCH, R.string.title_toggle_flashlight, "com.android.systemui:drawable/ic_sysbar_torch_on"));
+        if(mConfigs.get(Settings.System.QUICK_TORCH)){
+	        mSettings.put(Settings.System.QUICK_TORCH, new QuickTileHelper.QuickSettingInfo(
+	        		Settings.System.QUICK_TORCH, R.string.title_toggle_flashlight, "com.android.systemui:drawable/ic_sysbar_torch_off"));
         }
     }
+    
+    public HashMap<String, QuickSettingInfo> getAvailableSettings(){
+    	return mSettings;
+    }
 
-    private static String TEMP = null;
-    private static final String SETTING_DELIMITER = "|";
-    // do not use anything here that may not work on ALL devices
-    private static final String SETTINGS_DEFAULT = QUICK_AIRPLANE
-            + SETTING_DELIMITER + QUICK_MEDIA
-            + SETTING_DELIMITER + QUICK_VOLUME
-            + SETTING_DELIMITER + QUICK_ROTATE
-            + SETTING_DELIMITER + QUICK_BRIGHTNESS
-            + SETTING_DELIMITER + QUICK_SETTING;
-
-    public static String getCurrentQuickSettings(final Context context) {   		
-        String quick_settings = Settings.System.getString(context.getContentResolver(), 
-                Settings.System.QUICK_SETTINGS);
+    public List<QuickTileToken> getCurrentQuickSettings() {   		
+        List<QuickTileToken> quick_settings = new ArrayList<QuickTileToken>();
+        QuickTileTokenizer.tokenize(Settings.System.getString(mContext.getContentResolver(), 
+                Settings.System.QUICK_SETTINGS_TILES), quick_settings);
         
-        // setup config values
-        final HashMap<String, Boolean> configs = new HashMap<String, Boolean>();
-        configs.put(QUICK_TORCH, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingTorch));
-        configs.put(QUICK_LTE, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingLTE));
-        configs.put(QUICK_MOBILE_DATA, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
-        configs.put(QUICK_HOTSPOT, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
-        configs.put(QUICK_TETHER, context.getResources()
-        		.getBoolean(com.android.internal.R.bool.config_allowQuickSettingMobileData));
-        
-        // if setup is not called then it will be empty
-        setup(configs);
-        
-        if(quick_settings == null && TEMP == null){ 
-        	quick_settings = SETTINGS_DEFAULT;
-        }        	
-        else if(TEMP != null){
-        	quick_settings = TEMP;
+        if(quick_settings.size()==0){ 
+        	QuickTileTokenizer.tokenize(Settings.System.QUICK_TILES_DEFAULT, quick_settings);
         }
         else{
         	// just in case one sneaks in, get rid of it
-        	for(String config: configs.keySet()){
-        		if(quick_settings.contains(config) && !configs.get(config))
-        			quick_settings = quick_settings.replace(config, EMPTY).replace("||", "|");
+        	for(Object token: quick_settings.toArray()){
+        		if(!mConfigs.getNonNull(((QuickTileToken)token).getName(), true)){
+        			quick_settings.remove(token);
+        		}
         	}
-        	TEMP = quick_settings;
         }
         
         return quick_settings;
     }
     
-    public static void saveCurrentQuickSettingsTemp(String settings) {
-        TEMP = settings;
-    }
-    
-    public static void saveCurrentQuickSettings(Context context) {
-    	Settings.System.putString(context.getContentResolver(),
-                Settings.System.QUICK_SETTINGS, TEMP);
-    	clear();
-    }
-    
-    public static void clear(){
-    	TEMP = null;
-    }
-
-    public static String mergeInNewSettingsString(String oldString, String newString) {
-        ArrayList<String> oldList = getQuickSettingListFromString(oldString);
-        ArrayList<String> newList = getQuickSettingListFromString(newString);
-        ArrayList<String> mergedList = new ArrayList<String>();
-
-        // add any items from oldlist that are in new list
-        for(String quick_setting : oldList) {
-            if(newList.contains(quick_setting)) {
-                mergedList.add(quick_setting);
-            }
-        }
-
-        // append anything in newlist that isn't already in the merged list to the end of the list
-        for(String quick_setting : newList) {
-            if(!mergedList.contains(quick_setting)) {
-                mergedList.add(quick_setting);
-            }
-        }
-
-        // return merged list
-        return getQuickSettingsFromList(mergedList);
+    public void saveQuickSettings(List<QuickTileToken> settings) {
+    	
+    	StringBuilder sb = new StringBuilder();
+    	if(settings!=null){
+	    	for(QuickTileToken token: settings){
+	    		sb.append(token.toString());
+	    		sb.append(SETTING_DELIMITER);
+	    	}
+	    	if(sb.length()>0){
+	    		sb.deleteCharAt(sb.length()-1);
+	    	}
+    	}
+    	Log.d("QuickTiles", "Saving this:"+sb.toString());
+    	Settings.System.putString(mContext.getContentResolver(),
+                Settings.System.QUICK_SETTINGS_TILES, sb.toString());
     }
 
-    public static ArrayList<String> getQuickSettingListFromString(String buttons) {
-        return new ArrayList<String>(Arrays.asList(buttons.split("\\|")));
-    }
-
-    public static String getQuickSettingsFromList(ArrayList<String> quick_settings) {
-        if(quick_settings == null || quick_settings.size() <= 0) {
-            return "";
-        } else {
-            String s = quick_settings.get(0);
-            for(int i = 1; i < quick_settings.size(); i++) {
-                s += SETTING_DELIMITER + quick_settings.get(i);
-            }
-            return s;
-        }
-    }
+	public void addSetting(QuickTileToken quickTileToken) {
+		List<QuickTileToken> settings = getCurrentQuickSettings();
+		settings.add(quickTileToken);
+		saveQuickSettings(settings);
+	}
+	
+	public void removeSetting(String setting){
+		List<QuickTileToken> settings = getCurrentQuickSettings();
+		for(Object token: settings.toArray()){
+			if(((QuickTileToken)token).getName().equals(setting)){
+				settings.remove(token);
+			}
+		}
+		saveQuickSettings(settings);
+	}
 
     public static class QuickSettingInfo {
         private String mId;

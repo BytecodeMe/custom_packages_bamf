@@ -330,9 +330,12 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 
 			}
 			if (res != null)
+				try{
 				// get the preview from our battery package
-				d = res.getDrawable(res.getIdentifier("default_preview_navbar", "drawable",
+					d = res.getDrawable(res.getIdentifier("default_preview_navbar", "drawable",
 						pi.packageName));
+				}catch(Exception e){					
+				}
 			if (d != null) {
 				return d;
 			} else {

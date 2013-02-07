@@ -615,7 +615,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 			}
 			if (res != null)
 				// get the preview from our battery package
-				d = res.getDrawable(res.getIdentifier("preview", "drawable",
+				d = res.getDrawable(res.getIdentifier(battery ? "default_preview_battery" : "default_preview_signal", "drawable",
 						pi.packageName));
 			if (d != null) {
 				return d;

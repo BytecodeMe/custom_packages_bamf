@@ -2,11 +2,6 @@ package com.bamf.settings.activities;
 
 import java.util.ArrayList;
 
-import com.android.internal.view.RotationPolicy;
-import com.bamf.settings.R;
-import com.bamf.settings.utils.QuickSettingsUtil;
-import com.bamf.settings.widgets.ReorderListView;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,33 +12,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.SystemProperties;
-import android.preference.PreferenceActivity;
 import android.provider.Settings;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bamf.settings.R;
+import com.bamf.settings.widgets.ReorderListView;
 
 public class QuickLaunchActivity extends ListActivity implements
 		OnClickListener, OnItemLongClickListener {

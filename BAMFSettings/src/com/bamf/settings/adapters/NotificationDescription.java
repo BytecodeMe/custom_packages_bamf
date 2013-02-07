@@ -38,8 +38,5 @@ public class NotificationDescription extends PackageDescription {
 			return (isSpecial()?offms:0);
 		}
 		
-		public int getSpecialImage(){
-			return (offms==1)?R.drawable.disco:R.drawable.policesiren;
-		}
 	}
 }

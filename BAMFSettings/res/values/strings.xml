@@ -183,11 +183,11 @@
     <string name="system_basic_vol_control_summary">Adjust ringer and notification volumes together</string>
     
     <!-- Quick Settings -->
-    <string name="quick_settings_title">Quick Settings</string>
-    <string name="quick_settings_summary">Choose which quick settings to display</string>
+    <string name="quick_settings_title">Quick Tile Settings</string>
+    <string name="quick_settings_summary">Choose which quick tiles to display</string>
     <string name="quick_settings_order_title">Quick Settings Order</string>
     <string name="quick_settings_order_summary">Change the display order of the settings</string>
-    <string name="quick_settings">Quick Settings</string>
+    <string name="quick_settings">Quick Tile Settings</string>
     <string name="done">Done</string>
     <string name="save">Save</string>
     <string name="configure">Configure</string>
@@ -215,9 +215,21 @@
     <string name="title_toggle_media">Music Player</string>
     <string name="title_toggle_hotspot">Hotspot</string>
     <string name="title_toggle_tether">USB Tether</string>
+    <string name="title_toggle_user">User Info</string>
+    <string name="title_toggle_signal">Signal</string>
+    <string name="title_toggle_battery">Battery</string>
+    <string name="title_toggle_alarm">Alarm</string>
     <string name="pref_notification_mode_title">Visibility</string>
     <string name="pref_animations">Animations</string>
     <string name="pref_behavior">Behavior</string>
+
+	<!-- Quick Tiles Settings -->
+	<string name="quick_tiles">Quick Tile Settings</string>
+	<string name="quick_tile_add">Add Tile</string>
+	<string name="quick_tile_set_defaults">Defaults</string>
+	<string name="quick_tile_default_description">Are you sure you want to revert to the default tiles?</string>
+	<string name="title_choose_tile">Choose Tile</string>
+	<string name="message_no_more_tiles">"There are no more tiles available to add."</string>
     
 	<!-- Brightness Settings -->
 	<string name="dim">Dim</string>

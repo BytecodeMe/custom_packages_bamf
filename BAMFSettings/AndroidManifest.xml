@@ -51,11 +51,15 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.QuickSettingsActivity"
-            android:label="@string/quick_settings"            
-        	android:launchMode="singleTask"
-        	android:uiOptions="splitActionBarWhenNarrow" />
+		<activity
+            android:name=".activities.QuickTilesActivity"
+            android:label="@string/quick_tiles"            
+        	android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="com.bamf.settings.quicktiles"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+		</activity>
         <activity
             android:name=".activities.IconPreferenceActivity"     
         	android:launchMode="singleTask" />

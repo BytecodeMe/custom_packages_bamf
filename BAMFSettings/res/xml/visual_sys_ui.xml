@@ -32,7 +32,7 @@
 	    	android:summary="@string/quick_settings_summary">
 	    	<intent android:action="android.intent.action.MAIN"
 				android:targetPackage="com.bamf.settings"
-				android:targetClass="com.bamf.settings.activities.QuickSettingsActivity" />
+				android:targetClass="com.bamf.settings.activities.QuickTilesActivity" />
 		</PreferenceScreen>
    			
 </PreferenceScreen>

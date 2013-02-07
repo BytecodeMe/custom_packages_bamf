@@ -484,6 +484,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 		Preference p = null;
 		String intent = "";
 		Drawable d = null;
+		boolean battery = false;
 
 		switch (type) {
 		case TYPE_BATTERY:
@@ -491,6 +492,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 			p = mBatteryStyle;
 			intent = Intent.ACTION_BATTERY_ICON_CHANGED;
 			d = mBatteryIcon;
+			battery = true;
 			break;
 		case TYPE_SIGNAL:
 			name = Settings.System.CUSTOM_SIGNAL_PACKAGE;
@@ -503,7 +505,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 		if (item != null) {
 			Settings.System.putString(mResolver, name, item.packageName);
 			p.setSummary(getCurrentStyle(type));
-			p.setIcon(d);
+			p.setIcon(battery ? mBatteryIcon : mSignalIcon);
 		} else {
 			setDefault(type);
 		}
@@ -516,6 +518,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 		Preference p = null;
 		String intent = "";
 		Drawable d = null;
+		boolean battery = false;
 
 		switch (type) {
 		case TYPE_BATTERY:
@@ -523,6 +526,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 			p = mBatteryStyle;
 			intent = Intent.ACTION_BATTERY_ICON_CHANGED;
 			d = mBatteryIcon;
+			battery = true;
 			break;
 		case TYPE_SIGNAL:
 			name = Settings.System.CUSTOM_SIGNAL_PACKAGE;
@@ -534,7 +538,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 
 		Settings.System.putString(mResolver, name, "");
 		p.setSummary(getCurrentStyle(type));
-		p.setIcon(d);
+		p.setIcon(battery ? mBatteryIcon : mSignalIcon);
 		mSettings.sendBroadcast(new Intent().setAction(intent));
 	}
 

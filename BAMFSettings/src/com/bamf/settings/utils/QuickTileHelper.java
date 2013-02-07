@@ -70,7 +70,7 @@ public class QuickTileHelper {
     	mSettings.clear();
     	
     	mSettings.put(Settings.System.QUICK_USER, new QuickTileHelper.QuickSettingInfo(
-        		Settings.System.QUICK_USER, R.string.title_toggle_user, "com.android.systemui:drawable/ic_notify_quicksettings_normal"));
+        		Settings.System.QUICK_USER, R.string.title_toggle_user, "com.android.systemui:drawable/ic_qs_default_user_light_grey"));
     	mSettings.put(Settings.System.QUICK_ALARM, new QuickTileHelper.QuickSettingInfo(
         		Settings.System.QUICK_ALARM, R.string.title_toggle_alarm, "com.android.systemui:drawable/ic_qs_alarm_off"));
         mSettings.put(Settings.System.QUICK_AIRPLANE, new QuickTileHelper.QuickSettingInfo(
@@ -78,7 +78,7 @@ public class QuickTileHelper {
         mSettings.put(Settings.System.QUICK_ROTATE, new QuickTileHelper.QuickSettingInfo(
         		Settings.System.QUICK_ROTATE, R.string.title_toggle_autorotate, "com.android.systemui:drawable/ic_notify_rotation_on_normal"));
         mSettings.put(Settings.System.QUICK_BATTERY, new QuickTileHelper.QuickSettingInfo(
-        		Settings.System.QUICK_BATTERY, R.string.title_toggle_battery, "com.android.systemui:drawable/ic_qs_battery_charge_71"));
+        		Settings.System.QUICK_BATTERY, R.string.title_toggle_battery, "com.android.systemui:drawable/ic_qs_battery_bolt_light_grey"));
         mSettings.put(Settings.System.QUICK_BRIGHTNESS, new QuickTileHelper.QuickSettingInfo(
         		Settings.System.QUICK_BRIGHTNESS, R.string.title_toggle_brightness, "com.android.systemui:drawable/ic_qs_brightness_auto_on"));
         mSettings.put(Settings.System.QUICK_NODISTURB, new QuickTileHelper.QuickSettingInfo(
@@ -100,7 +100,7 @@ public class QuickTileHelper {
         mSettings.put(Settings.System.QUICK_SYNC, new QuickTileHelper.QuickSettingInfo(
         		Settings.System.QUICK_SYNC, R.string.title_toggle_sync, "com.android.systemui:drawable/ic_qs_sync_off"));
         mSettings.put(Settings.System.QUICK_MEDIA, new QuickTileHelper.QuickSettingInfo(
-        		Settings.System.QUICK_MEDIA, R.string.title_toggle_media, "com.android.systemui:drawable/ic_sysbar_musicplayer"));
+        		Settings.System.QUICK_MEDIA, R.string.title_toggle_media, "com.android.systemui:drawable/ic_sysbar_musicplayer_lightgrey"));
         
         // these settings are visible based on the device config
         if(mConfigs.get(Settings.System.QUICK_MOBILE_DATA)){

@@ -288,7 +288,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 	protected void setDefault() {		
 
 		Settings.System.putString(mResolver, Settings.System.CUSTOM_NAVBAR_PACKAGE, "");
-		mNavbarStyle.setSummary(getCurrentStyle());
+		mNavbarStyle.setSummary(getCurrentStyle());		
 		mNavbarStyle.setIcon(mNavbarIcon);
 		mSettings.sendBroadcast(new Intent().setAction(Intent.ACTION_NAVBAR_ICON_CHANGED));
 	}
@@ -296,6 +296,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 	private CharSequence getCurrentStyle() {
 
 		String style = "Stock";
+		mNavbarIcon = null;
 
 		mNavbarPackages = new ArrayList<PackageInfo>();
 		mNavbarPackage = Settings.System.getString(mResolver,

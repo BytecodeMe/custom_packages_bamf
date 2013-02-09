@@ -554,15 +554,13 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 
 		switch (type) {
 		case TYPE_BATTERY:
-			name = Settings.System.CUSTOM_BATTERY_PACKAGE;
-			d = mBatteryIcon;
+			name = Settings.System.CUSTOM_BATTERY_PACKAGE;			
 			packages = mBatteryPackages;
 			pkgName = mBatteryPackage;
 			skinType = "battery";
 			break;
 		case TYPE_SIGNAL:
-			name = Settings.System.CUSTOM_SIGNAL_PACKAGE;
-			d = mSignalIcon;
+			name = Settings.System.CUSTOM_SIGNAL_PACKAGE;			
 			packages = mSignalPackages;
 			pkgName = mSignalPackage;
 			skinType = "signal";

@@ -57,7 +57,7 @@ public class SettingsProvider extends ContentProvider {
     
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	
 	private static final String[] TABLE_NAMES = {
         Notifications.TABLE_NAME

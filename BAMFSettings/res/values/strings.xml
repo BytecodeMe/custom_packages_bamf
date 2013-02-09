@@ -231,6 +231,11 @@
 	<string name="quick_tile_default_description">Are you sure you want to revert to the default tiles?</string>
 	<string name="title_choose_tile">Choose Tile</string>
 	<string name="message_no_more_tiles">"There are no more tiles available to add."</string>
+	
+	<!-- Number Picker -->
+	<string name="rows">Rows</string>
+	<string name="columns">Columns</string>
+	<string name="by">X</string>
     
 	<!-- Brightness Settings -->
 	<string name="dim">Dim</string>

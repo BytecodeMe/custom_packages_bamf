@@ -3,7 +3,6 @@ package com.bamf.settings.preferences;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.AlertDialog;
@@ -23,11 +22,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.bamf.settings.R;
@@ -38,9 +39,11 @@ import com.bamf.settings.widgets.QuickTilePicker.OnItemSelectListener;
 import com.bamf.settings.widgets.ReorderListView;
 
 public class QuickTileOrderFragment extends ListFragment implements
-		OnClickListener, OnItemLongClickListener {
+		OnClickListener, OnItemLongClickListener, OnItemClickListener {
 
 	private static final String TAG = QuickTileOrderFragment.class.getSimpleName();
+
+	protected static final boolean DEBUG = false;
 
 	private ListView mQuickTileList;
 	private QuickSettingAdapter mSettingAdapter;
@@ -63,6 +66,7 @@ public class QuickTileOrderFragment extends ListFragment implements
 		mQuickTileList.setOnItemLongClickListener(this);
 
 		((ReorderListView) mQuickTileList).setDropListener(mDropListener);
+		((ReorderListView) mQuickTileList).setOnItemClickListener(this);
 
 		if (mSettingAdapter == null) {
 			mSettingAdapter = new QuickSettingAdapter(getActivity());
@@ -80,9 +84,12 @@ public class QuickTileOrderFragment extends ListFragment implements
 
 	}
 
+	/**
+	 * Handles the the add/default buttons on the bottom of the fragment
+	 */
 	@Override
 	public void onClick(View v) {
-
+		
 		switch (v.getId()) {
 		case R.id.lockscreen_button_add:
 			pickQuickTile();
@@ -105,12 +112,14 @@ public class QuickTileOrderFragment extends ListFragment implements
 			break;
 		}
 	}
-	
+	/**
+	 * Creates a picker for choosing tiles to add
+	 */
 	private void pickQuickTile() {
 		final QuickTilePicker picker = new QuickTilePicker(getActivity(), new OnItemSelectListener(){
 			@Override
 			public void onItemSelect(String name){
-				Log.d(TAG, "picked "+name+", size:"+mQuickTileHelper.getAvailableSettings().size());
+				if(DEBUG)Log.d(TAG, "picked "+name+", size:"+mQuickTileHelper.getAvailableSettings().size());
 				if(mQuickTileHelper.getAvailableSettings().containsKey(name)){
 					mQuickTileHelper.addSetting(new QuickTileToken(name,1,1));
 					// tell our adapter/listview to reload
@@ -121,7 +130,8 @@ public class QuickTileOrderFragment extends ListFragment implements
 		
 		// populate available tiles in the list
 		List<QuickTileToken> quickSettings = mQuickTileHelper.getCurrentQuickSettings();
-		
+		// this will make sure we only show tiles that are available 
+		// on the current device and not already placed
 		Iterator<Entry<String, QuickSettingInfo>> it = mQuickTileHelper.getAvailableSettings().entrySet().iterator();
 	    while (it.hasNext()) {
 	        Entry<String, QuickSettingInfo> pairs = it.next();
@@ -134,11 +144,10 @@ public class QuickTileOrderFragment extends ListFragment implements
 	        if(!match){
 	        	picker.addItem(pairs.getValue());
 	        }
-	        //it.remove();
 	    }
 
 		picker.setTitle(R.string.title_choose_tile);
-		
+		// show the dialog or one telling the user there are no more left to use
 		if(picker.getItemCount()>0){
 			picker.show();
 		}else{
@@ -170,7 +179,48 @@ public class QuickTileOrderFragment extends ListFragment implements
             }
         }
     };
+    
+    /**
+     * Handles single clicks for changing the row/column span
+     */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, final int position,
+			long id) {
+		
+		// get the token for this setting so we know the current rows/columns
+		QuickTileToken token = mQuickTileHelper.getCurrentQuickSettings().get(position);
+		// inflate the picker view
+	    View picker = View.inflate(getActivity(), R.layout.dialog_number_picker, null);
+		
+	    // setup to the two number pickers and limit the max to 3
+		final NumberPicker rows = (NumberPicker)picker.findViewById(R.id.rows);
+		rows.setMaxValue(3);
+		rows.setMinValue(1);
+		rows.setValue(token.getRows());
+		
+		final NumberPicker columns = (NumberPicker)picker.findViewById(R.id.columns);
+		columns.setMaxValue(3);
+		columns.setMinValue(1);
+		columns.setValue(token.getColumns());
+		
+		// show the dialog to the user
+		new AlertDialog.Builder(getActivity())
+		.setIcon(((QuickSettingAdapter.ViewHolder)view.getTag()).icon.getDrawable())
+        .setTitle(((QuickSettingAdapter.ViewHolder)view.getTag()).line1.getText())
+        .setMessage("Select the desired size of the tile")
+        .setView(picker)
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                	mQuickTileHelper.changeSize(position,rows.getValue(),columns.getValue());
+                }
+        })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show();
+	}
 
+	/**
+	 * Handles the long press for deletes
+	 */
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			final int position, long id) {
@@ -178,15 +228,16 @@ public class QuickTileOrderFragment extends ListFragment implements
 		new AlertDialog.Builder(getActivity())
         .setTitle("Delete")
         .setMessage("Are you sure you want to remove this tile?")
-        .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
+                	// get the item the user clicked and remove it from saved settings
                 	QuickSettingInfo qs = (QuickSettingInfo)mSettingAdapter.getItem(position);
                 	mQuickTileHelper.removeSetting(qs.getId());
 					// tell our adapter/listview to reload
                     reload();
                 }
         })
-        .setNegativeButton(getString(android.R.string.cancel), null)
+        .setNegativeButton(android.R.string.cancel, null)
         .show();   
 		
 		return true;
@@ -299,10 +350,10 @@ public class QuickTileOrderFragment extends ListFragment implements
         }
     
         public class ViewHolder{
-          ImageView icon;
-          TextView line1;
+        	ImageView icon;
+        	TextView line1;
     
-          ViewHolder(QuickSettingAdapter quickSettingAdapter){ }
+        	ViewHolder(QuickSettingAdapter quickSettingAdapter){ }
         } 
 
 		private void getCustomData(ViewHolder vh) {

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,8 +37,9 @@ import com.bamf.settings.R;
 
 public class QuickTileHelper {
     
-    private static final String EMPTY = "";
     private static final char SETTING_DELIMITER = '|';
+
+	private static final boolean DEBUG = false;
     
     private Context mContext;
     private HashMap<String, QuickSettingInfo> mSettings;
@@ -52,7 +52,9 @@ public class QuickTileHelper {
     	setup();
     }
     
-    // make sure this is called before trying to use SETTINGS
+    /**
+     * This will populate {@code mSettings} with available settings
+     */
     private void setup() {
     	mConfigs.clear();
     	
@@ -122,11 +124,20 @@ public class QuickTileHelper {
 	        		Settings.System.QUICK_TORCH, R.string.title_toggle_flashlight, "com.android.systemui:drawable/ic_sysbar_torch_off"));
         }
     }
-    
+    /**
+     * Get the available settings for the current device
+     * @return
+     * 		a {@code HashMap} containing all of the settings
+     */
     public HashMap<String, QuickSettingInfo> getAvailableSettings(){
     	return mSettings;
     }
 
+    /**
+     * This will retrieve the current settings
+     * @return 
+     * 		A {@code List<QuickTileToken>} of what is currently saved in settings
+     */
     public List<QuickTileToken> getCurrentQuickSettings() {   		
         List<QuickTileToken> quick_settings = new ArrayList<QuickTileToken>();
         QuickTileTokenizer.tokenize(Settings.System.getString(mContext.getContentResolver(), 
@@ -146,7 +157,11 @@ public class QuickTileHelper {
         
         return quick_settings;
     }
-    
+    /**
+     * Saves the settings to the database
+     * @param settings 
+     * 		a {@code List<}{@link QuickTileToken}{@code >} containing the new settings
+     */
     public void saveQuickSettings(List<QuickTileToken> settings) {
     	
     	StringBuilder sb = new StringBuilder();
@@ -159,27 +174,63 @@ public class QuickTileHelper {
 	    		sb.deleteCharAt(sb.length()-1);
 	    	}
     	}
-    	Log.d("QuickTiles", "Saving this:"+sb.toString());
+    	if(DEBUG)Log.d("QuickTiles", "Saving this:"+sb.toString());
     	Settings.System.putString(mContext.getContentResolver(),
                 Settings.System.QUICK_SETTINGS_TILES, sb.toString());
     }
 
+    /**
+     * Add a quick tile setting to the end
+     * @param quickTileToken
+     * 		a {@link QuickTileToken} to add
+     */
 	public void addSetting(QuickTileToken quickTileToken) {
 		List<QuickTileToken> settings = getCurrentQuickSettings();
 		settings.add(quickTileToken);
 		saveQuickSettings(settings);
 	}
 	
-	public void removeSetting(String setting){
+	/**
+	 * Remove a setting based on the name
+	 * @param setting
+	 * 		the name of the setting
+	 * @return
+	 * 		the position of where it was removed from or -1 if it was not found
+	 */
+	public int removeSetting(String setting){
 		List<QuickTileToken> settings = getCurrentQuickSettings();
+		int index = -1;
 		for(Object token: settings.toArray()){
 			if(((QuickTileToken)token).getName().equals(setting)){
+				index = settings.indexOf(token);
 				settings.remove(token);
 			}
 		}
 		saveQuickSettings(settings);
+		return index;
+	}
+	
+	/**
+	 * Will change the row and column span of an existing setting
+	 * @param position
+	 * 		the position of the setting to change
+	 * @param rows
+	 * 		the new row span
+	 * @param columns
+	 * 		the new column span
+	 */
+	public void changeSize(int position, int rows, int columns) {
+		List<QuickTileToken> settings = getCurrentQuickSettings();
+		QuickTileToken token = settings.get(position);
+		token.setRows(rows);
+		token.setColumns(columns);
+		saveQuickSettings(settings);
 	}
 
+	/**
+	 * Class to hold title and icon information for each setting
+	 * @author ihtfp69
+	 */
     public static class QuickSettingInfo {
         private String mId;
         private int mTitleResId;

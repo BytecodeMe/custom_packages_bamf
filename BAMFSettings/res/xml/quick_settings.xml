@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:bamf="http://schemas.android.com/apk/res/com.bamf.settings">
-    
-    
-    <PreferenceCategory android:key="pref_quick_settings" 
-    	android:title="@string/summary_quicksettings_picker" />
-	
     <PreferenceCategory android:key="category_options" 
         android:title="@string/title_qs_modes">
         <com.bamf.settings.widgets.IconPreference

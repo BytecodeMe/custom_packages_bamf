@@ -53,7 +53,7 @@ public class SystemBasicFragment extends PreferenceFragment
     implements OnPreferenceChangeListener,OnPreferenceClickListener,
         OnServiceBindedListener {
 	
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	
     public static final int MSG_REMOUNT = 101;
     public static final int MSG_BLOCK_ADS = 102;    
@@ -135,15 +135,14 @@ public class SystemBasicFragment extends PreferenceFragment
     	mMountSystem.setOnPreferenceChangeListener(this);
     	mMountSystem.setOnPreferenceClickListener(this);
     	
-    	if(DEBUG){
-	    	mNotificationManager = new Preference(getActivity());
-	    	mNotificationManager.setTitle("Manage Notifications");
-	    	mNotificationManager.setSummary("Customize and manage notifications for the system and applications");
-			((PreferenceScreen)findPreference("MAIN")).addPreference(mNotificationManager);
-			mNotificationManager.setIntent(
-					new Intent(getActivity(),
-					NotificationManagerActivity.class));
-    	}
+    	mNotificationManager = new Preference(getActivity());
+    	mNotificationManager.setTitle("Manage Notifications");
+    	mNotificationManager.setSummary("Customize and manage notifications for the system and applications");
+		((PreferenceScreen)findPreference("MAIN")).addPreference(mNotificationManager);
+		mNotificationManager.setIntent(
+				new Intent(getActivity(),
+				NotificationManagerActivity.class));
+
     	
     	/**
     	 * This will only benefit us if this is the only fragment that uses root functions

@@ -29,7 +29,7 @@ public class VisualSystemUIFragment extends PreferenceFragment implements OnPref
 	private static final String PREF_SCREENSHOT_ACTION = "pref_screenshot";
 		
 	private static final String TAG = VisualSystemUIFragment.class.getSimpleName();
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	
 	private Activity mSettings;
 	private ContentResolver mResolver;		

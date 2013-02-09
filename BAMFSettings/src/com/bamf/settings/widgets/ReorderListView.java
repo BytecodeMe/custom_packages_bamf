@@ -67,6 +67,8 @@ public class ReorderListView extends ListView {
     private static final int FLING = 0;
     private static final int SLIDE = 1;
     private static final int TRASH = 2;
+
+	private static final boolean DEBUG = false;
     private int mRemoveMode = -1;
     private Rect mTempRect = new Rect();
     private Bitmap mDragBitmap;
@@ -82,7 +84,7 @@ public class ReorderListView extends ListView {
         Resources res = getResources();
         mItemHeightNormal = res.getDimensionPixelSize(R.dimen.list_item_height);
         mItemHeightHalf = mItemHeightNormal / 2;
-        mItemHeightExpanded = res.getDimensionPixelSize(R.dimen.expanded_list_item_height);;
+        mItemHeightExpanded = res.getDimensionPixelSize(R.dimen.expanded_list_item_height);
     }
     
     @Override
@@ -121,7 +123,7 @@ public class ReorderListView extends ListView {
                     if (itemnum == AdapterView.INVALID_POSITION) {
                         break;
                     }
-                    Log.d(TAG, "itemnum:"+itemnum+" firstvisible:"+getFirstVisiblePosition());
+                    if(DEBUG)Log.d(TAG, "itemnum:"+itemnum+" firstvisible:"+getFirstVisiblePosition());
                     ViewGroup item = (ViewGroup) getChildAt(itemnum - getFirstVisiblePosition());
                     mDragPointX = x - item.getLeft();
                     mDragPointY = y - item.getTop();

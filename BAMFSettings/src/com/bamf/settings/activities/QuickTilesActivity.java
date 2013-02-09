@@ -6,38 +6,15 @@ import android.view.MenuItem;
 
 import com.bamf.settings.R;
 import com.bamf.settings.preferences.QuickTileOrderFragment;
+import com.bamf.settings.preferences.QuickTilePreferenceFragment;
 import com.bamf.settings.preferences.VisualLockscreenFragment;
 import com.bamf.settings.utils.QuickTileHelper.CustomIconUtil;
 import com.slidingmenu.lib.SlidingMenu;
 
 
-public class QuickTilesActivity extends FragmentActivity /*BaseSlidingActivity*/ {
-
-	/*public QuickTilesActivity() {
-		super(R.string.quick_tiles);
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		getSlidingMenu().setMode(SlidingMenu.LEFT);
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		
-		setContentView(R.layout.content_frame);
-		getFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, new QuickLaunchFragment())
-		.commit();
-		
-		getSlidingMenu().setSecondaryMenu(R.layout.menu_frame);
-		getSlidingMenu().setSecondaryShadowDrawable(R.drawable.shadowright);
-		getFragmentManager()
-		.beginTransaction()
-		.replace(R.id.menu_frame, new VisualLockscreenFragment())
-		.commit();
-	}*/
+public class QuickTilesActivity extends FragmentActivity {
 	
-	private SlidingMenu menu;
+	private SlidingMenu mMenu;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,18 +35,18 @@ public class QuickTilesActivity extends FragmentActivity /*BaseSlidingActivity*/
 		.commit();
 
 		// configure the SlidingMenu
-		menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setBehindScrollScale(0);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-		menu.setMenu(R.layout.menu_frame);
+		mMenu = new SlidingMenu(this);
+		mMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		mMenu.setShadowWidthRes(R.dimen.shadow_width);
+		mMenu.setShadowDrawable(R.drawable.shadow);
+		mMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		mMenu.setBehindScrollScale(0);
+		mMenu.setFadeDegree(0.35f);
+		mMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+		mMenu.setMenu(R.layout.menu_frame);
 		getFragmentManager()
 		.beginTransaction()
-		.replace(R.id.menu_frame, new VisualLockscreenFragment())
+		.replace(R.id.menu_frame, new QuickTilePreferenceFragment())
 		.commit();
 	}
 	
@@ -85,8 +62,8 @@ public class QuickTilesActivity extends FragmentActivity /*BaseSlidingActivity*/
 
 	@Override
 	public void onBackPressed() {
-		if (menu.isMenuShowing()) {
-			menu.showContent();
+		if (mMenu.isMenuShowing()) {
+			mMenu.showContent();
 		} else {
 			super.onBackPressed();
 		}

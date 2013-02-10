@@ -1,6 +1,8 @@
 package com.bamf.settings.preferences;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -27,11 +29,14 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.bamf.settings.R;
+import com.bamf.settings.adapters.PackageDescription;
+import com.bamf.settings.utils.CustomIconUtil;
 import com.bamf.settings.utils.QuickTileHelper;
 import com.bamf.settings.utils.QuickTileHelper.QuickSettingInfo;
 import com.bamf.settings.widgets.QuickTilePicker;
@@ -145,7 +150,6 @@ public class QuickTileOrderFragment extends ListFragment implements
 	        	picker.addItem(pairs.getValue());
 	        }
 	    }
-
 		picker.setTitle(R.string.title_choose_tile);
 		// show the dialog or one telling the user there are no more left to use
 		if(picker.getItemCount()>0){
@@ -252,7 +256,7 @@ public class QuickTileOrderFragment extends ListFragment implements
         mQuickTileList.invalidateViews();  
 	}
 	
-	private class QuickSettingAdapter extends BaseAdapter {
+	private class QuickSettingAdapter extends BaseAdapter implements ListAdapter {
         private Context mContext;
         private Resources mSystemUIResources = null;
         private LayoutInflater mInflater;
@@ -363,12 +367,15 @@ public class QuickTileOrderFragment extends ListFragment implements
 	        try {
 	        	vh.line1.setText("Custom ("+pm.resolveActivity(
 	        			Intent.parseUri(mCustomURI, 0),0).activityInfo.loadLabel(pm)+")");
-	        	Drawable customIcon = QuickTileHelper.CustomIconUtil.loadFromFile(mContext);
+	        	CustomIconUtil.getInstance(mContext).setFragment(getParentFragment());
+	        	Drawable customIcon = CustomIconUtil.getInstance(mContext).loadFromFile();
 	        	if(customIcon==null){
-	        	    vh.icon.setImageDrawable(pm.getActivityIcon(Intent.parseUri(mCustomURI, 0)));
+	        	    vh.icon.setBackground(pm.getActivityIcon(Intent.parseUri(mCustomURI, 0)));
 	        	}else{
-	        	    vh.icon.setImageDrawable(customIcon);
+	        	    vh.icon.setBackground(customIcon);
 	        	}
+	        	vh.icon.setScaleX(0.75f);
+	        	vh.icon.setScaleY(0.75f);
 	        	vh.icon.setVisibility(View.VISIBLE);
 			} catch (Throwable t) {}
 		}

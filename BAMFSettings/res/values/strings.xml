@@ -196,7 +196,7 @@
 	<string name="use_custom_title">Use custom actions</string>
 	<string name="summary_quicksettings_picker">Choose which Quick Settings to display</string>
 	<string name="title_qs_modes">Options</string>
-    <string name="pref_custom_toggle_title">Custom toggle press</string>
+    <string name="pref_custom_toggle_title">Action</string>
     <string name="title_toggle_airplane">Airplane</string>
     <string name="title_toggle_autorotate">Auto Rotate</string>
     <string name="title_toggle_brightness">Brightness</string>
@@ -230,7 +230,10 @@
 	<string name="quick_tile_set_defaults">Defaults</string>
 	<string name="quick_tile_default_description">Are you sure you want to revert to the default tiles?</string>
 	<string name="title_choose_tile">Choose Tile</string>
-	<string name="message_no_more_tiles">"There are no more tiles available to add."</string>
+	<string name="message_no_more_tiles">There are no more tiles available to add.</string>
+	
+	<string name="title_qs_custom_toggle">Custom Tile Options</string>
+	<string name="pref_custom_icon_title">Customize Icon</string>
 	
 	<!-- Number Picker -->
 	<string name="rows">Rows</string>

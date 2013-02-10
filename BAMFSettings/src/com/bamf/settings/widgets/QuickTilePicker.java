@@ -1,6 +1,8 @@
 package com.bamf.settings.widgets;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -22,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bamf.settings.R;
+import com.bamf.settings.utils.CustomIconUtil;
 import com.bamf.settings.utils.QuickTileHelper;
 import com.bamf.settings.utils.QuickTileHelper.QuickSettingInfo;
 
@@ -76,6 +79,15 @@ public class QuickTilePicker extends AlertDialog implements OnItemClickListener 
 	
 	@Override
 	public void show(){
+		final Resources res = mContext.getResources();
+		Comparator<QuickSettingInfo> comparator = new Comparator<QuickSettingInfo>() {    
+            @Override
+            public int compare(QuickSettingInfo lhs, QuickSettingInfo rhs) {
+                return res.getString(lhs.getTitleResId()).compareToIgnoreCase(res.getString(rhs.getTitleResId()));
+            }
+		};      
+		Collections.sort(mItems, comparator);
+		
 		final ListAdapter adapter = new ArrayAdapter<QuickSettingInfo>(
 	            mContext,
 	            R.layout.select_icon_source_item,
@@ -156,7 +168,7 @@ public class QuickTilePicker extends AlertDialog implements OnItemClickListener 
 				Settings.System.QUICK_SETTINGS_CUSTOM);
 		Drawable customIcon = null;
         try {
-        	customIcon = QuickTileHelper.CustomIconUtil.loadFromFile(mContext);
+        	customIcon = CustomIconUtil.getInstance(mContext).loadFromFile();
         	if(customIcon==null){
         		customIcon = mPm.getActivityIcon(Intent.parseUri(mCustomURI, 0));
         	}
@@ -181,5 +193,4 @@ public class QuickTilePicker extends AlertDialog implements OnItemClickListener 
             return setting;
         }
     }
-
 }

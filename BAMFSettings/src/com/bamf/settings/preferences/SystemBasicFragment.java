@@ -353,7 +353,8 @@ public class SystemBasicFragment extends PreferenceFragment
 	    		mLevelsDefault = getActivity().getResources().getIntArray(
 	                    com.android.internal.R.array.config_autoBrightnessLcdBacklightValues);
 	    		mLevels = parseIntArray(Settings.System.getString(mResolver,
-	    				Settings.System.LIGHT_SENSOR_LCD_VALUES));
+	    				Settings.System.LIGHT_SENSOR_LCD_VALUES));	    		
+	    		
 	    		if(mLevels.length < mLevelsDefault.length)
 	    			mLevels = mLevelsDefault;
 	    	}catch (Exception e){	    		
@@ -597,11 +598,12 @@ public class SystemBasicFragment extends PreferenceFragment
 			}
 			mLevels = tempLevels;
 			Settings.System.putString(mResolver,
-                    Settings.System.LIGHT_SENSOR_LCD_VALUES, intArrayToString(mLevels));
+                    Settings.System.LIGHT_SENSOR_LCD_VALUES, intArrayToString(verifyValid(mLevels)));
 			
 		}
 		
-		private String intArrayToString(int[] array) {
+		private String intArrayToString(int[] array) {			
+			
 	        StringBuilder sb = new StringBuilder();
 	        for (int i = 0; i < array.length - 1; i++) {
 	            sb.append(array[i]);
@@ -610,6 +612,24 @@ public class SystemBasicFragment extends PreferenceFragment
 	        sb.append(array[array.length - 1]);	        
 	        return sb.toString();
 	    }
+		
+		private int[] verifyValid(int[] array) {
+			
+			final int[] adjusted = new int[array.length];
+			int oldValue = 0;
+			int newValue = 0;
+			for (int i = array.length - 1;i > -1;i--){
+				int current = array[i];
+				if((oldValue != 0) && (current >= oldValue)){
+					oldValue = newValue = oldValue - 1;					
+				}else{
+					oldValue = newValue = array[i];					
+				}				
+				adjusted[i] = newValue;
+			}			
+			mLevels = adjusted;
+			return mLevels;
+		}
 
 		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,

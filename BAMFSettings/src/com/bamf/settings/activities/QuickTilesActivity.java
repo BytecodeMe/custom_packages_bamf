@@ -21,6 +21,8 @@ import com.slidingmenu.lib.SlidingMenu.OnOpenedListener;
 public class QuickTilesActivity extends FragmentActivity 
 	implements OnClosedListener, OnOpenedListener {
 	
+	private static final String TAG = QuickTilesActivity.class.getSimpleName();
+	private static final boolean DEBUG = false;
 	private SlidingMenu mMenu;
 
 	@Override
@@ -54,6 +56,26 @@ public class QuickTilesActivity extends FragmentActivity
 		.beginTransaction()
 		.replace(R.id.menu_frame, new QuickTilePreferenceFragment())
 		.commit();
+		
+		Bundle extras = getIntent().getExtras();
+		if(extras!=null){
+			if(extras.getBoolean("settings",false)){
+				mMenu.showMenu();
+			}
+		}
+	}
+	
+	@Override
+	public void onNewIntent(Intent intent){
+		super.onNewIntent(intent);
+		Bundle extras = intent.getExtras();
+		if(extras!=null){
+			if(extras.getBoolean("settings",false)){
+				mMenu.showMenu();
+			}
+		}else{
+			mMenu.showContent(false);
+		}
 	}
 	
 	@Override
@@ -91,7 +113,7 @@ public class QuickTilesActivity extends FragmentActivity
 	
 	@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) { 
-
+		
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
                 //most likely, the icon is in here

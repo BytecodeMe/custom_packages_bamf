@@ -173,6 +173,7 @@ public class QuickTilePicker extends AlertDialog implements OnItemClickListener 
         		customIcon = mPm.getActivityIcon(Intent.parseUri(mCustomURI, 0));
         	}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return getIconDrawable("");
 		}
         

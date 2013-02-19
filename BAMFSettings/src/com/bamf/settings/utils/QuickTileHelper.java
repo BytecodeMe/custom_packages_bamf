@@ -67,8 +67,8 @@ public class QuickTileHelper {
         		Settings.System.QUICK_SETTING, R.string.title_toggle_settings, "com.android.systemui:drawable/ic_notify_settings_normal"));
         mSettings.put(Settings.System.QUICK_WIFI, new QuickTileHelper.QuickSettingInfo(
         		Settings.System.QUICK_WIFI, R.string.title_toggle_wifi, "com.android.systemui:drawable/ic_qs_wifi_4"));
-        //mSettings.put(Settings.System.QUICK_VOLUME, new QuickTileHelper.QuickSettingInfo(
-        //		Settings.System.QUICK_VOLUME, R.string.title_toggle_volume, "com.android.systemui:drawable/ic_lock_silent_mode_off"));
+        mSettings.put(Settings.System.QUICK_VOLUME, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_VOLUME, R.string.title_toggle_volume, "com.android.systemui:drawable/ic_lock_silent_mode_off"));
         mSettings.put(Settings.System.QUICK_CUSTOM, new QuickTileHelper.QuickSettingInfo(
         		Settings.System.QUICK_CUSTOM, R.string.title_toggle_custom, "com.android.systemui:drawable/ic_sysbar_custom"));
         mSettings.put(Settings.System.QUICK_ADB, new QuickTileHelper.QuickSettingInfo(

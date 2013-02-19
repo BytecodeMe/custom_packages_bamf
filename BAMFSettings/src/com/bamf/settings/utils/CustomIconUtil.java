@@ -38,6 +38,8 @@ public class CustomIconUtil {
     public static CustomIconUtil getInstance(Context context){
         if(INSTANCE==null){
         	INSTANCE = new CustomIconUtil(context);
+        }else{
+        	INSTANCE.mContext = context;
         }
         return INSTANCE;
     }

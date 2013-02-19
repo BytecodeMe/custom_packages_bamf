@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bamf.settings.R;
@@ -13,9 +14,12 @@ import com.bamf.settings.preferences.QuickTileOrderFragment;
 import com.bamf.settings.preferences.QuickTilePreferenceFragment;
 import com.bamf.settings.utils.CustomIconUtil;
 import com.slidingmenu.lib.SlidingMenu;
+import com.slidingmenu.lib.SlidingMenu.OnClosedListener;
+import com.slidingmenu.lib.SlidingMenu.OnOpenedListener;
 
 
-public class QuickTilesActivity extends FragmentActivity {
+public class QuickTilesActivity extends FragmentActivity 
+	implements OnClosedListener, OnOpenedListener {
 	
 	private SlidingMenu mMenu;
 
@@ -36,6 +40,8 @@ public class QuickTilesActivity extends FragmentActivity {
 
 		// configure the SlidingMenu
 		mMenu = new SlidingMenu(this);
+		mMenu.setOnClosedListener(this);
+		mMenu.setOnOpenedListener(this);
 		mMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		mMenu.setShadowWidthRes(R.dimen.shadow_width);
 		mMenu.setShadowDrawable(R.drawable.shadow);
@@ -51,11 +57,25 @@ public class QuickTilesActivity extends FragmentActivity {
 	}
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.quick_tiles, menu);
+		return true;
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		switch (item.getItemId()) {
+		
 		case android.R.id.home:
 			finish();
 			return true;
+		case R.id.settings:
+			if (mMenu.isMenuShowing()) {
+				mMenu.showContent();
+			} else {
+				mMenu.showMenu();
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -115,6 +135,18 @@ public class QuickTilesActivity extends FragmentActivity {
                 }
             }
         }
+	}
+
+	@Override
+	public void onOpened() {
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setHomeButtonEnabled(false);
+	}
+
+	@Override
+	public void onClosed() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 	}
 
 }

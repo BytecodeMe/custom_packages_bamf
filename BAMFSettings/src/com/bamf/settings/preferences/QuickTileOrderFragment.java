@@ -1,8 +1,6 @@
 package com.bamf.settings.preferences;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -35,7 +33,6 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.bamf.settings.R;
-import com.bamf.settings.adapters.PackageDescription;
 import com.bamf.settings.utils.CustomIconUtil;
 import com.bamf.settings.utils.QuickTileHelper;
 import com.bamf.settings.utils.QuickTileHelper.QuickSettingInfo;
@@ -61,7 +58,6 @@ public class QuickTileOrderFragment extends ListFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
 		if(mQuickTileHelper == null){
 			mQuickTileHelper = new QuickTileHelper(getActivity());
 		}

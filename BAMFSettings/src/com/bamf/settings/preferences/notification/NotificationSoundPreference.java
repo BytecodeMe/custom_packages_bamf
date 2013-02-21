@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.notification;
 
 
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.system;
 
 import java.io.File;
 
@@ -44,6 +44,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bamf.settings.R;
+import com.bamf.settings.activities.BaseSettingsActivity;
 import com.bamf.settings.activities.NotificationManagerActivity;
 import com.bamf.settings.activities.SettingsActivity;
 import com.bamf.settings.activities.SettingsActivity.OnServiceBindedListener;
@@ -68,7 +69,7 @@ public class SystemBasicFragment extends PreferenceFragment
     private static final String PREF_VOL_CONTROL = "pref_system_basic_vol_control"; 
     private static final String PREF_HINT = "pref_bright_hint";  
     
-	private SettingsActivity mSettings;
+	private BaseSettingsActivity mSettings;
 	private BAMFSwitchPreference mBlockAds;
 	private BAMFSwitchPreference mMountSystem;
 	
@@ -98,7 +99,7 @@ public class SystemBasicFragment extends PreferenceFragment
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
     	
-    	mSettings = (SettingsActivity) getActivity();
+    	mSettings = (BaseSettingsActivity) getActivity();
     	mBlockAds = (BAMFSwitchPreference)findPreference(PREF_BLOCK);
     	mMountSystem = (BAMFSwitchPreference)findPreference(PREF_MOUNT);
     	
@@ -133,15 +134,8 @@ public class SystemBasicFragment extends PreferenceFragment
     	getPreferenceScreen().removePreference(mVolControl);
     	
     	mMountSystem.setOnPreferenceChangeListener(this);
-    	mMountSystem.setOnPreferenceClickListener(this);
+    	mMountSystem.setOnPreferenceClickListener(this);   	
     	
-    	mNotificationManager = new Preference(getActivity());
-    	mNotificationManager.setTitle("Manage Notifications");
-    	mNotificationManager.setSummary("Customize and manage notifications for the system and applications");
-		((PreferenceScreen)findPreference("MAIN")).addPreference(mNotificationManager);
-		mNotificationManager.setIntent(
-				new Intent(getActivity(),
-				NotificationManagerActivity.class));
 
     	
     	/**
@@ -151,7 +145,7 @@ public class SystemBasicFragment extends PreferenceFragment
     	 * Could possibly use the TabHost to send a message to the fragments
     	 * Other activities should use SettingsActivity.isRootServiceBound(context)
     	 */
-    	mSettings.setOnServiceBindedListener(this);
+//    	mSettings.setOnServiceBindedListener(this);
     	
     	mPrefs = PreferenceManager.getDefaultSharedPreferences(mSettings);
     	mEdit = mPrefs.edit();

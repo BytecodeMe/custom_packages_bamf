@@ -1,39 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/layout"
+    android:id="@+id/layout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" >    
 
-    <TextView
-        android:id="@+id/kernel_title"
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.bamf.settings.preferences.performance.PerformanceKernelFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/kernel_settings"
-        android:textAppearance="?android:attr/listSeparatorTextViewStyle" android:layout_margin="5dip"/>
-        
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+    
     <ImageView
-    	android:layout_width="match_parent"
-    	android:layout_height="2dip"
-    	android:src="@drawable/list_divider_holo_dark" android:scaleType="fitXY"/>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="vertical">
-    <FrameLayout android:id="@+id/performance_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-<!--     <ImageView -->
-<!--     	android:layout_width="match_parent" -->
-<!--     	android:layout_height="1dip" -->
-<!--     	android:src="@drawable/list_divider_holo_dark" android:scaleType="fitXY" -->
-<!--     	android:paddingLeft="30px" -->
-<!--     	android:paddingRight="30px"/> -->
-    <FrameLayout android:id="@+id/onboot_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>        
-</LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:layout_gravity="bottom"
+            android:scaleType="fitXY"
+            android:src="@android:color/holo_blue_light" />
 
 </LinearLayout>

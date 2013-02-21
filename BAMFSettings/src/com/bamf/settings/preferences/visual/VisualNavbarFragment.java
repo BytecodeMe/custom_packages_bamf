@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.visual;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.bamf.settings.R;
+import com.bamf.settings.activities.BaseSettingsActivity;
 import com.bamf.settings.activities.SettingsActivity;
 import com.bamf.settings.adapters.BatteryThemeAdapter;
 import com.bamf.settings.widgets.BAMFPreference;
@@ -50,7 +51,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 
 	private static final int GLOW_COLOR_DEFAULT = 0x7d00c3ff;
 
-	private SettingsActivity mSettings;
+	private BaseSettingsActivity mSettings;
 	private ContentResolver mResolver;
 
 	private BAMFSwitchPreference mNavbarReflect;
@@ -79,7 +80,7 @@ public class VisualNavbarFragment extends PreferenceFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		mSettings = (SettingsActivity) getActivity();
+		mSettings = (BaseSettingsActivity) getActivity();
 		mResolver = mSettings.getContentResolver();
 		pm = mSettings.getPackageManager();
 		

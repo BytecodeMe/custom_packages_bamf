@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.visual;
 
 import com.bamf.settings.R;
 import com.bamf.settings.widgets.BAMFSwitchPreference;

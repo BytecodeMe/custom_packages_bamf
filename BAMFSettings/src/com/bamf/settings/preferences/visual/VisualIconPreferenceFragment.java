@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.visual;
 
 import java.util.ArrayList;
 import java.util.List;

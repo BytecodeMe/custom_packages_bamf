@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.bamf.bamfutils.services.BAMFRootService;
-import com.bamf.settings.preferences.PerformanceKernelFragment;
-import com.bamf.settings.preferences.PerformanceVoltageFragment;
-import com.bamf.settings.preferences.VoltageBootFragment;
+import com.bamf.settings.preferences.performance.PerformanceKernelFragment;
+import com.bamf.settings.preferences.performance.PerformanceVoltageFragment;
+import com.bamf.settings.preferences.performance.VoltageBootFragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

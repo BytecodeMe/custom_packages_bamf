@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.visual;
 
 import android.app.Activity;
 import android.app.Notification.Notifications;

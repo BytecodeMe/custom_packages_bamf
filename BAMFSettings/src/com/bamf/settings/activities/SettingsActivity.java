@@ -27,8 +27,8 @@ import com.android.internal.view.RotationPolicy;
 import com.bamf.bamfutils.services.IRootService;
 import com.bamf.bamfutils.services.BAMFRootService;
 import com.bamf.settings.R;
-import com.bamf.settings.preferences.PerformanceKernelFragment;
-import com.bamf.settings.preferences.VoltageBootFragment;
+import com.bamf.settings.preferences.performance.PerformanceKernelFragment;
+import com.bamf.settings.preferences.performance.VoltageBootFragment;
 import com.bamf.settings.widgets.SettingsPagedView;
 import com.bamf.settings.widgets.SettingsTabHost;
 
@@ -129,34 +129,34 @@ public class SettingsActivity extends Activity {
 
 	private void setupKernelViews(Bundle savedInstanceState) {
 		
-		//Setting up the Kernel/Voltage toggle in the action bar
-		if(savedInstanceState==null){  
-	        Fragment fragment = Fragment.instantiate(this, PerformanceKernelFragment.class.getName());	        
-    		getFragmentManager().beginTransaction()
-                .add(R.id.performance_container, fragment, "kernel_frag")
-                .setBreadCrumbShortTitle(R.string.kernel_settings)                
-                .commit();    		
-	    }
-		getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-        
-			Fragment bootFragment = Fragment.instantiate(getBaseContext(), VoltageBootFragment.class.getName());
-			
-			@Override
-			public void onBackStackChanged() {
-			    
-				TextView tv = (TextView)findViewById(R.id.kernel_title);				
-				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				if(getFragmentManager().findFragmentByTag("kernel_frag").isVisible()){   
-					//Hides the onBoot checkbox for the voltage fragment when it isn't shown
-					ft.remove(bootFragment);
-					tv.setText(getString(R.string.kernel_settings));
-				}else{
-					ft.add(R.id.onboot_container,bootFragment,"boot");
-					tv.setText(getString(R.string.voltage_settings));
-				}
-				ft.commit();
-			}
-		});
+//		//Setting up the Kernel/Voltage toggle in the action bar
+//		if(savedInstanceState==null){  
+//	        Fragment fragment = Fragment.instantiate(this, PerformanceKernelFragment.class.getName());	        
+//    		getFragmentManager().beginTransaction()
+//                .add(R.id.performance_container, fragment, "kernel_frag")
+//                .setBreadCrumbShortTitle(R.string.kernel_settings)                
+//                .commit();    		
+//	    }
+//		getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+//        
+//			Fragment bootFragment = Fragment.instantiate(getBaseContext(), VoltageBootFragment.class.getName());
+//			
+//			@Override
+//			public void onBackStackChanged() {
+//			    
+//				TextView tv = (TextView)findViewById(R.id.kernel_title);				
+//				FragmentTransaction ft = getFragmentManager().beginTransaction();
+//				if(getFragmentManager().findFragmentByTag("kernel_frag").isVisible()){   
+//					//Hides the onBoot checkbox for the voltage fragment when it isn't shown
+//					ft.remove(bootFragment);
+//					tv.setText(getString(R.string.kernel_settings));
+//				}else{
+//					ft.add(R.id.onboot_container,bootFragment,"boot");
+//					tv.setText(getString(R.string.voltage_settings));
+//				}
+//				ft.commit();
+//			}
+//		});
 		
 	}
 	

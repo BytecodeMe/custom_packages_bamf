@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <Preference 
-    		android:title="Theme Options" 
-    		android:summary="Configure the appearance of your device"
-    		android:key="pref_skin_test"/>
+    
     <Preference android:summary="Configure Lockscreen shortcuts and behavior." 
     	android:key="pref_visual_basic_lockscreen" 
     	android:title="@string/lockscreen_pref_title"/>

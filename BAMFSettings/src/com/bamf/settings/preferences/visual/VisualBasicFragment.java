@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.visual;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -110,13 +110,7 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
         mProgress.setTitle("Applying Change");
         mProgress.setCancelable(false);
         mProgress.setMessage("Adjusting Launcher. Please wait...");
-    	mSkinTest = findPreference(SKIN_TEST);
-    	if(DEBUG){
-    		
-	    	mSkinTest.setOnPreferenceClickListener(this);
-    	}else{
-    		prefSet.removePreference(mSkinTest);
-    	}
+    	
     } 
     
     @Override

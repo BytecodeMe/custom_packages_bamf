@@ -20,7 +20,7 @@
     	android:scaleType="fitXY"/>   
     
     <fragment android:id="@+id/visual_navbar_setup_fragment" 
-        android:name="com.bamf.settings.preferences.VisualNavbarSetupFragment" 
+        android:name="com.bamf.settings.preferences.visual.VisualNavbarSetupFragment" 
         android:layout_width="match_parent" 
         android:layout_height="wrap_content"/>
     

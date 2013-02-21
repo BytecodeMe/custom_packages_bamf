@@ -26,7 +26,7 @@
 
         <fragment
             android:id="@+id/visual_lockscreen_fragment"
-            android:name="com.bamf.settings.preferences.VisualLockscreenFragment"
+            android:name="com.bamf.settings.preferences.visual.VisualLockscreenFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

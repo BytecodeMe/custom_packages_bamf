@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/visual_icon_preference_fragment"
-        android:name="com.bamf.settings.preferences.VisualIconPreferenceFragment"
+        android:name="com.bamf.settings.preferences.visual.VisualIconPreferenceFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

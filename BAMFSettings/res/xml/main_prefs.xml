@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="MAIN" >
+
+    <PreferenceCategory android:title="@string/performance_tab_label" >
+        <Preference
+            android:key="pref_main_kernel"
+            android:title="@string/kernel_settings" />
+        <Preference
+            android:key="pref_main_voltage"
+            android:title="@string/voltage_settings" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/system_tab_label" >
+        <Preference
+            android:key="pref_main_system_basic"
+            android:title="@string/system_settings" />
+        
+        <Preference
+            android:key="pref_main_system_notif"
+            android:title="@string/notifications_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/visual_tab_label" >
+        <Preference
+            android:key="pref_main_visual_basic"
+            android:title="@string/visual_settings" />
+        <Preference
+            android:key="pref_main_visual_status_bar"
+            android:title="@string/sb_category_title" />
+        <Preference
+            android:key="pref_main_visual_navbar"
+            android:title="@string/navbar_settings" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

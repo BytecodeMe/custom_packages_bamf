@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.system;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

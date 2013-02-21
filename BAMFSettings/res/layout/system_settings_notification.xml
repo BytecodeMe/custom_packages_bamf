@@ -6,8 +6,8 @@
     android:orientation="vertical" >    
 
     <fragment
-        android:id="@+id/system_basic_fragment"
-        android:name="com.bamf.settings.preferences.system.SystemBasicFragment"
+        android:id="@+id/system_notification_fragment"
+        android:name="com.bamf.settings.preferences.notification.NotificationPreferenceFragment"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

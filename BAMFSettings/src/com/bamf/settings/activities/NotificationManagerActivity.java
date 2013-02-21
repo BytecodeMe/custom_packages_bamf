@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.android.internal.view.RotationPolicy;
 import com.bamf.settings.R;
-import com.bamf.settings.preferences.NotificationItemFragment;
-import com.bamf.settings.preferences.NotificationPreferenceFragment;
+import com.bamf.settings.preferences.notification.NotificationItemFragment;
+import com.bamf.settings.preferences.notification.NotificationPreferenceFragment;
 
 public class NotificationManagerActivity extends Activity {
 

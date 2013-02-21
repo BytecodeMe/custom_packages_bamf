@@ -37,4 +37,14 @@
     <style name="TabIndicator.Settings">
         <item name="android:maxWidth">130dp</item>
     </style>
+    
+    <style name="TextAppearance" parent="android:TextAppearance">
+    </style>
+    
+    <style name="TextAppearance.PagerTabs" parent="@android:style/TextAppearance.DeviceDefault.Small">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="ThemeLight" parent="@android:style/Theme.Holo.Light" />
 </resources>

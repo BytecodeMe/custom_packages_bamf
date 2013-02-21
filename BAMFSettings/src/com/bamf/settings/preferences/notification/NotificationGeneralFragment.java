@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.notification;
 
 import android.content.res.Resources;
 import android.os.Bundle;

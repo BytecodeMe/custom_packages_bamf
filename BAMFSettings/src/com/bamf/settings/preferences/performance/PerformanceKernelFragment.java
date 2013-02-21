@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.performance;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bamf.settings.R;
+import com.bamf.settings.activities.BaseSettingsActivity;
 import com.bamf.settings.activities.SettingsActivity;
 
 import java.io.BufferedReader;
@@ -77,11 +78,8 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	private int mCurrentSchedulerIndex;
 	private String[] mValueFrequencies;
 	
-	private SettingsActivity mSettings;
+	private BaseSettingsActivity mSettings;
 	private LayoutInflater mLayoutInflater;
-//	private NumberPicker mNumberPicker;
-//	private LinearLayout mDialogLayout;
-//	private TextView mCurrentClock;
 	
 	private int mOldValue = 0;
 	
@@ -94,60 +92,18 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	 /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);        
         
-        Log.d(TAG,"Kernel onCreate()");
         setRetainInstance(true);
         
         addPreferencesFromResource(R.xml.performance_kernel);
         
-        mSettings = (SettingsActivity) getActivity();    	
-    	mPrefs = PreferenceManager.getDefaultSharedPreferences(mSettings);
-    	
-    	this.setHasOptionsMenu(true);
+        mSettings = (BaseSettingsActivity) getActivity();    	
+    	mPrefs = PreferenceManager.getDefaultSharedPreferences(mSettings);    	
     	
     	setupArrays();
     	setupPreferences();
-    }
-    
-    
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        menu.add(0, 0, 0, "Voltages");
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case 0:
-            	//Make sure we can even set the voltages before we try to display the options.
-            	File f = new File(PerformanceVoltageFragment.VOLTAGE_TABLE);
-                if(f.exists())
-                	showVoltages();
-                else{
-                    Toast.makeText(mSettings, "Voltage Settings aren't supported by your kernel.", Toast.LENGTH_LONG).show();   
-                }
-                
-                return true;
-            default:
-        }
-        
-        return false;
-    }
-    
-    private void showVoltages(){
-    	
-    	//Switches to voltage View when actionbar link is clicked.
-        final FragmentTransaction trans = getFragmentManager().beginTransaction();
-        trans.setCustomAnimations(R.anim.fade_in_fast, R.anim.fade_out_fast, 
-                R.anim.fade_in_fast, R.anim.fade_out_fast);
-        Fragment fragment = Fragment.instantiate(getActivity(), PerformanceVoltageFragment.class.getName());
-        trans.addToBackStack("reorder")
-            .replace(R.id.performance_container, fragment, "voltage_frag")
-            .setBreadCrumbShortTitle(R.string.voltage_settings).commit();
-    }
+    }  
 
 	@Override
 	public boolean onPreferenceClick(Preference pref) {
@@ -209,10 +165,7 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
 	private void setupPreferences(){
 	    mEdit = mPrefs.edit();         
                 
-        mLayoutInflater = mSettings.getLayoutInflater();
-//        mDialogLayout = (LinearLayout) mLayoutInflater.inflate(R.layout.custom_picker,null);
-//        mNumberPicker = (NumberPicker)mDialogLayout.findViewById(R.id.value);
-//        mCurrentClock = (TextView)mDialogLayout.findViewById(R.id.currentSpeed);        
+        mLayoutInflater = mSettings.getLayoutInflater();       
         
         mPrefCPUMin = findPreference(PREF_CPU_MIN);
         mPrefCPUMin.setOnPreferenceClickListener(this);
@@ -231,7 +184,7 @@ public class PerformanceKernelFragment extends PreferenceFragment implements OnP
         mPrefScheduler.setSummary(mDisplaySchedulers[mCurrentSchedulerIndex]);       
         
         mPrefAOB = (CheckBoxPreference) findPreference(PREF_APPLY_ON_BOOT);          
-        
+        mPrefAOB.setOnPreferenceChangeListener(this);
 	}
 	
 	public void showDialog(String title, final String[] values, int index){				

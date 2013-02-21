@@ -7,9 +7,10 @@
     <string name="kernel_settings">Kernel Settings</string>
     <string name="voltage_settings">Voltage Settings</string>
     <string name="maintenance_settings">Maintenance Options</string>
-    <string name="system_settings">System Settings</string>
+    <string name="system_settings">Basic System Settings</string>
+    <string name="notification_settings">Notification Manager Settings</string>
     <string name="system_app_settings">Application Settings</string>
-    <string name="visual_settings">Visual Settings</string>
+    <string name="visual_settings">Basic Visual Settings</string>
     <string name="lockscreen_settings">Lockscreen Settings</string>
     <string name="quicklaunch_settings">QuickLaunch Settings</string>
 	<string name="icon_settings">Status Bar Icon Settings</string>

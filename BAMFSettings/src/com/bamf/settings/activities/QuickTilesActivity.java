@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bamf.settings.R;
-import com.bamf.settings.preferences.QuickTileOrderFragment;
-import com.bamf.settings.preferences.QuickTilePreferenceFragment;
+import com.bamf.settings.preferences.quicktile.QuickTileOrderFragment;
+import com.bamf.settings.preferences.quicktile.QuickTilePreferenceFragment;
 import com.bamf.settings.utils.CustomIconUtil;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.SlidingMenu.OnClosedListener;

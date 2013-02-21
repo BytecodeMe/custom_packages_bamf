@@ -3,24 +3,20 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sb_category_title"
-        android:textAppearance="?android:attr/listSeparatorTextViewStyle" android:layout_margin="5dip"/>
-        
-    <ImageView
-    	android:layout_width="match_parent"
-    	android:layout_height="2dip"
-    	android:src="@drawable/list_divider_holo_dark" android:scaleType="fitXY"/>
+    android:orientation="vertical">    
 
     <fragment
         android:id="@+id/visual_sys_ui_fragment"
-        android:name="com.bamf.settings.preferences.VisualSystemUIFragment"
+        android:name="com.bamf.settings.preferences.visual.VisualSystemUIFragment"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:layout_gravity="bottom"
+            android:scaleType="fitXY"
+            android:src="@android:color/holo_blue_light" />
 
 </LinearLayout>

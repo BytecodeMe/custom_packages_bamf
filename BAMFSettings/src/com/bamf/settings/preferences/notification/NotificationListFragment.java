@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.notification;
 
 import java.util.ArrayList;
 import java.util.Collections;

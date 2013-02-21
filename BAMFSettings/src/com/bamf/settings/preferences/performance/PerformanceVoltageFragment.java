@@ -1,4 +1,4 @@
-package com.bamf.settings.preferences;
+package com.bamf.settings.preferences.performance;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bamf.settings.R;
+import com.bamf.settings.activities.BaseSettingsActivity;
 import com.bamf.settings.activities.SettingsActivity;
 import com.bamf.settings.adapters.VoltageAdapter;
 
@@ -62,7 +63,7 @@ public class PerformanceVoltageFragment extends ListFragment implements OnClickL
 	private ArrayList<HashMap<String,String>> mVoltages;
 	private HashMap<String,String> mVoltage;
 	
-	private SettingsActivity mSettings;	
+	private BaseSettingsActivity mSettings;	
 	private TextView mCurrentVolt;	
 	private String[] mCurrentSpan;
 	private VoltageAdapter mAdapter;
@@ -83,7 +84,7 @@ public class PerformanceVoltageFragment extends ListFragment implements OnClickL
     	this.setRetainInstance(true);
     	
     	Log.d(TAG,"Voltage onCreate()");
-    	mSettings = (SettingsActivity) getActivity();
+    	mSettings = (BaseSettingsActivity) getActivity();
     	mAdapter = new VoltageAdapter(mSettings);      	
     	
     	mVoltages = getVoltageLevels();
@@ -102,29 +103,7 @@ public class PerformanceVoltageFragment extends ListFragment implements OnClickL
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setPadding(30, 0, 30, 0);
-	}
-	
-	@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        menu.add(0, 0, 0, "Kernel");
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case 0:
-            	if(mSeekBar == null || !mSeekBar.isShown())
-            		getFragmentManager().popBackStack();
-            	else
-            		Toast.makeText(mSettings, "Please finish any open settings before leaving the page.", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-        }
-        
-        return false;
-    }
+	}	
 	
 	public ArrayList<HashMap<String,String>> getVoltageLevels() {
 		

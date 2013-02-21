@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.bamf.settings.R;
-import com.bamf.settings.preferences.PerformanceVoltageFragment;
+import com.bamf.settings.preferences.performance.PerformanceVoltageFragment;
 
 import android.content.Context;
 import android.util.Log;

@@ -208,7 +208,7 @@ public class QuickTileOrderFragment extends ListFragment implements
 		
 		// show the dialog to the user
 		new AlertDialog.Builder(getActivity())
-		.setIcon(((QuickSettingAdapter.ViewHolder)view.getTag()).icon.getDrawable())
+		.setIcon(((QuickSettingAdapter.ViewHolder)view.getTag()).icon.getBackground())
         .setTitle(((QuickSettingAdapter.ViewHolder)view.getTag()).line1.getText())
         .setMessage("Select the desired size of the tile")
         .setView(picker)
@@ -327,6 +327,8 @@ public class QuickTileOrderFragment extends ListFragment implements
             vh.line1.setText(qsPref.getTitleResId());
 
             // assume no icon first
+            vh.icon.setScaleX(0.75f);
+            vh.icon.setScaleY(0.75f);
             vh.icon.setVisibility(View.GONE);
 
             // attempt to load the icon for this button
@@ -336,7 +338,7 @@ public class QuickTileOrderFragment extends ListFragment implements
                     try {
                         Drawable d = mSystemUIResources.getDrawable(resId);
                         vh.icon.setVisibility(View.VISIBLE);
-                        vh.icon.setImageDrawable(d);
+                        vh.icon.setBackground(d);
                     } catch(Exception e) {
                         //Log.e(TAG, "Error retrieving icon drawable", e);
                     }
@@ -373,8 +375,6 @@ public class QuickTileOrderFragment extends ListFragment implements
 	        	}else{
 	        	    vh.icon.setBackground(customIcon);
 	        	}
-	        	vh.icon.setScaleX(0.75f);
-	        	vh.icon.setScaleY(0.75f);
 	        	vh.icon.setVisibility(View.VISIBLE);
 			} catch (Throwable t) {}
 		}

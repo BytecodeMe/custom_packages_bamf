@@ -232,6 +232,8 @@
 	<string name="title_choose_tile">Choose Tile</string>
 	<string name="message_no_more_tiles">There are no more tiles available to add.</string>
 	<string name="settings_label">Settings</string>
+	<string name="pref_columns_port">Columns Portrait</string>
+	<string name="pref_columns_land">Columns Landscape</string>
 	
 	<string name="title_qs_custom_toggle">Custom Tile Options</string>
 	<string name="pref_custom_icon_title">Customize Icon</string>

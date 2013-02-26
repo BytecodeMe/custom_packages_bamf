@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -191,15 +192,17 @@ public class QuickTileOrderFragment extends ListFragment implements
 		QuickTileToken token = mQuickTileHelper.getCurrentQuickSettings().get(position);
 		// inflate the picker view
 	    View picker = View.inflate(getActivity(), R.layout.dialog_number_picker, null);
+	    
+	    final int maxColumns = mQuickTileHelper.getMaxColumns(Configuration.ORIENTATION_PORTRAIT);
 		
 	    // setup to the two number pickers and limit the max to 3
 		final NumberPicker rows = (NumberPicker)picker.findViewById(R.id.rows);
-		rows.setMaxValue(3);
+		rows.setMaxValue(maxColumns);
 		rows.setMinValue(1);
 		rows.setValue(token.getRows());
 		
 		final NumberPicker columns = (NumberPicker)picker.findViewById(R.id.columns);
-		columns.setMaxValue(3);
+		columns.setMaxValue(maxColumns);
 		columns.setMinValue(1);
 		columns.setValue(token.getColumns());
 		
@@ -363,7 +366,7 @@ public class QuickTileOrderFragment extends ListFragment implements
 	        try {
 	        	vh.line1.setText("Custom ("+pm.resolveActivity(
 	        			Intent.parseUri(mCustomURI, 0),0).activityInfo.loadLabel(pm)+")");
-	        	CustomIconUtil.getInstance(mContext).setFragment(getParentFragment());
+	        	//CustomIconUtil.getInstance(mContext).setFragment(getParentFragment());
 	        	Drawable customIcon = CustomIconUtil.getInstance(mContext).loadFromFile();
 	        	if(customIcon==null){
 	        	    vh.icon.setBackground(pm.getActivityIcon(Intent.parseUri(mCustomURI, 0)));

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.text.util.QuickTileToken;
 import android.text.util.QuickTileTokenizer;
@@ -18,6 +20,9 @@ public class QuickTileHelper {
     private static final char SETTING_DELIMITER = '|';
 
 	private static final boolean DEBUG = false;
+
+	private static final int DEFAULT_COLUMNS_PORT = 3;
+	private static final int DEFAULT_COLUMNS_LAND = 6;
     
     private Context mContext;
     private HashMap<String, QuickSettingInfo> mSettings;
@@ -203,6 +208,30 @@ public class QuickTileHelper {
 		token.setRows(rows);
 		token.setColumns(columns);
 		saveQuickSettings(settings);
+	}
+
+	/**
+	 * Used for getting the user value for the number of columns to display of quick tiles
+	 * @param orientation
+	 * @return
+	 * 		the number of columns
+	 */
+	public int getMaxColumns(int orientation) {
+		int maxColumns = DEFAULT_COLUMNS_PORT;
+    	
+    	try{
+    		if(orientation==Configuration.ORIENTATION_PORTRAIT){
+        		maxColumns = Settings.System.getIntForUser(
+        				mContext.getContentResolver(), 
+        				Settings.System.QUICK_SETTINGS_NUM_COLUMNS_PORT, DEFAULT_COLUMNS_PORT, UserHandle.USER_CURRENT);
+            }else{
+        		maxColumns = Settings.System.getIntForUser(
+        				mContext.getContentResolver(), 
+        				Settings.System.QUICK_SETTINGS_NUM_COLUMNS_LAND, DEFAULT_COLUMNS_LAND, UserHandle.USER_CURRENT);
+            }
+    	}catch(Exception e){}
+    	
+    	return maxColumns;		
 	}
 
 	/**

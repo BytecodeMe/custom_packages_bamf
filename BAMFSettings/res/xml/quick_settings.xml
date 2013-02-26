@@ -30,5 +30,18 @@
             android:title="@string/pref_behavior"
             android:entries="@array/behavior_entries" 
             android:entryValues="@array/behavior_values" />
+            
+    	<ListPreference android:key="pref_columns_port" 
+            android:dialogTitle="@string/pref_columns_port"
+            android:title="@string/pref_columns_port"
+            android:entries="@array/columns_port_entries" 
+            android:entryValues="@array/columns_port_values" />
+        
+        <ListPreference android:key="pref_columns_land" 
+            android:dialogTitle="@string/pref_columns_land"
+            android:title="@string/pref_columns_land"
+            android:entries="@array/columns_land_entries" 
+            android:entryValues="@array/columns_land_values" />
+        
     </PreferenceCategory>
 </PreferenceScreen>

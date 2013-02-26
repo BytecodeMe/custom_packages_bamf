@@ -52,15 +52,13 @@ public class CustomIconUtil {
     	}catch(Exception e){}
     }
     
-    public void setFragment(Fragment fragment){
-    	mFragment = fragment;
-    }
-    
-    public void showContextMenu(){
+    public void showContextMenu(Fragment fragment){
         final int GALLERY = 0;
         final int GALLERY_CROP = 1;
         final int ICON_PACK = 2;
         final int REMOVE = 3;
+        
+        mFragment = fragment;
         
         //items in the context menu list
         final Item[] items = {

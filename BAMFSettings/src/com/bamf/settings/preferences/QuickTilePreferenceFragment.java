@@ -6,20 +6,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 
 import com.bamf.settings.R;
 import com.bamf.settings.utils.CustomIconUtil;
+import com.bamf.settings.utils.QuickTileHelper;
 import com.bamf.settings.widgets.IconPreference;
 
 public class QuickTilePreferenceFragment extends PreferenceFragment 
@@ -32,6 +36,10 @@ public class QuickTilePreferenceFragment extends PreferenceFragment
     private static final String QUICKSETTING_VISIBILITY = "pref_notification_mode";
     private static final String QUICKSETTING_ANIMATIONS = "pref_animations";
     private static final String QUICKSETTING_BEHAVIOR = "pref_behavior";
+    private static final String QUICKSETTING_COLUMNS_PORT = "pref_columns_port";
+    private static final String QUICKSETTING_COLUMNS_LAND = "pref_columns_land";
+    
+    private static final String CATEGORY_OPTIONS = "category_options";
     
     private static final int REQUEST_PICK_SHORTCUT = 1;
     private static final int REQUEST_PICK_APPLICATION = 2;
@@ -42,6 +50,10 @@ public class QuickTilePreferenceFragment extends PreferenceFragment
     private ListPreference mQuickVisibility;
     private ListPreference mQuickAnimations;
     private ListPreference mQuickBehavior;
+    private ListPreference mQuickColumnPort;
+    private ListPreference mQuickColumnLand;
+    
+    private QuickTileHelper mQuickTileHelper;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,12 +61,15 @@ public class QuickTilePreferenceFragment extends PreferenceFragment
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.quick_settings);
-
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		if(mQuickTileHelper == null){
+			mQuickTileHelper = new QuickTileHelper(getActivity());
+		}
 		
 		PreferenceScreen prefSet = getPreferenceScreen();
 
@@ -70,7 +85,16 @@ public class QuickTilePreferenceFragment extends PreferenceFragment
         mQuickBehavior = (ListPreference) prefSet.findPreference(QUICKSETTING_BEHAVIOR);
         mQuickBehavior.setOnPreferenceChangeListener(this);
         
-
+        mQuickColumnPort = (ListPreference) prefSet.findPreference(QUICKSETTING_COLUMNS_PORT);
+        mQuickColumnPort.setOnPreferenceChangeListener(this);
+        
+        mQuickColumnLand = (ListPreference) prefSet.findPreference(QUICKSETTING_COLUMNS_LAND);
+        mQuickColumnLand.setOnPreferenceChangeListener(this);
+        
+        PreferenceCategory options = (PreferenceCategory)prefSet.findPreference(CATEGORY_OPTIONS);
+        options.removePreference(mQuickVisibility);
+        options.removePreference(mQuickAnimations);
+        options.removePreference(mQuickBehavior);
 	}
 	
 	@Override
@@ -89,14 +113,23 @@ public class QuickTilePreferenceFragment extends PreferenceFragment
         int behavior = Settings.System.getInt(getActivity().getContentResolver(), 
     	        Settings.System.QUICK_SETTINGS_BEHAVIOR, 0);
         updateSummaryText(mQuickBehavior, R.array.behavior_entries, behavior);
+        
+        int columns_port = Settings.System.getIntForUser(getActivity().getContentResolver(), 
+    	        Settings.System.QUICK_SETTINGS_NUM_COLUMNS_PORT, 
+    	        mQuickTileHelper.getMaxColumns(Configuration.ORIENTATION_PORTRAIT), UserHandle.USER_CURRENT);
+        updateSummaryText(mQuickColumnPort, R.array.columns_port_entries, columns_port - 1);
+        
+        int columns_land = Settings.System.getIntForUser(getActivity().getContentResolver(), 
+    	        Settings.System.QUICK_SETTINGS_NUM_COLUMNS_LAND, 
+    	        mQuickTileHelper.getMaxColumns(Configuration.ORIENTATION_LANDSCAPE), UserHandle.USER_CURRENT);
+        updateSummaryText(mQuickColumnLand, R.array.columns_land_entries, columns_land - 1);
     }
 	
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
 		if (preference == mCustomToggle) {
             pickShortcut();
         }else if (preference == mCustomToggleIcon){
-        	CustomIconUtil.getInstance(getActivity()).setFragment(this);
-        	CustomIconUtil.getInstance(getActivity()).showContextMenu();
+        	CustomIconUtil.getInstance(getActivity()).showContextMenu(this);
         }
         return false;
 	}
@@ -112,6 +145,12 @@ public class QuickTilePreferenceFragment extends PreferenceFragment
         }else if(preference == mQuickBehavior){
         	Settings.System.putInt(getActivity().getContentResolver(), Settings.System.QUICK_SETTINGS_BEHAVIOR, value);
             updateSummaryText(mQuickBehavior, R.array.behavior_entries, value);
+        }else if(preference == mQuickColumnPort){
+        	Settings.System.putInt(getActivity().getContentResolver(), Settings.System.QUICK_SETTINGS_NUM_COLUMNS_PORT, value);
+            updateSummaryText(mQuickColumnPort, R.array.columns_port_entries, (value - 1));
+        }else if(preference == mQuickColumnLand){
+        	Settings.System.putInt(getActivity().getContentResolver(), Settings.System.QUICK_SETTINGS_NUM_COLUMNS_LAND, value);
+            updateSummaryText(mQuickColumnLand, R.array.columns_land_entries, (value - 1));
         }
         return true;
     }
@@ -240,8 +279,7 @@ public class QuickTilePreferenceFragment extends PreferenceFragment
         	
         	mCustomToggleIcon.setIcon(resizeIcon(mCustomToggle.getIcon(), 96, 96));
     		
-        	CustomIconUtil.getInstance(getActivity()).setFragment(this);
-    		Drawable custom = CustomIconUtil.getInstance(getActivity()).loadFromFile();
+        	Drawable custom = CustomIconUtil.getInstance(getActivity()).loadFromFile();
     		if(custom!=null){
     			mCustomToggleIcon.setIcon(custom);
     		}

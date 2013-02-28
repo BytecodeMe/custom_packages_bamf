@@ -123,6 +123,7 @@ public class NotificationListFragment extends ListFragment implements
     	item.putInt("ledoffms", nd.led.offms);
     	item.putInt("background", nd.background);
     	item.putInt("wakelock", nd.wakeLockMS);
+    	item.putBoolean("notifyonce", nd.notifyOnce);
     	
     	final FragmentTransaction trans = getFragmentManager().beginTransaction();
     	trans.setCustomAnimations(R.anim.slide_in_right, 
@@ -369,7 +370,9 @@ public class NotificationListFragment extends ListFragment implements
 				        	
 				        	details.vibrateFlags = c.getInt(c.getColumnIndexOrThrow(Notifications.VIBRATE_PATTERN));
 				        	details.wakeLockMS = c.getInt(c.getColumnIndexOrThrow(Notifications.WAKE_LOCK_TIME));
-				        	
+				        	details.notifyOnce = c.getInt(c.getColumnIndexOrThrow(Notifications.NOTIFICATION_NOTIFY_ONCE))==1;
+
+
 				        	mAppResult.add(details);
 			        	}
 					}catch(NameNotFoundException e){

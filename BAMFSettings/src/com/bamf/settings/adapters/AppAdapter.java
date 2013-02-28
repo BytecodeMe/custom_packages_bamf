@@ -133,6 +133,7 @@ public class AppAdapter extends BaseAdapter implements SectionIndexer {
 				setNotificationImage(v, R.id.vibrate_repeat, R.drawable.ic_settings_display, position, nd.wakeLockMS>0);
 				setNotificationImage(v, R.id.led_color, 0, position, true);
 				setNotificationImage(v, R.id.background, 0, position, true);
+				setNotificationImage(v, R.id.notify_once, R.drawable.ic_notify_once, position, nd.notifyOnce);
 			}else{
 				mDetail.setVisibility(View.GONE);
 				mState.setText(R.string.disabled);

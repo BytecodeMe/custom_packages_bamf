@@ -14,6 +14,7 @@ public class NotificationDescription extends PackageDescription {
 	public Uri sound;
 	public int vibrateFlags;
 	public String filters;
+	public boolean notifyOnce;
 	
 	public NotificationDescription(ApplicationInfo appInfo, String pkg, String description) {
 		super(appInfo, pkg, description);

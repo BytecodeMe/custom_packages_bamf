@@ -44,7 +44,9 @@ public class SettingsProvider extends ContentProvider {
     
     // Any changes to the database format *must* include update-in-place code.
     // Original version: 1
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 8;
+    
+    private static final String BACKUP_TABLE_NAME = Notifications.TABLE_NAME + "_backup";
     
     // Any changes to the database format *must* include update-in-place code.
     // Original version: 1
@@ -104,7 +106,11 @@ public class SettingsProvider extends ContentProvider {
             + " on " + tableName + " (" + columnName + ");";
     }
     
-    static void createNotificationTable(SQLiteDatabase db) {
+    static void createNotificationTable(SQLiteDatabase db){
+    	createNotificationTable(db, Notifications.TABLE_NAME);
+    }
+    
+    static void createNotificationTable(SQLiteDatabase db, String name) {
         String notificationColumns = Notifications.PACKAGE_NAME + " text unique, "
         		+ Notifications.NOTIFICATION_ENABLED + " boolean default true, "
         		+ Notifications.NOTIFICATION_HIDE + " boolean default false, "
@@ -115,7 +121,8 @@ public class SettingsProvider extends ContentProvider {
         		+ Notifications.WAKE_LOCK_TIME + " long default 0, "
         		+ Notifications.NOTIFICATION_SOUND + " text, "
         		+ Notifications.VIBRATE_PATTERN + " integer default 0, "
-        		+ Notifications.FILTERS + " text"
+        		+ Notifications.FILTERS + " text, "
+        		+ Notifications.NOTIFICATION_NOTIFY_ONCE + " boolean default false"
         		+ ");";
         		      		
 		// This String and the following String MUST have the same columns, except for the type
@@ -124,14 +131,14 @@ public class SettingsProvider extends ContentProvider {
             + notificationColumns;
         
         // create the table
-        db.execSQL("create table " + Notifications.TABLE_NAME + createString);
+        db.execSQL("create table " + name + createString);
         
         String indexColumns[] = {
                 Notifications.PACKAGE_NAME
         };
 
         for (String columnName : indexColumns) {
-            db.execSQL(createIndex(Notifications.TABLE_NAME, columnName));
+            db.execSQL(createIndex(name, columnName));
         }
     }
     
@@ -252,6 +259,8 @@ public class SettingsProvider extends ContentProvider {
 	        	value.putInt(Notifications.LED_OFF_MS, c.getInt(c.getColumnIndex(Notifications.LED_OFF_MS)));
 	        	value.putInt(Notifications.BACKGROUND_COLOR, c.getInt(c.getColumnIndex(Notifications.BACKGROUND_COLOR)));
 	        	value.putInt(Notifications.WAKE_LOCK_TIME, c.getInt(c.getColumnIndex(Notifications.WAKE_LOCK_TIME)));
+	        	value.putBoolean(Notifications.NOTIFICATION_NOTIFY_ONCE, c.getInt(c.getColumnIndex(Notifications.NOTIFICATION_NOTIFY_ONCE))==1);
+
     		}catch(Exception e){
     			e.printStackTrace();
     		}
@@ -331,9 +340,13 @@ public class SettingsProvider extends ContentProvider {
                 oldVersion = 6;
             }
         	if (oldVersion == 6) {
-                //do nothing
+        		resetNotificationTable(db, oldVersion, newVersion);
                 oldVersion = 7;
-            }else
+        	}
+        	if (oldVersion == 7) {
+        		upgradeFromVersion7ToVersion8(db);
+                oldVersion = 8;
+        	}else
             	resetNotificationTable(db, oldVersion, newVersion);
         }
 
@@ -590,6 +603,16 @@ public class SettingsProvider extends ContentProvider {
             Log.w(TAG, "Exception upgrading BAMFSettings.db from 5 to 6 " + e);
         }
     }
-
+    
+    /** Upgrades the database from v7 to v8 */
+    private static void upgradeFromVersion7ToVersion8(SQLiteDatabase db) {
+    	try{
+    		db.execSQL("alter table " + Notifications.TABLE_NAME
+    				+ " add column " + Notifications.NOTIFICATION_NOTIFY_ONCE + " boolean default false;");
+    	}catch(Exception e){
+    		Log.w(TAG, "Exception upgrading BAMFSettings.db from 7 to 8 " + e);
+    	}
+    	
+    }
 
 }

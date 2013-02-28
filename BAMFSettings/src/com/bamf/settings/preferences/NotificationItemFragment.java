@@ -87,6 +87,8 @@ public class NotificationItemFragment extends PreferenceFragment
 	private BamfLedPreference mLedColorPref;
 	private IconPreference mBackgroundPref;
 	private Preference mWakeLockPref;
+	private CheckBoxPreference mNotifyCheckBox;
+
 	
     private static final int MSG_UPDATE_NOTIFICATION_SUMMARY = 1;
 	private static final boolean DEBUG = false;
@@ -153,14 +155,21 @@ public class NotificationItemFragment extends PreferenceFragment
         mBackgroundPref = new IconPreference(mActivity, null);
         mBackgroundPref.setTitle("Background color");
         mBackgroundPref.setSummary("Set a custom background color");
+        
+        mNotifyCheckBox = new CheckBoxPreference(mActivity);
+        mNotifyCheckBox.setTitle("Notify Once");
+        mNotifyCheckBox.setSummary("Notify once for new notifications, not for every new notification");
+        mNotifyCheckBox.setOnPreferenceChangeListener(this);
+        
 
-        prefSet.addPreference(mHideCheckBox);
+        //prefSet.addPreference(mHideCheckBox);
         prefSet.addPreference(mFilterPref);
         prefSet.addPreference(mSoundPref);
         prefSet.addPreference(mVibratePref);
         prefSet.addPreference(mLedColorPref);
         prefSet.addPreference(mBackgroundPref);
         prefSet.addPreference(mWakeLockPref);
+        prefSet.addPreference(mNotifyCheckBox);
         
         mBackStackListener = new FragmentManager.OnBackStackChangedListener() {
 			@Override
@@ -381,6 +390,8 @@ public class NotificationItemFragment extends PreferenceFragment
         mBackgroundPref.setupPanel(mArgs.getInt("background"), false); 
         mFilters = mArgs.getString("filters");
         mVibratePref.setFlags(mArgs.getInt("vibrate", 0));
+        mNotifyCheckBox.setChecked(mArgs.getBoolean("notifyonce"));
+
         
         // wake lock setting
         mWakeLockMS = mArgs.getInt("wakelock");
@@ -432,6 +443,8 @@ public class NotificationItemFragment extends PreferenceFragment
 		
         values.put(Notifications.NOTIFICATION_ENABLED, mEnabled);
         values.put(Notifications.NOTIFICATION_HIDE, mHideCheckBox.isChecked());
+        values.put(Notifications.NOTIFICATION_NOTIFY_ONCE, mNotifyCheckBox.isChecked());
+        
         if(mFilters==null){
         	values.putNull(Notifications.FILTERS);
         }else{
@@ -702,6 +715,9 @@ public class NotificationItemFragment extends PreferenceFragment
 				mLedColor = Color.WHITE;
 				mLedOffMS = mLedColorPref.getType();
 			}
+			return true;
+		} else if (preference == mNotifyCheckBox) {
+			mDirty = true;
 			return true;
 		}
 		return false;

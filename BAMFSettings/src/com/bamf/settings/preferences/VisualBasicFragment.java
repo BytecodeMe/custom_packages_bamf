@@ -117,6 +117,7 @@ public class VisualBasicFragment extends PreferenceFragment implements OnPrefere
     	}else{
     		prefSet.removePreference(mSkinTest);
     	}
+    	prefSet.removePreference(mBootOptions);
     } 
     
     @Override

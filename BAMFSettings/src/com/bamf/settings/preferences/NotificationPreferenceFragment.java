@@ -1,10 +1,14 @@
 package com.bamf.settings.preferences;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.Notification.Notifications;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IContentProvider;
@@ -14,12 +18,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.UserHandle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -44,6 +50,7 @@ implements OnPreferenceClickListener {
 	private Preference mApplications;
 	private Preference mContacts;
 	private Preference mBattery;
+	private Preference mQuietHours;
 
 	private PreferenceCategory mMaintenanceCat;
 	private Preference mBackupDB;
@@ -58,7 +65,6 @@ implements OnPreferenceClickListener {
 		this.setRetainInstance(true);
 
 		mActivity = (NotificationManagerActivity) getActivity();
-
 		PreferenceScreen prefSet = getPreferenceScreen();
 
 		mGeneral = new Preference(mActivity);
@@ -68,6 +74,15 @@ implements OnPreferenceClickListener {
 		mGeneral.setOnPreferenceClickListener(this);
 		mGeneral.setEnabled(false);
 		prefSet.addPreference(mGeneral);
+
+		mQuietHours = new Preference(mActivity);
+		mQuietHours.setTitle("Quiet Hours");
+		mQuietHours.setFragment(QuietHoursFragment.class.getName());
+		mQuietHours.setOnPreferenceClickListener(this);
+		mQuietHours.setEnabled(true);
+		updateQuietHoursSummary();
+		
+		prefSet.addPreference(mQuietHours);
 
 		mApplications = new Preference(mActivity);
 		mApplications.setTitle("Applications");
@@ -80,13 +95,13 @@ implements OnPreferenceClickListener {
 		mContacts.setTitle("Contacts");
 		mContacts.setSummary("Manage custom notification settings");
 		mContacts.setEnabled(false);
-		prefSet.addPreference(mContacts);
+		//prefSet.addPreference(mContacts);
 
 		mBattery = new Preference(mActivity);
 		mBattery.setTitle("Battery");
 		mBattery.setSummary("Manage custom notification settings");
 		mBattery.setEnabled(false);
-		prefSet.addPreference(mBattery);
+		//prefSet.addPreference(mBattery);
 
 		mMaintenanceCat = new PreferenceCategory(mActivity);
 		mMaintenanceCat.setTitle("Maintenance");
@@ -110,11 +125,40 @@ implements OnPreferenceClickListener {
 		this.setHasOptionsMenu(false);
 	}
 
+	private void updateQuietHoursSummary() {
+		
+		final ContentResolver resolver = getActivity().getContentResolver();
+		if (Settings.System.getIntForUser(resolver, Settings.System.QUIET_HOURS_ENABLED, 0, UserHandle.USER_CURRENT) == 1) {
+			mQuietHours.setSummary(getString(R.string.quiet_hours_active_from) + " " +
+					returnTime(String.valueOf(Settings.System.getIntForUser(resolver, Settings.System.QUIET_HOURS_START, 0, UserHandle.USER_CURRENT)))
+					+ " " + getString(R.string.quiet_hours_active_to) + " " +
+					returnTime(String.valueOf(Settings.System.getIntForUser(resolver, Settings.System.QUIET_HOURS_END, 0, UserHandle.USER_CURRENT))));
+		} else {
+			mQuietHours.setSummary(getString(R.string.quiet_hours_summary));
+		}
+	}
+
+	private String returnTime(String t) {
+		if (t == null || t.equals("")) {
+			return "";
+		}
+		int hr = Integer.parseInt(t.trim());
+		int mn = hr;
+
+		hr = hr / 60;
+		mn = mn % 60;
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, hr);
+		cal.set(Calendar.MINUTE, mn);
+		Date date = cal.getTime();
+		return DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(date);
+	}
+
 	private void setupActionBar(){
 		mActivity.setupFragmentActionBar(NotificationManagerActivity.FRAGMENT_PREFERENCE);	
 
-		boolean enabled = Settings.System.getInt(mActivity.getContentResolver(), 
-				Settings.System.NOTIFICATION_MANAGER,0)==1;
+		boolean enabled = Settings.System.getIntForUser(mActivity.getContentResolver(), 
+				Settings.System.NOTIFICATION_MANAGER,0, UserHandle.USER_CURRENT)==1;
 		mActivity.setSwitchChecked(enabled);
 	}
 
@@ -128,7 +172,7 @@ implements OnPreferenceClickListener {
 		}catch(RemoteException e){
 			Toast.makeText(mActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
-		
+
 		String prefix = "Last backup: ";
 		mRestoreDB.setSummary(prefix + ((lastBackup==null)?"NONE":lastBackup));
 	}
@@ -161,8 +205,9 @@ implements OnPreferenceClickListener {
 	public void onStart(){
 		super.onStart();
 		setupActionBar();
+		updateQuietHoursSummary();
 	}
-	
+
 	@Override
 	public void onDetach(){
 		super.onDetach();
@@ -171,7 +216,7 @@ implements OnPreferenceClickListener {
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
-		if(preference==mApplications || preference==mGeneral){
+		if(preference==mApplications || preference==mGeneral || preference==mQuietHours){
 			final FragmentTransaction trans = getFragmentManager().beginTransaction();
 			trans.setCustomAnimations(R.anim.slide_in_right, 
 					R.anim.slide_out_left, 
@@ -189,8 +234,8 @@ implements OnPreferenceClickListener {
 			if(mBound){
 				try{
 					boolean result = mRootService.copyFile(
-						mActivity.getDatabasePath(DATABASE_NAME).getAbsolutePath(), 
-						Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
+							mActivity.getDatabasePath(DATABASE_NAME).getAbsolutePath(), 
+							Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
 							.getAbsolutePath()+"/databases/"+DATABASE_NAME, false);
 					Toast.makeText(mActivity, result?"Backup successful":"Backup failed!", Toast.LENGTH_SHORT).show();
 				}catch(RemoteException e){}
@@ -201,14 +246,14 @@ implements OnPreferenceClickListener {
 			if(mBound){
 				try{
 					boolean result = mRootService.copyFile( 
-						Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
+							Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
 							.getAbsolutePath()+"/databases/"+DATABASE_NAME,
-						mActivity.getDatabasePath(DATABASE_NAME).getAbsolutePath(), true);
+							mActivity.getDatabasePath(DATABASE_NAME).getAbsolutePath(), true);
 					// force the provider to read from the disk now
 					final IContentProvider cp = mActivity.getContentResolver().acquireProvider(Notifications.AUTHORITY);
-	                if(cp!=null){
-	                	cp.call("clearCache", null, null);
-	                }
+					if(cp!=null){
+						cp.call("clearCache", null, null);
+					}
 					Toast.makeText(mActivity, result?"Restore successful":"Restore failed!", Toast.LENGTH_SHORT).show();
 				}catch(RemoteException e){
 					Toast.makeText(mActivity, "Restore failed!", Toast.LENGTH_SHORT).show();

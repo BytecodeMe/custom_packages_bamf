@@ -1,5 +1,8 @@
 package com.bamf.settings.preferences;
 
+import java.io.File;
+import java.io.IOException;
+
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -123,7 +126,7 @@ implements OnPreferenceClickListener {
 		String lastBackup = null;
 		try{
 			lastBackup = mRootService.getLastBackupDate(
-					Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
+					Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName(),true)
 					.getAbsolutePath());
 		}catch(RemoteException e){
 			Toast.makeText(mActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -186,14 +189,23 @@ implements OnPreferenceClickListener {
 			userResetDB();
 			return true;
 		}else if(preference==mBackupDB){
+			File f = null;
+			try{
+				f = new File(Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName(),true)
+					.getAbsolutePath()+"/databases/");
+				if(!f.exists())
+					f.mkdirs();				
+			}catch(Exception e){}
 			if(mBound){
 				try{
 					boolean result = mRootService.copyFile(
 						mActivity.getDatabasePath(DATABASE_NAME).getAbsolutePath(), 
-						Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
+						Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName(),true)
 							.getAbsolutePath()+"/databases/"+DATABASE_NAME, false);
 					Toast.makeText(mActivity, result?"Backup successful":"Backup failed!", Toast.LENGTH_SHORT).show();
-				}catch(RemoteException e){}
+				}catch(RemoteException e){
+					e.printStackTrace();
+				}
 				refreshLastBackup();
 			}
 			return true;
@@ -201,7 +213,7 @@ implements OnPreferenceClickListener {
 			if(mBound){
 				try{
 					boolean result = mRootService.copyFile( 
-						Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName())
+						Environment.getExternalStorageAppFilesDirectory(mActivity.getPackageName(),true)
 							.getAbsolutePath()+"/databases/"+DATABASE_NAME,
 						mActivity.getDatabasePath(DATABASE_NAME).getAbsolutePath(), true);
 					// force the provider to read from the disk now

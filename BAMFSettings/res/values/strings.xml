@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
     <string name="app_name">BAMF Settings</string>
     <string name="performance_tab_label">Performance</string>
     <string name="system_tab_label">System</string>
@@ -12,33 +13,31 @@
     <string name="visual_settings">Visual Settings</string>
     <string name="lockscreen_settings">Lockscreen Settings</string>
     <string name="quicklaunch_settings">QuickLaunch Settings</string>
-	<string name="icon_settings">Status Bar Icon Settings</string>
+    <string name="icon_settings">Status Bar Icon Settings</string>
     <string name="navbar_settings">Navbar Settings</string>
-    
+
     <!-- Some permission stuffs -->
     <string name="permlab_restartsysui">Restart SystemUI</string>
     <string name="permdesc_restartsysui">Required to be able to broadcast an action to reboot SystemUI</string>
-    
     <string name="root_service_warning">There was a problem obtaining the root service.</string>
     <string name="reboot_warning_title">Requires Reboot</string>
     <string name="reboot_warning_desc">This function requires a reboot of the phone, do you wish to continue?</string>
-    
     <string name="back">Back</string>
     <string name="forward">Forward</string>
     <string name="help">Help</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="ok">@android:string/ok</string>
-	<string name="set">Set</string>
-	<string name="hex">HEX</string>
-	<string name="color_hex_invalid">Invalid code</string>
-    <string name="default_scroll_format">Page %1$d of %2$d</string>    
-    
+    <string name="set">Set</string>
+    <string name="hex">HEX</string>
+    <string name="color_hex_invalid">Invalid code</string>
+    <string name="default_scroll_format">Page %1$d of %2$d</string>
+
     <!-- Lockscreen settings -->
-    <string name="configure_behavior">Configure Behavior</string>    
+    <string name="configure_behavior">Configure Behavior</string>
     <string name="lockscreen_add_shortcut">Add Shortcut</string>
     <string name="lockscreen_clear_shortcut">Clear All</string>
-    <string name="lockscreen_clear_description">Are you sure you want to clear all shortcuts?</string>      
+    <string name="lockscreen_clear_description">Are you sure you want to clear all shortcuts?</string>
     <string name="allow_all_widget_title">Allow all widgets</string>
     <string name="allow_all_widget_summary">This is done at your own risk</string>
     <string name="enable_quicklaunch_title">QuickLaunch</string>
@@ -55,8 +54,7 @@
     <string name="warning_problem_shortcut">Problem loading shortcut</string>
     <string name="show_unlock_title">Always show unlock</string>
     <string name="show_unlock_summary">Shows the unlock ring before any other security features.</string>
-    
-    
+
     <!-- New layout items -->
     <string name="disable">Disable</string>
     <string name="remove">Remove</string>
@@ -68,14 +66,14 @@
     <string name="disabled">Disabled</string>
     <string name="launcher_screen_summary">Currently there are %1$d</string>
     <string name="default_cpu">1350 MHz</string>
-	<string name="currently">Current:</string>
-	<string name="def_volt">Default: 900 mV</string>
-	
+    <string name="currently">Current:</string>
+    <string name="def_volt">Default: 900 mV</string>
+
     <!-- Navbar Fragement -->
-    <string name="configure_navigation_keys">Configure Navigation Keys</string>    
-    <string name="force_navigation_keys">Force Navigation Keys</string> 
-    <string name="navbar_cursor">Keyboard Arrows</string>   
-    <string name="navbar_menu_behavior">Legacy menu button behavior</string>  
+    <string name="configure_navigation_keys">Configure Navigation Keys</string>
+    <string name="force_navigation_keys">Force Navigation Keys</string>
+    <string name="navbar_cursor">Keyboard Arrows</string>
+    <string name="navbar_menu_behavior">Legacy menu button behavior</string>
     <string name="search_key_title">Search Key</string>
     <string name="search_key_summary_on">Search key shown</string>
     <string name="search_key_summary_off">Search key hidden</string>
@@ -98,23 +96,20 @@
     <string name="navbar_save">Save Layout Changes</string>
     <string name="navbar_available">Available Keys</string>
     <string name="navbar_instruct">Long press and drag to arrange the navbar keys to your liking. Click a key to set the long press behavior.</string>
-    
+
     <!-- Visual Basic -->
     <string name="lockscreen_pref_title">Configure Lockscreen</string>
-    
     <string name="launcher_category_title">Launcher Tweaks</string>
-    
     <string name="dock_divider_title">Dock Divider</string>
     <string name="search_bar_title">Search Bar</string>
     <string name="dock_divider_summary_on">Dock Divider is shown</string>
     <string name="dock_divider_summary_off">Dock Divider is hidden</string>
-    
     <string name="skin_test">Test Skin</string>
     <string name="apply">Apply</string>
     <string name="uninstall">Uninstall</string>
     <string name="skin_settings">Choose Skin</string>
     <string name="theme_settings">Theme Options</string>
-    
+
     <!-- Visual Status Bar -->
     <string name="sb_category_title">Status Bar Settings</string>
     <string name="clock_title">Status Bar Clock</string>
@@ -134,7 +129,6 @@
     <string name="custom_carrier_label_title">Tap to customize label string</string>
     <string name="custom_carrier_label_dialog_title">Custom Carrier Label</string>
     <string name="custom_carrier_default">BAMF Paradigm</string>
-    
     <string name="ip_category_title">Icon Preferences</string>
     <string name="ip_summary">Change which Icons are shown and customize their appearance</string>
     <string name="battery_style_title">Battery Style</string>
@@ -153,7 +147,7 @@
     <string name="acc_battery_text_color">Color</string>
     <string name="acc_battery_text_size">Size</string>
     <string name="acc_battery_text_charging">Show when charging</string>
-    
+
     <!-- Performance Kernel -->
     <string name="cpu_min_title">Minimum CPU Speed</string>
     <string name="cpu_max_title">Maximum CPU Speed</string>
@@ -162,7 +156,7 @@
     <string name="cpu_aob_title">Apply On Boot</string>
     <string name="cpu_aob_on">Settings will applied on each startup</string>
     <string name="cpu_aob_off">Settings are lost on reboot</string>
-    
+
     <!-- System Basic -->
     <string name="system_basic_block_title">Block Ads</string>
     <string name="system_basic_block_off">All ads are allowed</string>
@@ -182,7 +176,7 @@
     <string name="system_basic_apps_summary">Enable, Disable, or completely remove system applications</string>
     <string name="system_basic_vol_control_title">Volume Control</string>
     <string name="system_basic_vol_control_summary">Adjust ringer and notification volumes together</string>
-    
+
     <!-- Quick Settings -->
     <string name="quick_settings_title">Quick Tile Settings</string>
     <string name="quick_settings_summary">Choose which quick tiles to display</string>
@@ -193,9 +187,9 @@
     <string name="save">Save</string>
     <string name="configure">Configure</string>
     <string name="group_applications">Applications</string>
-	<string name="use_custom_title">Use custom actions</string>
-	<string name="summary_quicksettings_picker">Choose which Quick Settings to display</string>
-	<string name="title_qs_modes">Options</string>
+    <string name="use_custom_title">Use custom actions</string>
+    <string name="summary_quicksettings_picker">Choose which Quick Settings to display</string>
+    <string name="title_qs_modes">Options</string>
     <string name="pref_custom_toggle_title">Action</string>
     <string name="title_toggle_airplane">Airplane</string>
     <string name="title_toggle_autorotate">Auto Rotate</string>
@@ -224,35 +218,34 @@
     <string name="pref_animations">Animations</string>
     <string name="pref_behavior">Behavior</string>
 
-	<!-- Quick Tiles Settings -->
-	<string name="quick_tiles">Quick Tile Settings</string>
-	<string name="quick_tile_add">Add Tile</string>
-	<string name="quick_tile_set_defaults">Defaults</string>
-	<string name="quick_tile_default_description">Are you sure you want to revert to the default tiles?</string>
-	<string name="title_choose_tile">Choose Tile</string>
-	<string name="message_no_more_tiles">There are no more tiles available to add.</string>
-	<string name="settings_label">Settings</string>
-	<string name="pref_columns_port">Columns Portrait</string>
-	<string name="pref_columns_land">Columns Landscape</string>
-	
-	<string name="title_qs_custom_toggle">Custom Tile Options</string>
-	<string name="pref_custom_icon_title">Customize Icon</string>
-	
-	<!-- Number Picker -->
-	<string name="rows">Rows</string>
-	<string name="columns">Columns</string>
-	<string name="by">X</string>
-    
-	<!-- Brightness Settings -->
-	<string name="dim">Dim</string>
-	<string name="low">Low</string>
-	<string name="med">Medium</string>
-	<string name="high">High</string>
-	<string name="default_text">Default:</string>
-	<string name="bright_on_save">Enable AutoBrightness on save</string>
-	<string name="show_next_time">Show this message next time</string>
+    <!-- Quick Tiles Settings -->
+    <string name="quick_tiles">Quick Tile Settings</string>
+    <string name="quick_tile_add">Add Tile</string>
+    <string name="quick_tile_set_defaults">Defaults</string>
+    <string name="quick_tile_default_description">Are you sure you want to revert to the default tiles?</string>
+    <string name="title_choose_tile">Choose Tile</string>
+    <string name="message_no_more_tiles">There are no more tiles available to add.</string>
+    <string name="settings_label">Settings</string>
+    <string name="pref_columns_port">Columns Portrait</string>
+    <string name="pref_columns_land">Columns Landscape</string>
+    <string name="title_qs_custom_toggle">Custom Tile Options</string>
+    <string name="pref_custom_icon_title">Customize Icon</string>
+
+    <!-- Number Picker -->
+    <string name="rows">Rows</string>
+    <string name="columns">Columns</string>
+    <string name="by">X</string>
+
+    <!-- Brightness Settings -->
+    <string name="dim">Dim</string>
+    <string name="low">Low</string>
+    <string name="med">Medium</string>
+    <string name="high">High</string>
+    <string name="default_text">Default:</string>
+    <string name="bright_on_save">Enable AutoBrightness on save</string>
+    <string name="show_next_time">Show this message next time</string>
     <string name="brightness_hint">Brightness levels are adjusted in blocks.  When adjusting a level, you are adjusting it for the LOWEST value in that particular block.\n\nFor example: If you set \'Dim\' to 5<xliff:g id="percent">%</xliff:g> and it was previously set to 15<xliff:g id="percent">%</xliff:g>, all values in that block will be lowered by 10<xliff:g id="percent">%</xliff:g>.</string>
-    
+
     <!-- Boot Animation Settings -->
     <string name="boot_ani_title">Boot Animation</string>
     <string name="boot_ani_on">Boot animation enabled</string>
@@ -264,23 +257,54 @@
     <string name="boot_volume_progress">%1$d<xliff:g id="percent">%</xliff:g></string>
     <string name="system_basic_boot_title">Boot Animation Options</string>
     <string name="system_basic_boot_summary">Configure the boot animation and sound</string>
-    
+
     <!-- Notification Manager Fragments -->
     <string name="permlab_readsettings">Read BAMF Settings</string>
     <string name="permdesc_readsettings">Required to be able to read the BAMF Settings provider</string>
     <string name="notifications_main_title">Notification Manager</string>
     <string name="notifications_title">Manage Notifications</string>
-    
+
     <!-- Vibrate Preference -->
     <string name="vibrate_length_title">Length</string>
     <string name="vibrate_pause_title">Pause</string>
     <string name="vibrate_repeat_title">Repeat</string>
-    
+
     <!-- LED Preference -->
     <string name="led_preset_title">Presets</string>
     <string name="led_special_title">Special</string>
     <string name="led_blink_rate_title">Flash rate</string>
     <string name="edit_button_text">...</string>
     <string name="pref_screenshot">Screenshot action</string>
-    
+
+    <!-- Quiet hours -->
+    <string name="quiet_hours_title">Quiet hours</string>
+    <string name="quiet_hours_summary">Configure the hours the device should be quiet</string>
+    <string name="quiet_hours_note_title">Note</string>
+    <string name="quiet_hours_note_summary">Incoming calls will behave like usual during quiet hours</string>
+    <string name="quiet_hours_enabled">Enable quiet hours</string>
+    <string name="quiet_hours_enabled_on">Quiet hours will be enforced</string>
+    <string name="quiet_hours_enabled_off">Notifications will function as normal</string>
+    <string name="quiet_hours_start">Start of quiet hours</string>
+    <string name="quiet_hours_start_summary">When to start enforcing quiet hours</string>
+    <string name="quiet_hours_end">End of quiet hours</string>
+    <string name="quiet_hours_end_summary">When to stop enforcing quiet hours</string>
+    <string name="quiet_hours_mute">Mute notifications</string>
+    <string name="quiet_hours_mute_on">No sounds will be played</string>
+    <string name="quiet_hours_mute_off">Sounds will play like normal</string>
+    <string name="quiet_hours_still">Disable vibrations</string>
+    <string name="quiet_hours_still_on">Device will not vibrate</string>
+    <string name="quiet_hours_still_off">Device will vibrate normally</string>
+    <string name="quiet_hours_dim">Disable notification light</string>
+    <string name="quiet_hours_dim_on">Notification light will be disabled</string>
+    <string name="quiet_hours_dim_off">Notification light will function as normal</string>
+    <string name="quiet_hours_haptic">Disable haptic feedback</string>
+    <string name="quiet_hours_haptic_on">Haptic feedback will be disabled</string>
+    <string name="quiet_hours_haptic_off">Haptic feedback will function as normal</string>
+    <string name="quiet_hours_active_from">Active from</string>
+    <string name="quiet_hours_active_to">to</string>
+
+    <!-- time range preference -->
+    <string name="start_time_title">Start</string>
+    <string name="end_time_title">End</string>
+
 </resources>

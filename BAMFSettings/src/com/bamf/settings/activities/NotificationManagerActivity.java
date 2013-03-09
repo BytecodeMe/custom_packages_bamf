@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,10 +76,17 @@ public class NotificationManagerActivity extends Activity {
 					if(mManager.findFragmentByTag("item").isVisible()){
 						mManager.findFragmentByTag("item").onResume();
 					}	
+				}else if(mManager.findFragmentByTag("custom")!=null){
+					if(mManager.findFragmentByTag("custom").isVisible()){
+						Settings.System.putIntForUser(getContentResolver(), 
+								Settings.System.QUIET_HOURS_ENABLED, 
+								isChecked ? 1:0, UserHandle.USER_CURRENT);
+						mManager.findFragmentByTag("custom").onResume();
+					}
 				}else{
-					Settings.System.putInt(getContentResolver(), 
+					Settings.System.putIntForUser(getContentResolver(), 
 							Settings.System.NOTIFICATION_MANAGER, 
-							isChecked ? 1:0);
+							isChecked ? 1:0, UserHandle.USER_CURRENT);
 				}
 			}
 		});
@@ -114,17 +122,21 @@ public class NotificationManagerActivity extends Activity {
     }
     
     public void setupFragmentActionBar(int fragment){
+    	setupFragmentActionBar(fragment, null);
+    }
+    
+    public void setupFragmentActionBar(int fragment, CharSequence title){
     	getActionBar().setIcon(R.drawable.ic_launcher);
     	
     	switch(fragment){
     		case FRAGMENT_GENERAL:
     			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-    			mTitle.setText("General");
+    			mTitle.setText((title==null)?"General":title);
     			showSwitchTitle(true);
     			mSwitch.setVisibility(View.GONE);
     			break;
 	    	case FRAGMENT_PREFERENCE:
-	    		mTitle.setText(R.string.notifications_main_title);
+	    		mTitle.setText((title==null)?this.getText(R.string.notifications_main_title):title);
 	    	case FRAGMENT_ITEM:
 	    		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 	    		showSwitchTitle(true);

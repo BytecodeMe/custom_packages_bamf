@@ -86,6 +86,8 @@ public class QuickTileHelper {
         		Settings.System.QUICK_SYNC, R.string.title_toggle_sync, "com.android.systemui:drawable/ic_qs_sync_off"));
         mSettings.put(Settings.System.QUICK_MEDIA, new QuickTileHelper.QuickSettingInfo(
         		Settings.System.QUICK_MEDIA, R.string.title_toggle_media, "com.android.systemui:drawable/ic_sysbar_musicplayer_lightgrey"));
+        mSettings.put(Settings.System.QUICK_QUIET_HOURS, new QuickTileHelper.QuickSettingInfo(
+        		Settings.System.QUICK_QUIET_HOURS, R.string.title_toggle_quiet_hours, "com.android.systemui:drawable/ic_qs_quiet_hours_off"));
         
         // these settings are visible based on the device config
         if(mConfigs.get(Settings.System.QUICK_MOBILE_DATA)){

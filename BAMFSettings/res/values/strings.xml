@@ -214,6 +214,7 @@
     <string name="title_toggle_signal">Signal</string>
     <string name="title_toggle_battery">Battery</string>
     <string name="title_toggle_alarm">Alarm</string>
+    <string name="title_toggle_quiet_hours">Quiet Hours</string>
     <string name="pref_notification_mode_title">Visibility</string>
     <string name="pref_animations">Animations</string>
     <string name="pref_behavior">Behavior</string>

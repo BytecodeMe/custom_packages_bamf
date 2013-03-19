@@ -217,12 +217,15 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 
 	private void showBatteryTextDialog() {
 
+		boolean hasCharge = Settings.System.getInt(mResolver,
+				Settings.System.SHOW_BATTERY_CHARGE, 1) == 1;
 		boolean isShown = Settings.System.getInt(mResolver,
 				Settings.System.SHOW_BATTERY_TEXT, 0) == 1;
 		int currentSize = Settings.System.getInt(mResolver,
 				Settings.System.BATTERY_TEXT_SIZE, 7);
 
 		final Switch textSwitch;
+		final Switch chargeSwitch;
 		final SeekBar sizeSeek;
 		final ColorPanelView colorView;
 		final ImageView imagePreview;
@@ -233,16 +236,21 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 		final String PREVIEW_TEXT = "75";
 
 		final Dialog d = new Dialog(mSettings);
-		d.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+//		d.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		d.setTitle("Battery Text Options");
 		d.setContentView(R.layout.battery_text_dialog);
 
-		d.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-				R.layout.dialog_title_with_switch);
-		View titleBar = d.getWindow().getDecorView();
-		((TextView) titleBar.findViewById(R.id.title))
+//		d.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
+//				R.layout.dialog_title_with_switch);
+//		View titleBar = d.getWindow().getDecorView();
+		((TextView) d.findViewById(R.id.title))
 				.setText(R.string.acc_battery_text);
+		((TextView) d.findViewById(R.id.title_charge))
+		        .setText("Charging Indicator");
+		
 
-		textSwitch = (Switch) titleBar.findViewById(R.id.accurate_switch);
+		textSwitch = (Switch) d.findViewById(R.id.accurate_switch);
+		chargeSwitch = (Switch) d.findViewById(R.id.charge_switch);
 		imagePreview = (ImageView) d.findViewById(R.id.preview);
 		textPreview = (TextView) d.findViewById(R.id.preview_text);
 		sizeSeek = (SeekBar) d.findViewById(R.id.size_seek);
@@ -261,6 +269,7 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 		textPreview.setTextColor(colorView.getColor());
 
 		textSwitch.setChecked(isShown);
+		chargeSwitch.setChecked(hasCharge);
 
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 				mSettings, R.array.battery_text_values,
@@ -288,6 +297,15 @@ public class VisualIconPreferenceFragment extends PreferenceFragment implements
 						isChecked ? View.VISIBLE : View.GONE);
 				d.findViewById(R.id.disabled).setVisibility(
 						isChecked ? View.GONE : View.VISIBLE);
+			}
+		});
+		
+		chargeSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				Settings.System.putInt(mResolver,
+						Settings.System.SHOW_BATTERY_CHARGE, isChecked ? 1 : 0);
+				
 			}
 		});
 
